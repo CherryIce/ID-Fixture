@@ -1,0 +1,12 @@
+{
+  "capturedAt": "2026-11-04T17:00:11.630649+08:00",
+  "serial": "emulator-5556",
+  "beforePid": "3219",
+  "afterForceStopPid": "",
+  "afterLaunchPid": "4822",
+  "launch": "Starting: Intent { cmp=dev.idfixture.id_fixture/.MainActivity }\nStatus: ok\nLaunchState: COLD\nActivity: dev.idfixture.id_fixture/.MainActivity\nTotalTime: 618\nWaitTime: 622\nComplete",
+  "preferencesSelectedViaCUA": {
+    "language": "zh",
+    "theme": "dark"
+  }
+}

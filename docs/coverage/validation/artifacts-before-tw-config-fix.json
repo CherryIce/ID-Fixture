@@ -1,0 +1,30 @@
+{
+  "version": "1.1.0+2",
+  "artifacts": [
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/outputs/ID-Fixture-1.1.0-2-android-arm64-local-test.apk",
+      "sizeBytes": 18702965,
+      "sha256": "8868ce1cf292ad2fa0f740395230484ed764c872b82b32028bd858177eb7573b"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/outputs/ID-Fixture-1.1.0-2-android-arm64-local-test.apk.idsig",
+      "sizeBytes": 152963,
+      "sha256": "2f126fb5ae522138cfb35c32318f2dce46eae81e99ff8c256d586461fb85771b"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/outputs/ID-Fixture-1.1.0-2-ios-simulator-signed.zip",
+      "sizeBytes": 36990239,
+      "sha256": "ece9d173a1c4c176f19729fa24642489672afbd7e6c6c268e4bbb21873ec9725"
+    }
+  ],
+  "iosZipExactFileMatch": true,
+  "iosFileCount": 102,
+  "iosEffectiveInfo": {
+    "CFBundleIdentifier": "dev.idfixture.idFixture",
+    "CFBundleShortVersionString": "1.1.0",
+    "CFBundleVersion": "2",
+    "ITSAppUsesNonExemptEncryption": false
+  },
+  "iosSigning": "full ad-hoc simulator resources, no developer Team; not physical-device signing",
+  "androidSigning": "existing local debug certificate, arm64 AOT; not production signing"
+}

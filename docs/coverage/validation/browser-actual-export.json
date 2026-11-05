@@ -1,0 +1,75 @@
+{
+  "schema": "id-fixture-package",
+  "schemaVersion": 1,
+  "engineVersion": "1.1.0",
+  "prng": "fnv1a32-seeded-mulberry32-v1",
+  "profileId": "vn-id",
+  "profileVersion": "vn-public-structure-63-birthplaces-20261105-v1",
+  "dataHash": "sha256:0c19b230bcba8d76a476dd85e293b77823ec45e4fae54cba33984c8e8cefeaa6",
+  "synthetic": true,
+  "issuanceChecked": false,
+  "config": {
+    "profileId": "vn-id",
+    "count": 1,
+    "seed": "sample-01",
+    "mode": "positive",
+    "birthDate": "2000-01-01",
+    "sex": "any",
+    "addressCode": "027",
+    "currentProvinceAdminCode": "24",
+    "legacyBirthplaceCode": "027",
+    "ruleVersion": "vn-public-structure-63-birthplaces-20261105-v1",
+    "assurance": "format_only"
+  },
+  "cases": [
+    {
+      "value": "027300614335",
+      "checks": [
+        {
+          "id": "length",
+          "status": "pass",
+          "labelZh": "长度符合规则",
+          "labelEn": "Length matches the rule"
+        },
+        {
+          "id": "charset",
+          "status": "pass",
+          "labelZh": "字符组成符合规则",
+          "labelEn": "Character structure matches the rule"
+        },
+        {
+          "id": "address",
+          "status": "pass",
+          "labelZh": "属于版本化公开参考代码表",
+          "labelEn": "Included in the versioned public reference table"
+        },
+        {
+          "id": "year",
+          "status": "pass",
+          "labelZh": "编码出生年符合所选测试参数",
+          "labelEn": "Encoded birth year matches the selected test parameter"
+        },
+        {
+          "id": "checksum",
+          "status": "unknown",
+          "labelZh": "公开规则校验字符",
+          "labelEn": "Public-rule check character"
+        },
+        {
+          "id": "newIssuance",
+          "status": "unknown",
+          "labelZh": "现行新签发分配规则符合性",
+          "labelEn": "Conformity with current new-issuance allocation rules"
+        },
+        {
+          "id": "issuance",
+          "status": "unknown",
+          "labelZh": "真实签发、持有人及有效状态",
+          "labelEn": "Actual issuance, holder and validity"
+        }
+      ],
+      "expectedFailureIds": []
+    }
+  ],
+  "exportedAt": "2026-11-05T10:20:31.150Z"
+}

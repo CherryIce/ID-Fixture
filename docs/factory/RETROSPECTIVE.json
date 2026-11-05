@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "status": "completed",
+  "run": {
+    "run_id": "id-fixture-coverage-20261105-r1",
+    "project_ref": "id-fixture",
+    "scope": "mvp_coverage_revision",
+    "skill_revision": "SKILL.md sha256:67a84162b3dbeebcc65108999d85d65425e4722cbbbe43d70c039bef8444b170",
+    "project_revision": "1.1.0+2; no Git repository; final source hashes in docs/coverage/validation/artifacts.json",
+    "product_verdict": "local_revision_accepted_by_user_and_independent_reviewer_with_explicit_validation_limits",
+    "finished_at": "2026-11-05T18:50:28.697737+08:00",
+    "accepted_at": "2026-11-05T18:55:01.874355+08:00"
+  },
+  "summary": {
+    "worked": [
+      "Archived source-backed mainland, HK/MO/TW and VN regional datasets; typed administrative versus identity-code distinctions.",
+      "New Dart/JS packages match across66goldens; legacy52 and actual1.0exports replay without migration.",
+      "Final Flutter53 and Node28 checks passed; native local builds and browser actual export/reimport observed.",
+      "Final source reran6/6Androidcases, rebuilt both packages, verified final installedAPKhash and921ms single smoke; cleaned2.67GB task-only allocated caches with141 protected-file hashes unchanged."
+    ],
+    "failed": [
+      "Independent review found TW current-prefix with historical flag changed after native re-generation; regression red then green and source fixed.",
+      "Raw JS catalogue was initially externally mutable while hash stayed fixed; data-module deep freeze plus fresh-process regression fixed it.",
+      "Simulator CUA bound to a different window; iOS native interaction coverage was restricted to exact-UDID install/launch and inspected rendered screen."
+    ],
+    "untested": [
+      "Physical phones/tablets and other Android providers.",
+      "Final release signing, store upload/review and new market differentiation validation.",
+      "Full iOS new-selector and native import/export manual loop; unchanged Android system share/picker not rerun in this revision."
+    ]
+  },
+  "lessons": [
+    {
+      "pattern_key": "fixture.import-retain-nonvisual-config",
+      "severity": "P2",
+      "symptom": "TW current A + historical true became false after import then generate",
+      "phase": "independent implementation review",
+      "cause_confidence": "confirmed",
+      "cause": "UI inferred a persisted flag from the selected code rather than restoring the actual exported configuration",
+      "evidence": [
+        "docs/coverage/validation/ui/tw-permission-before.log",
+        "docs/coverage/validation/ui/tw-permission-after.log",
+        "docs/coverage/validation/ui/widget-final-21.log"
+      ],
+      "proposed_change": "Candidate only: include nonvisual optional configuration flags in import-regenerate-export equality checks. No skill change adopted.",
+      "regression_check": "Current TW A + true imported, picker cancel and same-selection confirm preserve true, export configuration and cases equal."
+    },
+    {
+      "pattern_key": "fixture.hash-freeze-public-data",
+      "severity": "P2",
+      "symptom": "Public raw catalogue could be mutated separately from its recorded hash",
+      "phase": "independent static review",
+      "cause_confidence": "confirmed",
+      "cause": "Only exposed profiles were frozen initially; raw nested source tables remained mutable",
+      "evidence": [
+        "docs/coverage/validation/engine/node-tests.log",
+        "prototype/coverage_engine.test.mjs"
+      ],
+      "proposed_change": "Candidate only: freeze the source data before exporting it and verify with an importer that runs before engine initialization. No skill change adopted.",
+      "regression_check": "Fresh process raw-data import rejects nested map/list mutations before engine import; official vector, hash and replay still pass."
+    }
+  ]
+}

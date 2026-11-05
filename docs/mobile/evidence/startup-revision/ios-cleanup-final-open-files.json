@@ -1,0 +1,56 @@
+[
+  {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/swift-cache",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/startup-frames",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/ios-simulator-20261104-160930/ModuleCache.noindex",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/ios-simulator-20261104-160930/SDKStatCaches.noindex",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/ios-simulator-20261104-160930/Build/Intermediates.noindex/ExplicitPrecompiledModules",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/ios-simulator-20261104-160930/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/ios-simulator-20261104-160930/Build/Intermediates.noindex/Pods.build",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/ios-simulator-20261104-160930/Build/Intermediates.noindex/Runner.build",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/ios-simulator-20261104-160930/Build/Intermediates.noindex/XCBuildData",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  }
+]

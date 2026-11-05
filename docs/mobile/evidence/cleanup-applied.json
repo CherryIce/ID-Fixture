@@ -1,0 +1,243 @@
+{
+  "mode": "apply",
+  "targets": [
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/symbol_list_with_package_name",
+      "status": "removed",
+      "estimated_bytes": 65536
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/external_libs_dex_archive",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/external_libs_dex_archive_with_artifact_transforms",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/merged_test_only_native_libs",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/data_binding_layout_info_type_merge",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/packaged_res",
+      "status": "removed",
+      "estimated_bytes": 49152
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/merged_manifest",
+      "status": "removed",
+      "estimated_bytes": 8192
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/merged_res_blame_folder",
+      "status": "removed",
+      "estimated_bytes": 1343488
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/dex_number_of_buckets_file",
+      "status": "removed",
+      "estimated_bytes": 4096
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/merged_manifests",
+      "status": "removed",
+      "estimated_bytes": 12288
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/annotation_processor_list",
+      "status": "removed",
+      "estimated_bytes": 4096
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/incremental",
+      "status": "removed",
+      "estimated_bytes": 381206528
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/local_only_symbol_list",
+      "status": "removed",
+      "estimated_bytes": 4096
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/sub_project_dex_archive",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/compatible_screen_manifest",
+      "status": "removed",
+      "estimated_bytes": 4096
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/merged_res",
+      "status": "removed",
+      "estimated_bytes": 778240
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/external_file_lib_dex_archives",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/navigation_json",
+      "status": "removed",
+      "estimated_bytes": 4096
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/desugar_graph",
+      "status": "removed",
+      "estimated_bytes": 40960
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/data_binding_layout_info_type_package",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/duplicate_classes_check",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/javac",
+      "status": "removed",
+      "estimated_bytes": 4096
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/dex_archive_input_jar_hashes",
+      "status": "removed",
+      "estimated_bytes": 4096
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/linked_resources_binary_format",
+      "status": "removed",
+      "estimated_bytes": 622592
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/nested_resources_validation_report",
+      "status": "removed",
+      "estimated_bytes": 4096
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/mixed_scope_dex_archive",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/manifest_merge_blame_file",
+      "status": "removed",
+      "estimated_bytes": 20480
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/merged_jni_libs",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/dex",
+      "status": "removed",
+      "estimated_bytes": 15687680
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/apk_ide_redirect_file",
+      "status": "removed",
+      "estimated_bytes": 4096
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/runtime_symbol_list",
+      "status": "removed",
+      "estimated_bytes": 114688
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/java_res",
+      "status": "removed",
+      "estimated_bytes": 4096
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/source_set_path_map",
+      "status": "removed",
+      "estimated_bytes": 12288
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/app_metadata",
+      "status": "removed",
+      "estimated_bytes": 4096
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/merged_shaders",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/aar_metadata_check",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/validate_signing_config",
+      "status": "removed",
+      "estimated_bytes": 0
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/packaged_manifests",
+      "status": "removed",
+      "estimated_bytes": 12288
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/assets",
+      "status": "removed",
+      "estimated_bytes": 78307328
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/signing_config_versions",
+      "status": "removed",
+      "estimated_bytes": 4096
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/stable_resource_ids_file",
+      "status": "removed",
+      "estimated_bytes": 114688
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/test_cache",
+      "status": "removed",
+      "estimated_bytes": 64122880
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/unit_test_assets",
+      "status": "removed",
+      "estimated_bytes": 2027520
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/swift-cache",
+      "status": "removed",
+      "estimated_bytes": 82075648
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/launch-frames",
+      "status": "removed",
+      "estimated_bytes": 95043584
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/DerivedData/ModuleCache.noindex",
+      "status": "removed",
+      "estimated_bytes": 249221120
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/DerivedData/SDKStatCaches.noindex",
+      "status": "removed",
+      "estimated_bytes": 1544192
+    }
+  ],
+  "errors": [],
+  "estimated_removed_bytes": 972480512,
+  "status": "complete"
+}

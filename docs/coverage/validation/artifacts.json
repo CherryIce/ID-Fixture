@@ -1,0 +1,63 @@
+{
+  "version": "1.1.0+2",
+  "revision": "coverage-20261105-r1 final TW flag fix included",
+  "artifacts": [
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/outputs/ID-Fixture-1.1.0-2-android-arm64-local-test.apk",
+      "sizeBytes": 18702965,
+      "sha256": "80735e6838319a12ffef7dddb4351907022b3362855613751d06f5ad020b96f2"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/outputs/ID-Fixture-1.1.0-2-android-arm64-local-test.apk.idsig",
+      "sizeBytes": 152963,
+      "sha256": "e3f8a9e035021e4f97b6e097e65a084b8544a9513c8e47c54c1853722487b0cc"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/outputs/ID-Fixture-1.1.0-2-ios-simulator-signed.zip",
+      "sizeBytes": 36989835,
+      "sha256": "4fa137881023bb1782fdf1218be720b576292b8ad2adb800116b43db289eca62"
+    }
+  ],
+  "iosZipExactFileMatch": true,
+  "iosFileCount": 102,
+  "iosEffectiveInfo": {
+    "CFBundleIdentifier": "dev.idfixture.idFixture",
+    "CFBundleShortVersionString": "1.1.0",
+    "CFBundleVersion": "2",
+    "ITSAppUsesNonExemptEncryption": false
+  },
+  "sourceHashes": {
+    "flutter_app/lib/main.dart": "f4ca24f75746d4ad05fb1b1b9ee04eb730bdbb1e354b79901c48d837b0881e8b",
+    "flutter_app/lib/ui/app.dart": "0f1486ddcb83bbf76e455a60531b7118fc7f4f3494db4ee7c1c3a63250071ff7",
+    "flutter_app/lib/ui/widgets/address_picker.dart": "dacae7278cff35549e33bcc9f979dc6b40971b52464b580b3bd9cad0d7f34e5a",
+    "flutter_app/lib/domain/coverage_profiles.dart": "8e26f641f47b82d85c1b9cae62bfb10434ca829fbeebf3768eb22bfcd5f680d8",
+    "flutter_app/lib/domain/legacy_fixture_engine.dart": "c187980c4dd4eb0238ab5b4c378c0af021ff40da4a0a90086b9780b0976ffd66",
+    "flutter_app/lib/domain/coverage_fixture_engine.dart": "36561ef2209458b0bbd3b026d1d9c7bfaa1255304fda958ed521eb8fdb8f0d9d",
+    "flutter_app/lib/domain/fixture_engine.dart": "731bdc46c0af190139c111662c1e8989519c4e6c65accd38b2b4d38a76c0cc24",
+    "flutter_app/lib/domain/coverage_data.g.dart": "06022bc9ee312de909b44c00dba1052d7f8d26d2edd42b3c0c118fd5274b0319",
+    "flutter_app/lib/domain/fixture_models.dart": "8a6941bad40a87555c1d660a86e53c5f27c53ea0a800a027cfcbedb2d556ccd0",
+    "flutter_app/lib/services/app_settings.dart": "826f721dc0ace9f67d3143e170fa6133a7d50dc0160644da4e01c1361fbc1ae4",
+    "flutter_app/lib/services/platform_services.dart": "fd47068dd98dc63bfb5f36e72f3fe699a17d0bd23cb26e702823a61e47cbcf1c",
+    "data/coverage_snapshot.json": "1323316678b0ce46a489f27292e7fd049521617cbb3a363293e1d256eee0af6e",
+    "prototype/index.html": "25ff7ac26d435e36f0d19c0ef39a9d6ac41e34657433cd8a58de8cc631a936f0",
+    "prototype/package-preview.mjs": "770148d12fb95857f4fbffa20688b68e5162690afefe3c0fcd881353fe2edf28",
+    "prototype/icon.svg": "18d6ceea337da23428ab1426eaae728057c50e9bb99d6386235c10e111fa6bb0",
+    "prototype/engine.mjs": "6fe651a74e8b1bce220c0017b7f370da9f44840b99b91d3b3ae1e8290f57b207",
+    "prototype/README.md": "99c7e9b6e8002e583a0da53d0c4aae4092efd65e7c3071e1cc8c6c5edb8b0583",
+    "prototype/standalone.html": "b44cff3117d0ea429d18807fe31937182d0e0f5da5a6a60ffa111a074dc78b6c",
+    "prototype/coverage_engine.mjs": "ea6ab1eed15665c56870cbe8b766f93934e9d2ff53f5680819b63d3bd01f4262",
+    "prototype/engine_legacy.mjs": "5467636695446d4fd82ea948d31b346bccaf99b65f46b58b5af0c3fa9b2dd28e",
+    "prototype/style.css": "1ddba8ea5ac89c1b9f2c257b17236ba45e7d69f525f16293fddc215d4e9ac7b7",
+    "prototype/app.mjs": "d481d01d61946f610be63692358be7bbeaa9b47934be772ea54d520b17bba3af",
+    "prototype/coverage_data.mjs": "8774165ec57a0063a2e32df96311cdce7c7b31d1354e06430d0e3d7ea1d72aa5",
+    "prototype/engine.test.mjs": "2cd8c4caae1c0b4a00d5b08375a9078c8f588672834767f8b98e6af235f364b0",
+    "prototype/engine_generate_goldens.mjs": "1cf27099ca3f3f8ac5c7ee199985fd8060fca4aeb6acd81a7bd91e1f10892c2c",
+    "prototype/coverage_engine.test.mjs": "d607eb84ac342ecdfdf41984249a208425dd8ee6dbb82bc6f485bb912067ad8f"
+  },
+  "iosSigning": "strict full ad-hoc simulator resources, no developer Team; not physical-device signing",
+  "androidSigning": "existing local debug certificate, arm64 AOT; not production signing",
+  "buildEvidence": [
+    "ios-build-final.log",
+    "android-aot-build-final.log"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "returncode": 0,
+  "stdout": "dev.idfixture.idFixture: 7798\n",
+  "stderr": "",
+  "install": "fresh_install_of_xcode_adhoc_signed_final_app"
+}

@@ -1,0 +1,19 @@
+{
+  "package": "dev.idfixture.qa.share_receiver",
+  "min_sdk": 29,
+  "target_sdk": 35,
+  "test_only": true,
+  "debuggable": false,
+  "requested_permissions": [],
+  "expected_source_authority": "dev.idfixture.id_fixture.flutter.share_provider",
+  "artifact": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/docs/mobile/evidence/startup-revision/native-share-receiver/QA.apk",
+  "sha256": "d6d554fff553d128097f7fa1d3b8057d84e58d38b4833406256d7add0a4178b5",
+  "bytes": 16787,
+  "build_directory": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/share-receiver-build/run-20261104T084014-35261",
+  "offline_build": true,
+  "device_installed_or_operated": false,
+  "signer": "Existing Android debug keystore; no certificate created",
+  "verification": "apksigner verify, zipalign check, compiled manifest/permissions/badging inspected",
+  "runtime": "not_run; Coordinator owns device validation",
+  "cleanup": "Coordinator will remove exact task-local regenerable build tree after evidence retention"
+}

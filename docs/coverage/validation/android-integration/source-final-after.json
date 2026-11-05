@@ -1,0 +1,13 @@
+{
+  "captured_at_utc": "2026-11-05T10:39:37.014856+00:00",
+  "source_sha256": {
+    "integration_test/android_workflow_test.dart": "fd6bd004e92da297a20033bdd053b8dbe6040eea76e8c4ad447103f80fdfcf23",
+    "test_driver/integration_driver.dart": "278a9269ae192761f919756a56fda73343bea9dd0af4cf3e69c4d35a3328a9af",
+    "lib/ui/app.dart": "0f1486ddcb83bbf76e455a60531b7118fc7f4f3494db4ee7c1c3a63250071ff7",
+    "lib/ui/widgets/address_picker.dart": "dacae7278cff35549e33bcc9f979dc6b40971b52464b580b3bd9cad0d7f34e5a",
+    "lib/domain/fixture_engine.dart": "731bdc46c0af190139c111662c1e8989519c4e6c65accd38b2b4d38a76c0cc24",
+    "lib/domain/coverage_fixture_engine.dart": "36561ef2209458b0bbd3b026d1d9c7bfaa1255304fda958ed521eb8fdb8f0d9d",
+    "lib/domain/coverage_data.g.dart": "06022bc9ee312de909b44c00dba1052d7f8d26d2edd42b3c0c118fd5274b0319"
+  },
+  "matches_pre_run": true
+}

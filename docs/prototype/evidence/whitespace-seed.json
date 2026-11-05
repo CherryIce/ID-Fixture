@@ -1,0 +1,44 @@
+{
+  "schema": "id-fixture-package",
+  "schemaVersion": 1,
+  "engineVersion": "1.0.0",
+  "prng": "fnv1a32-seeded-mulberry32-v1",
+  "profileId": "us-ny-dmv",
+  "profileVersion": "ny-dmv-id-format-20261104-v1",
+  "dataHash": "sha256:d4f79e09d7b2a746842b72357ed8bd438ef640eab9f318afd21f56d7452d07c1",
+  "synthetic": true,
+  "issuanceChecked": false,
+  "config": {
+    "profileId": "us-ny-dmv",
+    "count": 1,
+    "seed": " sample-01 ",
+    "mode": "positive"
+  },
+  "cases": [
+    {
+      "value": "404551305",
+      "checks": [
+        {
+          "id": "length",
+          "status": "pass",
+          "labelZh": "长度符合规则",
+          "labelEn": "Length matches the rule"
+        },
+        {
+          "id": "charset",
+          "status": "pass",
+          "labelZh": "字符组成符合规则",
+          "labelEn": "Character structure matches the rule"
+        },
+        {
+          "id": "issuance",
+          "status": "unknown",
+          "labelZh": "真实签发、持有人及有效状态",
+          "labelEn": "Actual issuance, holder and validity"
+        }
+      ],
+      "expectedFailureIds": []
+    }
+  ],
+  "exportedAt": "2026-11-04T06:34:21.938Z"
+}

@@ -1,0 +1,146 @@
+{
+  "role": "Executor engine implementation evidence; independent review and root full quality/build remain separate",
+  "asOf": "2026-11-05",
+  "engineVersionNew": "1.1.0",
+  "dataHashNew": "sha256:0c19b230bcba8d76a476dd85e293b77823ec45e4fae54cba33984c8e8cefeaa6",
+  "legacy": {
+    "engineVersion": "1.0.0",
+    "dataHash": "sha256:d4f79e09d7b2a746842b72357ed8bd438ef640eab9f318afd21f56d7452d07c1",
+    "profiles": [
+      "us-ny-dmv",
+      "us-passport-ng",
+      "cn-id-demo"
+    ],
+    "goldenPackages": 52,
+    "realExportsReplayed": [
+      "prototype-exported-package.json",
+      "android-aot-original-export.json"
+    ],
+    "silentMigration": false
+  },
+  "enabledNewProfiles": [
+    "cn-id",
+    "hk-id",
+    "mo-id",
+    "tw-id",
+    "vn-id"
+  ],
+  "catalogCounts": {
+    "mainlandCandidates": 2851,
+    "mainlandProvinceGroups": 31,
+    "mainlandCityReferences": 4,
+    "mainlandReportedIdentityPrefix": [
+      "133100"
+    ],
+    "twCurrent": 22,
+    "twAdditionalHistorical": 4,
+    "vnCurrentNavigationGroups": 34,
+    "vnPublishedHistoricalBirthplaces": 63
+  },
+  "configContracts": {
+    "cn-id": [
+      "profileId",
+      "count",
+      "seed",
+      "mode",
+      "birthDate",
+      "sex",
+      "addressCode"
+    ],
+    "hk-id": [
+      "profileId",
+      "count",
+      "seed",
+      "mode",
+      "prefix"
+    ],
+    "mo-id": [
+      "profileId",
+      "count",
+      "seed",
+      "mode"
+    ],
+    "tw-id": [
+      "profileId",
+      "count",
+      "seed",
+      "mode",
+      "sex",
+      "addressCode",
+      "allowHistorical"
+    ],
+    "vn-id": [
+      "profileId",
+      "count",
+      "seed",
+      "mode",
+      "birthDate",
+      "sex",
+      "addressCode",
+      "currentProvinceAdminCode",
+      "legacyBirthplaceCode",
+      "ruleVersion",
+      "assurance"
+    ]
+  },
+  "newDateBounds": {
+    "minimum": "1900-01-01",
+    "maximumFixed": "2026-11-05",
+    "legacyUnchangedMaximum": "2025-12-31"
+  },
+  "scope": {
+    "unknownIssuanceAllProfiles": true,
+    "moChecksum": "unknown",
+    "moNoHistoricalPrefixRestriction": true,
+    "vnChecksum": "unknown; no invented algorithm",
+    "vnNewIssuance": "unknown",
+    "vnAssurance": "format_only exported in locked config",
+    "vnPrefixSource": "selected historical 3-digit birthplace, never padded current administrative code",
+    "twHistoricalGeneration": "allowHistorical=true explicit opt-in",
+    "hkCanonical": "prefix plus six digits plus check character; no display parentheses"
+  },
+  "validation": {
+    "nodeTests": 28,
+    "nodeLog": "node-tests.log",
+    "dartTests": 27,
+    "dartLog": "dart-tests.log",
+    "dartAnalyze": "No issues found",
+    "analyzeLog": "dart-analyze.log",
+    "newCrossLanguagePackages": 66,
+    "comparison": "cases/check labels and full canonical package JSON byte equality excluding nondeterministic exportedAt, replaced with original golden timestamp",
+    "oracleChecks": [
+      "all 2851 CN candidates/full MOD11-2 congruence",
+      "saved official HK IsHKID client and single/double-prefix 0/A boundaries",
+      "official TW B120667503 and all26 mappings independent weights",
+      "all63 VN prefixes grouped under34 current areas, encoded century/sex/year",
+      "all advertised positive/negative modes at100 unique cases",
+      "fixed dates/invalid dates/UTF16 limits/non-BMP and unpaired-surrogate seeds",
+      "strict fields/version/hash/PRNG rejection/changed-case differences/1MB UTF8 bytes"
+    ],
+    "rawDataImmutability": {
+      "freshNodeProcess": true,
+      "importOrder": "raw coverage_data.mjs imported and mutation assertions run before importing engine.mjs",
+      "nestedTargets": [
+        "TW letter map entries and map replacement",
+        "TW addresses array",
+        "CN address record",
+        "VN current-province historical-code array"
+      ],
+      "mutationOutcome": "TypeError; canonical snapshot/digest and TW official vector unchanged"
+    },
+    "standaloneDependencyAudit": "standalone-dependency-audit.json"
+  },
+  "cleanup": {
+    "owner": "Root",
+    "action": "No task/global build cache removed by engine Executor while root/UI agents still using the same Flutter project",
+    "protected": [
+      "source",
+      "legacy and new fixtures",
+      "generated coverage data",
+      "dependencies",
+      "outputs",
+      "validation evidence"
+    ]
+  },
+  "freezeAtUTC": "2026-11-05T10:27:22.906215+00:00"
+}

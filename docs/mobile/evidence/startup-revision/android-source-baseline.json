@@ -1,0 +1,16 @@
+{
+  "captured_at": "2026-11-04T16:06:29+08:00",
+  "files": {
+    "flutter_app/lib/main.dart": "f4ca24f75746d4ad05fb1b1b9ee04eb730bdbb1e354b79901c48d837b0881e8b",
+    "flutter_app/lib/services/app_settings.dart": "826f721dc0ace9f67d3143e170fa6133a7d50dc0160644da4e01c1361fbc1ae4",
+    "flutter_app/lib/ui/app.dart": "a9e98e1c34042976765d552e8774738c5475dfbbbec72ab08e6c3569f3779377",
+    "flutter_app/android/app/src/main/AndroidManifest.xml": "62a7a7d74988c3db6779fcd4b5421806e1820082dd8cd3ed0050f75df25d7b6f",
+    "flutter_app/android/app/src/main/kotlin/dev/idfixture/id_fixture/MainActivity.kt": "228b4cd720f388b9e0c5c00fa505cbefe1c647c2695b725c86680dcfb9c2f411",
+    "flutter_app/android/app/src/main/res/values-v31/styles.xml": "b044d06d44081fc53a2d5dae19452c7680d5a607006ecf6bb7095b6072e1e884"
+  },
+  "native_observations": [
+    "MainActivity is an empty FlutterActivity subclass",
+    "LaunchTheme has static icon/background and no explicit delay",
+    "Dart main defers first frame until three sequential preference reads complete; timings not yet attributed"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "reviewer": "independent mobile_reviewer agent, read-only",
+  "verdict": "passed",
+  "task_verdicts": {
+    "START-IOS-01": "passed",
+    "START-ANDROID-02": "passed",
+    "START-FLOW-03": "passed"
+  },
+  "open_blocking_findings": [],
+  "evidence_checked": [
+    "final signing scripts",
+    "iOS strict resource signature and clean zip byte parity",
+    "fresh and three final cold launch videos/contact sheets/system logs",
+    "same-source Android debug and AOT raw cold-start results and exact APK hash",
+    "5/5 native Android integration cases with preserved failed harness runs",
+    "independent native share receiver source and compiled permissions/signature",
+    "ordinary AOT native input/share/picker/cancellation/error/state recovery/process preferences matrix and screenshots",
+    "actual native export original bytes and independent JS replay"
+  ],
+  "boundaries": [
+    "simulator only",
+    "local test signatures",
+    "QA share receiver is independent test fixture, not product",
+    "no physical devices, production signing or store submission"
+  ],
+  "matrix": "MANUAL_ANDROID.json"
+}

@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-05",
+  "surface": "local HTTP via CUA in-app browser",
+  "previewUrl": "http://127.0.0.1:8743/standalone.html",
+  "real": ["regional selection", "local generation", "rule checks", "JSON download", "system file chooser local re-import", "locked-version replay"],
+  "observed": ["mainland search659013 and generated prefix", "HK single and double prefix", "MO eight digits with checksum unknown", "TW current22 versus explicit historical26 selection", "VN current province24 mapped to historical027", "standalone HK result checksum pass", "actual downloaded VN package reimport displayed result matches expected"],
+  "sourceReplayEvidence": "browser-export-replay.json",
+  "actualPackage": "browser-actual-export.json",
+  "screenshots": ["browser-standalone-hk.png", "browser-vn-replay.png"],
+  "consoleWarningsOrErrorsOnStandaloneHK": [],
+  "fileProtocol": "untested; local HTTP verified",
+  "externalRuntimeResources": "none; see engine/standalone-dependency-audit.json",
+  "networkIdentityService": "not_connected; intentionally absent",
+  "liveIssuanceOrIdentityValidity": "not_verified"
+}

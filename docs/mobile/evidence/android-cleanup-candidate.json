@@ -1,0 +1,13 @@
+{
+  "path": "flutter_app/.codex-build/android-avd",
+  "files": 28,
+  "logical_bytes": 1647098513,
+  "allocated_bytes": 1583202304,
+  "disposable": true,
+  "reason": "Fresh task-only AVD state; dedicated emulator-5562 was explicitly stopped and its execution session exited; source, APK and evidence live elsewhere",
+  "protected": [
+    "outputs/ID-Fixture-1.0.0-1-debug.apk",
+    "docs/mobile/evidence/android-*",
+    "existing emulator-5554 and shared SDK/image directories"
+  ]
+}

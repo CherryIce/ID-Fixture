@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-04",
+  "scope": "startup_revision_and_complete_android_simulator_interactions",
+  "status": "complete_for_requested_simulator_scope",
+  "previous_stage_record": "RETROSPECTIVE-MVP-20261104.json",
+  "startup_ios": "complete simulator resource signature fixed system LaunchScreen validation; fresh install and 3 cold runs visually passed",
+  "startup_android": "same-source debug vs AOT measured, stable system, final local AOT package identical to measured package",
+  "validation": {
+    "unit_widget_tests": 34,
+    "android_integration_business_cases": 5,
+    "native_aot_share_picker_errors_preferences": "passed",
+    "independent_js_replay_of_native_export": "3 cases, zero differences"
+  },
+  "product_source_changed": false,
+  "implementation_changes": [
+    "reproducible local build/signing scripts",
+    "real Android integration harness",
+    "independent local-only native share receiver test fixture",
+    "evidence and delivery documentation"
+  ],
+  "lessons": [
+    "A visible Flutter splash can hide an earlier system snapshot failure; read the system resource validation log and verify the signed resource envelope.",
+    "Separate fresh-emulator boot pressure, debug extraction and AOT startup; do not use unlike conditions as improvement percentages.",
+    "Integration harnesses must eagerly initialize binding and synchronize real IME before injected editing; preserve failed runs.",
+    "A successful share callback is weaker than a real authorized receiver byte comparison and picker replay."
+  ],
+  "not_performed": [
+    "physical devices",
+    "iPad",
+    "other vendor file providers",
+    "production signing or store submission",
+    "new user or market research"
+  ],
+  "evidence": [
+    "STARTUP_REVISION.md",
+    "evidence/startup-revision/artifacts-final.json",
+    "evidence/startup-revision/android-integration-summary.json",
+    "evidence/startup-revision/android-native-export-js-verification.json"
+  ],
+  "cleanup_record": "evidence/startup-revision/CLEANUP.json",
+  "cleanup_allocated_bytes_removed": 5405343744
+}

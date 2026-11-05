@@ -1,0 +1,30 @@
+{
+  "suite": "android_workflow_test",
+  "platform": "android",
+  "native_preference_store": true,
+  "native_platform_services": true,
+  "completed_checks": [
+    "onboarding_complete_and_native_preference_reload",
+    "initial_language_and_theme_follow_system_without_stored_override",
+    "onboarding_skip_and_replay_do_not_reset_native_completion",
+    "native_clipboard_roundtrip_for_all_100_cases",
+    "china_parameters_date_picker_cancel_and_reopen",
+    "china_100_case_generation_and_incremental_results",
+    "verbatim_unicode_seed_regeneration",
+    "count_error_recovery_and_targeted_checksum_failure",
+    "share_and_open_controls_present_not_native_sheet_acceptance",
+    "new_york_state_required_and_error_recovered",
+    "passport_format_and_upstream_result_invalidation",
+    "vietnam_generation_disabled_and_limitations_visible",
+    "rule_catalog_detail_and_back_navigation",
+    "language_action_sheet_cancel_and_reopen",
+    "english_dark_preferences_read_back_from_native_store",
+    "app_widget_recreation_retains_native_preferences",
+    "explicit_light_then_system_clears_theme_override",
+    "system_language_clears_language_override"
+  ],
+  "native_share_sheet_automated": false,
+  "native_file_chooser_automated": false,
+  "native_file_import_replay_automated": false,
+  "note": "System share/file chooser and their replay path require the separate manual run. No fixture numbers are included in this report."
+}

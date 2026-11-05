@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-11-05T18:41:35+0800",
+  "method": "full lsof -n -P -Fpn path-prefix and ps command audit; own5562 stopped; no other task processes stopped",
+  "lsofReturnCode": 0,
+  "lsofStderr": "",
+  "targetOpenHandles": [],
+  "relatedBuildOrValidationProcesses": [],
+  "candidateCount": 81
+}

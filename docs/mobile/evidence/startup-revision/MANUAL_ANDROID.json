@@ -1,0 +1,189 @@
+{
+  "testedAt": "2026-11-04T17:02:43.730219+08:00",
+  "scope": "Final ordinary arm64 AOT application; real Android native interactions driven through CUA in Android Studio Running Devices. No adb input, no external accounts or third-party sends.",
+  "artifact": {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/outputs/ID-Fixture-1.0.0-1-android-arm64-local-test.apk",
+    "sha256": "b04b9b478cf737f846e31b12e6c87d2d81f5fa7344869fadc804cd0be4d11ddb",
+    "signing": "Existing Android Debug keystore for local diagnostics only; no production signing changes.",
+    "integrationEntrypoint": false
+  },
+  "environment": {
+    "serial": "emulator-5556",
+    "avd": "IDFixture_Startup_20261104",
+    "api": 35,
+    "abi": "arm64-v8a",
+    "hostBridge": "Android Studio Running Devices embedded emulator",
+    "hostScreenshot": "1920x980 after native window zoom; device screenshots 1080x2400",
+    "otherEmulator": "emulator-5554 untouched",
+    "avdIdentity": {
+      "exit": 0,
+      "stdout": "IDFixture_Startup_20261104\nOK",
+      "stderr": ""
+    },
+    "appPid": {
+      "exit": 0,
+      "stdout": "4822",
+      "stderr": ""
+    }
+  },
+  "matrix": [
+    {
+      "flow": "Native launcher icon",
+      "result": "Observed ID Fixture adaptive icon and label in actual launcher app drawer.",
+      "evidence": [
+        "android-manual-launcher.png"
+      ]
+    },
+    {
+      "flow": "Onboarding",
+      "result": "Actual final ordinary app showed page 1, Continue changed to page 2, Get started opened workbench. After real process restart, workbench opened without onboarding.",
+      "evidence": [
+        "android-ui-bridge.jpg",
+        "android-manual-prefs-after-restart-home.png"
+      ]
+    },
+    {
+      "flow": "Quantity error and recovery",
+      "result": "Entered 0 using actual Gboard QWERTY in seed, Android Copy/Select all/Paste into Quantity, generated and observed range error. After resetting only the disposable task AVD Gboard data, actual numeric keypad appeared; Backspace then numeric 3 changed Quantity 0 to 3. Next focused seed, actual Done hid keyboard. Generate produced three cases; no app controller restart or test injection.",
+      "evidence": [
+        "android-manual-count-zero-error.png",
+        "android-manual-numeric-keyboard-three.png",
+        "android-manual-count-three-results.png"
+      ]
+    },
+    {
+      "flow": "Long page reachability",
+      "result": "Actual touch drags reached Generate at configuration end, all three results, Export package, and bottom View current rule and sources action. Export was activated successfully from long-page end.",
+      "evidence": [
+        "android-manual-share-open.png",
+        "android-manual-errors-config-retained.png",
+        "android-manual-errors-results-retained.png"
+      ]
+    },
+    {
+      "flow": "Sharesheet open/cancel/reopen",
+      "result": "Export opened Android native Sharing 1 file sheet. Tapping outside canceled to workbench with export enabled; re-export reopened native sheet. Available visible targets were Quick Share, Drive, Gmail and local QA Receiver; none were sent to external targets.",
+      "evidence": [
+        "android-manual-share-open.png"
+      ]
+    },
+    {
+      "flow": "Real FileProvider bytes / local receiver",
+      "result": "Selected independent local QA receiver via native Sharesheet; transient OS READ grant GRANTED; FileProvider authority dev.idfixture.id_fixture.flutter.share_provider; 4735 bytes saved into receiver-owned MediaStore Downloads with exact-byte readback YES. adb pull SHA matched receiver. This is actual final AOT export, not a host-generated replacement.",
+      "evidence": [
+        "android-manual-share-receiver.png",
+        "android-aot-original-export.json",
+        "android-native-export-js-verification.json"
+      ],
+      "sha256": "0432396c17f56c7efb52ed277ca066b925af062eddd6b66b6b75a42ac72c9fe4",
+      "devicePath": "/sdcard/Download/IDFixture-QA/receive-1793782249061-117d891e10b/1793782235279739-id-fixture-cn-id-demo.json"
+    },
+    {
+      "flow": "Picker cancel",
+      "result": "Open test package opened actual Android DocumentsUI. Android back gesture canceled to original CN workbench; Open remained enabled.",
+      "evidenceBoundary": "Observed directly via CUA; no separate cancel screenshot was saved."
+    },
+    {
+      "flow": "Original bytes picker / preview cancel / confirm",
+      "result": "Used native picker Downloads → IDFixture-QA → receive-1793782249061-117d891e10b → original JSON name. Preview showed CN profile, count 3, seed 0 and locked version. Cancel returned unchanged workbench. Reopened same file and Confirm replay displayed Results match and exact same three cases.",
+      "evidence": [
+        "android-manual-original-preview.png",
+        "android-manual-original-replay-success.png"
+      ]
+    },
+    {
+      "flow": "Invalid JSON",
+      "result": "Actual picker selected 02-invalid-json.json (10 bytes); app showed Unable to read JSON and original configuration/results unchanged. OK restored usable workbench.",
+      "evidence": [
+        "android-manual-invalid-json.png"
+      ]
+    },
+    {
+      "flow": "Version mismatch",
+      "result": "Actual picker selected 03-wrong-version.json (engineVersion 999.0.0); app showed Exact rule, engine, PRNG version or data hash mismatch. OK restored usable workbench.",
+      "evidence": [
+        "android-manual-wrong-version.png"
+      ]
+    },
+    {
+      "flow": "Tampered case",
+      "result": "Actual picker selected 04-tampered-case.json; preview was allowed; Confirm replay showed CASE 001: Value differs from deterministic replay, workbench unchanged. OK restored usable workbench.",
+      "evidence": [
+        "android-manual-tampered-difference.png"
+      ]
+    },
+    {
+      "flow": "File >1MB",
+      "result": "Actual picker selected 05-over-1mb.json (1048577 bytes); app showed File exceeds the 1 MB limit and retained workbench. OK restored usable workbench.",
+      "evidence": [
+        "android-manual-over-1mb.png"
+      ]
+    },
+    {
+      "flow": "All errors preserve state",
+      "result": "After the four errors, observed original config CN/110101/2000-01-01/any/rule-positive/count3/seed0 and all three original case values 110101200001016025, 110101200001013908, 11010120000101963X.",
+      "evidence": [
+        "android-manual-errors-config-retained.png",
+        "android-manual-errors-results-retained.png"
+      ]
+    },
+    {
+      "flow": "Successful recovery after errors",
+      "result": "Changed actual country to US, which cleared prior result. Native picker then selected the same actual AOT export again; CN/count3/seed0 and three exact cases restored with Replayed Results match toast observed via CUA.",
+      "evidence": [
+        "android-manual-recovery-us-before.png",
+        "android-manual-recovery-us-preview-cn.png",
+        "android-manual-recovery-cn-three-after.png"
+      ]
+    },
+    {
+      "flow": "Real process restart preferences",
+      "result": "Via CUA selected Simplified Chinese and Dark. adb force-stop removed PID3219; normal main activity launch created PID4822 with COLD Status ok (618ms). CUA then showed Chinese dark workbench without onboarding; settings explicitly read Chinese and Dark. Restored language and appearance to Follow system via CUA.",
+      "evidence": [
+        "android-manual-prefs-before-restart.png",
+        "android-manual-process-restart.json",
+        "android-manual-prefs-after-restart-home.png",
+        "android-manual-prefs-after-restart-settings.png"
+      ]
+    }
+  ],
+  "environmentIssue": {
+    "symptom": "Preinstalled Gboard number input showed empty black IME body while QWERTY worked; native dumpsys reported inputType 0x2 and InputViewShown true, Gboard accessory BODY=null.",
+    "attempts": [
+      "Checked actual System → Keyboard → On-screen keyboard; default Gboard. No physical keyboard entry. No host or other-device settings changed.",
+      "Force-stopped only task AVD Gboard process; numeric layout remained absent.",
+      "Parent-authorized reset of only newly-created disposable task AVD Gboard test data via pm clear; success. Numeric keypad appeared and real numeric input succeeded."
+    ],
+    "productChange": "None. TextInputType.number and app business/native configuration were not modified.",
+    "evidence": [
+      "android-number-ime-log.txt",
+      "android-number-ime-dump.txt",
+      "android-manual-numeric-keyboard-three.png",
+      "android-ime-after-reset.txt"
+    ]
+  },
+  "boundaries": [
+    "Emulator evidence, not physical-device/store acceptance.",
+    "Local QA receiver is an independent test fixture, not bundled with product. It has no network/storage permissions and no root/private-app-path access.",
+    "The native system had no visible Save to Files share target. Local receiver MediaStore path was used with legitimate transient URI grant; no external account was used.",
+    "App results are deliberately not persisted as history; preference persistence and replay are distinct checks."
+  ],
+  "handoff": {
+    "leaveRunning": false,
+    "cleanup": "After final proof was saved, parent authorized task device stop. emulator-5556 task qemu PID32306 exited; protected emulator-5554 Pixel_7_API_35 PID24763 remains. Unique global AVD index removed after inode/device/hash matched creation record. Only this task Android Studio project was closed using Close Project; its own android import was terminated via normal IDE confirmation. Studio returned to Welcome, not exited. Project AVD and project build caches preserved for parent cleanup.",
+    "temporaryIndexRecord": "android-studio-temporary-index.json",
+    "temporaryIndexRemovalGuard": "Only remove /Users/starburst/.android/avd/IDFixture_Startup_20261104.ini after verifying inode/device/sha against creation record. Never modify any other AVD.",
+    "finalProof": [
+      "android-final-cua.png",
+      "android-final-cua.jpg",
+      "android-final-cua.txt",
+      "android-manual-prefs-restored-system.png"
+    ],
+    "stopEvidence": "android-stop-and-catalog-removal.json",
+    "closedProjectEvidence": [
+      "android-studio-closed-project.jpg",
+      "android-studio-closed-project.txt"
+    ],
+    "completedAt": "2026-11-04T17:05:45.366158+08:00"
+  }
+}

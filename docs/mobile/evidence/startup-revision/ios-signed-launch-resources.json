@@ -1,0 +1,23 @@
+{
+  "Assets.car": "ded0e7fc83bebdbf3040b8740cb814e508b14a7489d99996dbc4416e4489f879",
+  "Info.plist": "199d63669ca09689bc8f6500159de30ded069937811eef6c71123f7f2b3d30ec",
+  "Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib": "cbdd28d89423b2c9beef2b27ce2c9608d30d6c6a9d2e7679f79a53814444e53f",
+  "Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib": "e75efb55481dff500e02494f24eef322591c0eddcd28bc981a3055ef47c87c77",
+  "Base.lproj/Main.storyboardc/Info.plist": "3e9bdaa408d1eb6ae5e989b813a8644e0a4a981202c536905de52a7291e69aa4",
+  "Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib": "b996bac7299e4c952a0242ba6608cd3039ee94a8fd14fdc9719d852f44389bf6",
+  "Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib": "54f3637f671feba5f19e82ec4f4a7fb448bb3cfc0fb180f089aa571fc8f053e2",
+  "Base.lproj/LaunchScreen.storyboardc/Info.plist": "1f255d5cc53b531e3f29a9406a8df49a958e2bf9443d3e20bd8374f707f7d5c8",
+  "Frameworks/integration_test.framework/Info.plist": "53cb1f8074bb4083aee2c93f4bb70cccc2a96ca55ce935ddeb23fe8bbd0865a9",
+  "Frameworks/Flutter.framework/Info.plist": "9401d90abc6596b47d33cd3b86dd6a193e1fcb25c5a8f3ba6bc91a3a9c568ec2",
+  "Frameworks/file_selector_ios.framework/Info.plist": "c42c23a53d0c658785765ec7fbb8d7b7e91080cc282845be4e9f4233292441e0",
+  "Frameworks/file_selector_ios.framework/file_selector_ios_privacy.bundle/Info.plist": "f63be499c33ff38305a43f903125452956bd5d7f6fd1a6a2103806cb26d56b50",
+  "Frameworks/App.framework/Info.plist": "91b8d35bd9c88b43ae0eac8348f9b57d2f3e209a4500e6516b18b459b7e3f2be",
+  "Frameworks/url_launcher_ios.framework/Info.plist": "879065c50fb542cb820d6b35ec5803087dc57917e65488d44d4ee2f6ffd4c4ef",
+  "Frameworks/url_launcher_ios.framework/url_launcher_ios_privacy.bundle/Info.plist": "f4b6882f4393dcadafb3e3aff28052262319229dbc64041ed2979d6a0396405f",
+  "Frameworks/path_provider_foundation.framework/Info.plist": "491d315e69686b0b19bbc5335db1df4a2b2df47fe333b184ff75dd5c99b301ab",
+  "Frameworks/path_provider_foundation.framework/path_provider_foundation_privacy.bundle/Info.plist": "6fa8b5c633a784e1e8ae2b6e98a08c0b71127a28cbc6e9070f34136b3d005ece",
+  "Frameworks/share_plus.framework/Info.plist": "d91e7896d0880b5357f44656cfb1c36a26565827caae72de2162f60ee60b9da2",
+  "Frameworks/share_plus.framework/share_plus_privacy.bundle/Info.plist": "d33f9ad303175d0cb6f8626b34dfa19ac2489bff283b5fa9c5a12c44733765e6",
+  "Frameworks/shared_preferences_foundation.framework/Info.plist": "4651455884f230f420980167b73a096bdf9a38be16ee36042ba55400b2d6468e",
+  "Frameworks/shared_preferences_foundation.framework/shared_preferences_foundation_privacy.bundle/Info.plist": "7ab890a792a49efce5348aa3108db596a46d65a0c9c20e00bb0cf45cef635cf5"
+}

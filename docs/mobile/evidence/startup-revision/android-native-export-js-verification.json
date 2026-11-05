@@ -1,0 +1,11 @@
+{
+  "source": "docs/mobile/evidence/startup-revision/android-aot-original-export.json",
+  "bytes": 4735,
+  "sha256": "0432396c17f56c7efb52ed277ca066b925af062eddd6b66b6b75a42ac72c9fe4",
+  "verifiedBy": "independent browser JS engine via Node, not Flutter generator self-check",
+  "profileId": "cn-id-demo",
+  "count": 3,
+  "replayMatches": true,
+  "differences": 0,
+  "realNativeAotShareAndReceiver": true
+}

@@ -1,0 +1,55 @@
+{
+  "asOf": "2026-11-05T10:27:22.862Z",
+  "kind": "Read-only CLI inspection; browser UI validation belongs to root",
+  "standalone": {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/prototype/standalone.html",
+    "bytes": 2293363,
+    "sha256": "b44cff3117d0ea429d18807fe31937182d0e0f5da5a6a60ffa111a074dc78b6c"
+  },
+  "scriptTags": 1,
+  "externalScriptTags": 0,
+  "embeddedModules": [
+    {
+      "id": "embedded-1",
+      "bytes": 1674247,
+      "sha256": "6e54eede25ee06013d9b3f0e0c8eb693730bf8d163d5b97f75d8e6ba05c45e7f",
+      "dependencyCount": 2,
+      "deepFreezeCatalog": false,
+      "engineDefensiveFreeze": false
+    },
+    {
+      "id": "embedded-2",
+      "bytes": 20203,
+      "sha256": "5467636695446d4fd82ea948d31b346bccaf99b65f46b58b5af0c3fa9b2dd28e",
+      "dependencyCount": 0,
+      "deepFreezeCatalog": false,
+      "engineDefensiveFreeze": false
+    },
+    {
+      "id": "embedded-3",
+      "bytes": 1234293,
+      "sha256": "67c216cbf9168fcc20cab9f27c4d0806107491a9a992da0e1f234609c1082c62",
+      "dependencyCount": 1,
+      "deepFreezeCatalog": false,
+      "engineDefensiveFreeze": true
+    },
+    {
+      "id": "embedded-4",
+      "bytes": 905646,
+      "sha256": "8774165ec57a0063a2e32df96311cdce7c7b31d1354e06430d0e3d7ea1d72aa5",
+      "dependencyCount": 0,
+      "deepFreezeCatalog": true,
+      "engineDefensiveFreeze": false
+    }
+  ],
+  "unexpectedModuleSpecifiers": [],
+  "externalRuntimeResources": [],
+  "moduleSmoke": {
+    "loadedWithoutFilesystemImports": true,
+    "engineVersion": "1.1.0",
+    "profileCount": 8,
+    "hkCases": 3,
+    "replayMatches": true
+  },
+  "allDependenciesEmbedded": true
+}

@@ -1,0 +1,6 @@
+{
+  "launch_stdout": "dev.idfixture.idFixture: 3503\n",
+  "launch_stderr": "",
+  "simctl_elapsed_seconds": 0.28008791699999946,
+  "note": "Video includes one second preroll; simctl return is not Flutter first frame."
+}

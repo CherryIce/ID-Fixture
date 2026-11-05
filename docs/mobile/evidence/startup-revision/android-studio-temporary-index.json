@@ -1,0 +1,13 @@
+{
+  "path": "/Users/starburst/.android/avd/IDFixture_Startup_20261104.ini",
+  "source": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/android-avd/IDFixture_Startup_20261104.ini",
+  "target_avd": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/android-avd/IDFixture_Startup_20261104.avd",
+  "created_at": "2026-11-04T16:29:08+08:00",
+  "sha256": "c20343a7272be7d59df799d97e68999fd81e7e632ac273c8e4c3073300534cab",
+  "inode": 193280630,
+  "device": 16777232,
+  "bytes": 170,
+  "temporary": true,
+  "create_mode": "O_CREAT|O_EXCL; no existing index overwritten",
+  "cleanup_rule": "Remove only if inode/device/hash still match this record; project AVD data remains for Coordinator cleanup"
+}

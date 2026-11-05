@@ -1,0 +1,69 @@
+{
+  "scope": "Android application workflow integration on a dedicated emulator",
+  "date": "2026-11-04",
+  "device": "emulator-5562",
+  "java_home": "/Applications/Android Studio.app/Contents/jbr/Contents/Home",
+  "command": "flutter drive -d emulator-5562 --driver=test_driver/integration_driver.dart --target=integration_test/android_workflow_test.dart --no-pub",
+  "final_exit_code": 0,
+  "device_test_cases": 5,
+  "passed": 5,
+  "failed": 0,
+  "reported_runtime_seconds": 50,
+  "console_success_counter": 7,
+  "console_counter_note": "Includes setUpAll and tearDownAll; five business workflow test cases.",
+  "response_completed_checks": 18,
+  "attempts": [
+    {
+      "log": "android-integration-first.log",
+      "status": "aborted",
+      "note": "Lazy top-level Integration binding initialized after testWidgets had already created Live binding. Harness initialization defect; not a product workflow result."
+    },
+    {
+      "log": "android-integration-second.log",
+      "exit_code": 1,
+      "passed_cases": 3,
+      "failed_cases": 2,
+      "note": "Count recovery failed; Vietnam test expected older wording. Both traces preserved."
+    },
+    {
+      "log": "android-integration-third.log",
+      "exit_code": 1,
+      "passed_cases": 3,
+      "failed_cases": 2,
+      "note": "After-enter assertion proved count remained 0 immediately after framework injection of 3, before scenario mutation. SDK documents real-IME injection risk. Vietnam exact current profile text passed; localized back navigation helper then failed because tester.pageBack hardcodes Back."
+    },
+    {
+      "log": "android-integration-fourth.log",
+      "exit_code": 0,
+      "passed_cases": 5,
+      "failed_cases": 0,
+      "note": "Main initializes Integration binding first; input helper taps/focuses and settles before injection then commits configured input action; localized Material BackButton found by type; checks and error recovery assertions retained."
+    }
+  ],
+  "quantity_recovery_diagnostics": {
+    "after_enter": "3 matched",
+    "after_negative_selection": "3 matched",
+    "before_generate": "3 matched",
+    "after_generate": "3 matched"
+  },
+  "real_platform_evidence": [
+    "NativePreferenceStore writes and reads",
+    "NativePlatformServices application wiring",
+    "100-case system clipboard copy/readback with prior text restored"
+  ],
+  "text_entry_limit": "Framework input injection plus configured action on a real Android IME connection; not a separate CUA physical-keyboard acceptance run.",
+  "not_automated": [
+    "Native share sheet",
+    "Native file chooser",
+    "Native file import and replay route",
+    "OS process cold restart",
+    "Physical device",
+    "System language/appearance changes",
+    "System accessibility text size"
+  ],
+  "product_code_changed_for_test_reliability": false,
+  "handoff": "emulator-5562 released to dart_engine; integration debug target was installed. Restore Coordinator-retained ordinary AOT app before native CUA sharing/chooser validation.",
+  "preservation": "All attempts, response, and static-analysis log retained; no caches deleted while other task validation continues.",
+  "test_source_sha256": "e16475c0a655ee0d81b0acc12fb171165e7076fc697601d95ac8860a8aba13e3",
+  "driver_source_sha256": "23268b6b54c783f96acbc78b33c586fcf1c7e543d6ccacddbef221e519b8da91"
+}

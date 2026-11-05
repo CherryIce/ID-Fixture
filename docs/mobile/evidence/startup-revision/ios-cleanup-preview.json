@@ -1,0 +1,32 @@
+{
+  "mode": "preview",
+  "targets": [
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/swift-cache",
+      "status": "eligible",
+      "estimated_bytes": 164147200
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/startup-frames",
+      "status": "eligible",
+      "estimated_bytes": 123736064
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/ios-simulator-20261104-160930/ModuleCache.noindex",
+      "status": "eligible",
+      "estimated_bytes": 249331712
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/ios-simulator-20261104-160930/SDKStatCaches.noindex",
+      "status": "eligible",
+      "estimated_bytes": 1544192
+    }
+  ],
+  "errors": [
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/ios-simulator-20261104-160930/Build/Intermediates.noindex",
+      "reason": "contains artifact or evidence requiring retention: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/ios-simulator-20261104-160930/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator/integration_test.framework"
+    }
+  ],
+  "status": "refused_no_deletion"
+}

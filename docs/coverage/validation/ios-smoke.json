@@ -1,0 +1,21 @@
+{
+  "udid": "B4B102C1-3F49-4EA8-9497-B4A506CB5292",
+  "device": "ID Fixture Validation / iPhone 17 / iOS 26.5",
+  "version": "1.1.0+2",
+  "build": "ios-build-final.log",
+  "strictFullAdHocResourceSealVerified": true,
+  "installation": "simctl appinfo CFBundleVersion 2 and final rebuilt candidate successful launch PID23981",
+  "renderedMainlandScreenshot": "ios-installed-mainland-final.png",
+  "observed": [
+    "CN/US/VN country choices",
+    "Mainland/HK/MO/TW regional chips",
+    "Mainland current profile 31 groups / 2851 references"
+  ],
+  "fullNewRegionalNativeInteraction": false,
+  "reason": "CUA Simulator bound to a different existing device window; target itself was booted and launched by simctl and its rendered screen inspected. Do not substitute other-device CUA observations for this target.",
+  "firstScreenshotAttempt": "screen surfaces timeout; target no longer booted then. Relaunch after explicit boot succeeded.",
+  "physicalDevice": false,
+  "productionSigningOrStoreSubmission": false,
+  "sourceAppSha256": "0f1486ddcb83bbf76e455a60531b7118fc7f4f3494db4ee7c1c3a63250071ff7",
+  "artifactManifest": "artifacts.json"
+}

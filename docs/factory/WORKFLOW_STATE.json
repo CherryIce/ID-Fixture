@@ -1,0 +1,53 @@
+{
+  "delivery_target": "Flutter iOS/Android local MVP, no production release",
+  "confirmed_decisions": [
+    {
+      "source": "user 2026-11-05",
+      "decision": "Expand mainland China, China HK/MO/TW, enable Vietnam nationwide; retain local synthetic QA tool scope"
+    },
+    {
+      "source": "user explicit binary reply 2026-11-05",
+      "decision": "确认，完成交付",
+      "revision": "coverage-20261105-r1",
+      "version": "1.1.0+2",
+      "scope": "local preview and test packages; documented validation limits retained"
+    }
+  ],
+  "history": [
+    {
+      "date": "2026-11-05",
+      "action": "user_revision_feedback",
+      "revision": "coverage-20261105-r1",
+      "source": "current user request; no final-delivery acceptance inferred"
+    },
+    {
+      "date": "2026-11-05",
+      "action": "final_revision_verified_awaiting_acceptance",
+      "revision": "coverage-20261105-r1",
+      "evidence": "docs/coverage/FINAL_REVIEW.md;53Flutter28Node6Android;cleanup2.67GB; no user acceptance inferred"
+    },
+    {
+      "date": "2026-11-05T18:55:01.873468+08:00",
+      "action": "user_accepted_final_delivery",
+      "revision": "coverage-20261105-r1",
+      "source": "actual request_user_input_async reply: 确认，完成交付"
+    }
+  ],
+  "current_stage": "accepted_local_delivery",
+  "status": "completed",
+  "artifact_revision": "coverage-20261105-r1",
+  "artifact_refs": [
+    "docs/coverage/DELIVERY.md",
+    "docs/coverage/FINAL_REVIEW.md",
+    "prototype/standalone.html",
+    "outputs/ID-Fixture-1.1.0-2-android-arm64-local-test.apk",
+    "outputs/ID-Fixture-1.1.0-2-ios-simulator-signed.zip"
+  ],
+  "next_stage": null,
+  "pending_confirmation": null,
+  "unresolved_items": [
+    "Not acceptance blockers for local coverage revision: physical device/release/store validation not requested",
+    "iOS full newselector/import manual path untested; Android native systemshare/picker not rerun this revision",
+    "Current issuance catalogue remains unknown as documented for all regions; MO checksum unknown; VN current new-issuance mapping unknown"
+  ]
+}

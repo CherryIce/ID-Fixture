@@ -1,0 +1,39 @@
+# Machine-local files and credentials
+.DS_Store
+**/.idea/
+**/*.iml
+**/.env
+**/.env.*
+!**/.env.example
+**/*.keystore
+**/*.jks
+**/*.p12
+**/*.pfx
+**/*.mobileprovision
+**/*.pem
+**/*.key
+**/key.properties
+
+# Reproducible build output and installed dependencies
+**/build/
+**/.codex-build/
+**/.dart_tool/
+**/.gradle/
+**/Pods/
+**/.symlinks/
+**/__pycache__/
+*.pyc
+*.log
+/outputs/
+
+# Original device/host diagnostics and test helper binaries remain local.
+# Keep JSON regression fixtures and official rule evidence in version control.
+/docs/mobile/evidence/**/*.txt
+/docs/mobile/evidence/**/*.png
+/docs/mobile/evidence/**/*.jpg
+/docs/mobile/evidence/**/*.mp4
+/docs/mobile/evidence/**/*.apk
+/docs/repository/local/
+
+# Override a machine-global ignore so iOS dependencies stay reproducible.
+!/flutter_app/ios/Podfile.lock

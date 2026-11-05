@@ -1,0 +1,184 @@
+{
+  "accessed_date": "2026-11-05",
+  "sources": [
+    {
+      "id": "HK-SCHEMA",
+      "publisher": "Hong Kong Digital Policy Office",
+      "url": "https://www.digitalpolicy.gov.hk/en/our_work/data_governance/policies_standards/interoperability_framework/common_schemas/hkid_number/index.html",
+      "version": "1.0 approved 2005-02-01; page revision 2026-06-30",
+      "read_status": "full_web_text",
+      "supports": [
+        "one_or_two_uppercase_letters",
+        "six_numeric_digits",
+        "separate_check_character_0_to_9_or_A"
+      ],
+      "not_supported": [
+        "official_arithmetic_test_vector",
+        "checksum_algorithm"
+      ]
+    },
+    {
+      "id": "HK-XSD",
+      "publisher": "Hong Kong Digital Policy Office",
+      "url": "https://www.digitalpolicy.gov.hk/en/our_work/data_governance/policies_standards/interoperability_framework/doc/common_schemas/hkid_number_v1_0.xsd",
+      "local_file": "hk-schema-v1.xsd",
+      "read_status": "full_download",
+      "supports": [
+        "uppercase_pattern",
+        "body_and_check_separate"
+      ]
+    },
+    {
+      "id": "HK-ROP133",
+      "publisher": "Hong Kong Immigration Department",
+      "url": "https://www.immd.gov.hk/pdforms/rop133.pdf",
+      "version": "10/2025",
+      "read_status": "full_relevant_web_text",
+      "supports": [
+        "bracket_character_not_part_of_identifier"
+      ]
+    },
+    {
+      "id": "HK-CLIENT",
+      "publisher": "Hong Kong Government COVID vaccination booking public client",
+      "url": "https://booking.covidvaccine.gov.hk/forms/assets/js/application_mo.js",
+      "local_file": "hk-government-booking-application_mo.js.txt",
+      "read_status": "full_download_relevant_function_inspected_not_executed",
+      "sha256": "b33a4a2c2f287bef1907892a37c0b09dcc158f6a5a196715af7c27ba3a5c207b",
+      "supports": [
+        "client_IsHKID_checksum",
+        "client_hkid_display"
+      ],
+      "not_supported": [
+        "complete_current_issuance",
+        "current_card_validity",
+        "reserved_test_numbers"
+      ]
+    },
+    {
+      "id": "MO-CURRENT",
+      "publisher": "Macao Official Gazette",
+      "url": "https://bo.dsaj.gov.mo/bo/i/2023/45/regadm41_cn.asp?printer=1",
+      "published_date": "2023-11-06",
+      "local_file": "mo-regulation-41-2023.html",
+      "encoding": "big5",
+      "read_status": "full_download_republished_article_5_inspected",
+      "supports": [
+        "seven_body_digits_plus_one_check_digit"
+      ],
+      "not_supported": [
+        "checksum_algorithm",
+        "current_prefix_whitelist"
+      ]
+    },
+    {
+      "id": "MO-HISTORICAL",
+      "publisher": "Macao Official Gazette",
+      "url": "https://bo.dsaj.gov.mo/bo/i/92/04/declei06_cn.asp?printer=1",
+      "version": "Decree-Law 6/92/M article 8, historical",
+      "read_status": "full_download_relevant_article_8_text_inspected",
+      "supports": [
+        "historical_prefix_1_5_7"
+      ],
+      "not_supported": [
+        "current_new_issuance_whitelist",
+        "checksum_algorithm"
+      ],
+      "local_file": "mo-historical-1992.html"
+    },
+    {
+      "id": "MO-BOOKING",
+      "publisher": "Macao Identification Services Bureau",
+      "url": "https://app.dsi.gov.mo/Book/",
+      "read_status": "web_text; direct HTTP read 405",
+      "supports": [
+        "eight_digit_entry_without_slashes_or_parentheses"
+      ],
+      "not_supported": [
+        "arithmetic_check_vector"
+      ]
+    },
+    {
+      "id": "TW-LAW",
+      "publisher": "Ministry of Justice Laws and Regulations Database, MOI regulation",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0030030",
+      "version": "amended 2024-10-18",
+      "read_status": "full_relevant_web_text",
+      "supports": [
+        "ten_characters",
+        "letter_region",
+        "second_character_gender",
+        "last_digit_check"
+      ]
+    },
+    {
+      "id": "TW-SCHEMA",
+      "publisher": "Taiwan government data standards platform, Ministry of Digital Affairs",
+      "url": "https://schema.gov.tw/lists/167",
+      "read_status": "full_web_text",
+      "supports": [
+        "one_letter_nine_digits",
+        "gender_1_male_2_female",
+        "distinguish_foreign_resident_numbers"
+      ]
+    },
+    {
+      "id": "TW-CURRENT-REGIONS",
+      "publisher": "Yilan City Household Registration Office",
+      "url": "https://ilhhr.e-land.gov.tw/cp.aspx?n=3515",
+      "local_file": "tw-current-regions.html",
+      "read_status": "full_download_and_web_relevant_text",
+      "supports": [
+        "current_named_22_region_list"
+      ]
+    },
+    {
+      "id": "TW-HISTORICAL-REGIONS",
+      "publisher": "Taiping District Household Registration Office, Taichung",
+      "url": "https://www.htaiping.taichung.gov.tw/media/371529/662813505431.pdf",
+      "read_status": "full_download_relevant_pdf_table_text_inspected",
+      "supports": [
+        "historical_26_region_letters",
+        "L_R_S_Y_historical_names"
+      ],
+      "local_file": "tw-historical-regions.pdf"
+    },
+    {
+      "id": "TW-CHECK-2023",
+      "publisher": "Executive Yuan Gazette, fiscal/economic section",
+      "url": "https://gazette2.nat.gov.tw/EG_FileManager/eguploadpub/eg029234/ch04/type2/gov30/num6/images/Eg01.pdf",
+      "published_date": "2023-12-11",
+      "local_file": "tw-check-method-2023.pdf",
+      "read_status": "full_download_relevant_pdf_page_text_and_visual_inspection",
+      "physical_page_1_based": 179,
+      "printed_locator": "attachment 6, chapter 4 appendix page 21",
+      "supports": [
+        "26_letter_numeric_mapping",
+        "weighted_mod10_algorithm",
+        "B120667503_arithmetic_example"
+      ]
+    },
+    {
+      "id": "TW-CHECK-2022",
+      "publisher": "Executive Yuan Gazette, fiscal/economic section",
+      "url": "https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028236/ch04/type2/gov30/num5/images/BB.pdf",
+      "version": "volume 028 issue 236",
+      "local_file": "tw-check-method-2022.pdf",
+      "read_status": "full_download_relevant_pdf_page_text_crosscheck",
+      "physical_page_1_based": 178,
+      "supports": [
+        "same_mapping_and_algorithm_as_2023"
+      ]
+    },
+    {
+      "id": "TW-CURRENT-TAX-MANUAL",
+      "publisher": "Taiwan official electronic tax filing download service",
+      "url": "https://download.tax.nat.gov.tw/imx/IMX-USER-114.pdf",
+      "version": "114 tax-year manual",
+      "read_status": "official_index_relevant_text",
+      "supports": [
+        "current_manual_still_references_attachment_6_for_check_method"
+      ]
+    }
+  ]
+}

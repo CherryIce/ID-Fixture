@@ -1,0 +1,90 @@
+[
+  {
+    "seconds": 0.0,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 0.2,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 0.4,
+    "black_fraction": 0.0006666666666666666
+  },
+  {
+    "seconds": 0.6000000000000001,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 0.8,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 1.0,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 1.2000000000000002,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 1.4000000000000001,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 1.6,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 1.8,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 2.0,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 2.2,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 2.4000000000000004,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 2.6,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 2.8000000000000003,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 3.0,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 3.2,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 3.4000000000000004,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 3.6,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 3.8000000000000003,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 4.0,
+    "black_fraction": 0.0
+  },
+  {
+    "seconds": 4.2,
+    "black_fraction": 0.0
+  }
+]

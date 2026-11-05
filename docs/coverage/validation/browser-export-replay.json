@@ -1,0 +1,20 @@
+{
+  "profileId": "vn-id",
+  "engineVersion": "1.1.0",
+  "dataHash": "sha256:0c19b230bcba8d76a476dd85e293b77823ec45e4fae54cba33984c8e8cefeaa6",
+  "config": {
+    "profileId": "vn-id",
+    "count": 1,
+    "seed": "sample-01",
+    "mode": "positive",
+    "birthDate": "2000-01-01",
+    "sex": "any",
+    "addressCode": "027",
+    "currentProvinceAdminCode": "24",
+    "legacyBirthplaceCode": "027",
+    "ruleVersion": "vn-public-structure-63-birthplaces-20261105-v1",
+    "assurance": "format_only"
+  },
+  "matches": true,
+  "differences": []
+}

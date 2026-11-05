@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-04",
+  "status": "installed_and_first_onboarding_observed_with_cold_start_timeout",
+  "scope": "isolated Android emulator validation; no existing AVD or shared SDK mutation",
+  "device": {
+    "name": "IDFixture_Validation_20261104",
+    "serial": "emulator-5562",
+    "type": "pixel_7",
+    "api": 35,
+    "abi": "arm64-v8a",
+    "system_image_revision": 9,
+    "emulator_version": "36.5.11.0",
+    "adb_version": "37.0.0"
+  },
+  "avd_home": "flutter_app/.codex-build/android-avd",
+  "apk": {
+    "path": "outputs/ID-Fixture-1.0.0-1-debug.apk",
+    "bytes": 173270179,
+    "sha256": "c8a172ac6da9acffe1ae1418a572c7d31973fe4dfc915953275b4024910222d7",
+    "hash_verified": true
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "result": "startup disk preflight rejected default 6GB userdata; available about 3.4GB, requested about 7.2GB",
+      "process_running_after": false
+    },
+    {
+      "attempt": 2,
+      "result": "same preflight rejected; initial config shrink did not match emulator-reformatted bytes; corrected to 2GB after reading actual config",
+      "process_running_after": false
+    },
+    {
+      "attempt": 3,
+      "result": "after Coordinator project-build cleanup, the 2GB request was rewritten by emulator to 6GB; disk preflight requested 7372.80MB with 4404.76MB available and exited before boot",
+      "process_running_after": false
+    },
+    {
+      "attempt": 4,
+      "result": "after external environment free-space recovery to about 10GB, a newly created default 6GB AVD booted; APK installed successfully; native splash and first Flutter onboarding page visually observed",
+      "process_running_after": false
+    }
+  ],
+  "existing_emulator_5554": "device before and after attempts; not targeted by install, launch or stop commands",
+  "installed": true,
+  "launched": true,
+  "runtime_verified": true,
+  "screenshots": [
+    "android-native-launch.png",
+    "android-first-onboarding.png",
+    "android-launch-frame-01.png",
+    "android-launch-frame-02.png",
+    "android-launch-frame-03.png",
+    "android-launch-frame-04.png",
+    "android-launch-frame-05.png"
+  ],
+  "notes": [
+    "No SDK or image download performed.",
+    "Existing emulator-5554 was not targeted by installation, launch, input or stop commands.",
+    "No adb input, onboarding-button interaction, core-flow or Android launcher-home-screen acceptance is claimed.",
+    "Task AVD state remains under flutter_app/.codex-build/android-avd for Coordinator final cleanup.",
+    "Previous disk-preflight failures remain recorded, but they no longer block this limited first-screen runtime evidence."
+  ],
+  "completed_at": "2026-11-04T15:48:12+08:00",
+  "data_partition_bytes_requested": 6442450944,
+  "data_partition_bytes_effective_after_start": 6442450944,
+  "stop_proof": "adb -s emulator-5562 emu kill returned OK; retained emulator execution session exited code 0; post-stop adb/ps evidence contains only pre-existing emulator-5554",
+  "runtime_scope": "Android 15 / API35 emulator boot, APK installation, native splash icon and first English onboarding page only; no UI input, core workflow, onboarding persistence or physical-device acceptance",
+  "launch_intent_status": "adb am start -W reported timeout / WaitTime 12735ms; subsequent screenshot showed first Flutter onboarding page and the app process remained present",
+  "cold_launch_performance": "not_passed_as_smooth_or_fast; cold debug launch on fresh software-rendered emulator was slow",
+  "app_log_crash_signal_seen": false,
+  "launcher_icon_verified": false,
+  "native_splash_icon_verified": true,
+  "stopped": true
+}

@@ -1,0 +1,126 @@
+[
+  {
+    "task_id": "START-IOS-01",
+    "parent_id": "MOBILE-003",
+    "mode": "implementation",
+    "assigned_role": "Executor",
+    "objective": "Fix iOS simulator LaunchScreen resource seal",
+    "context": "User 2026-11-04 continuation: close startup and Android workflow gaps",
+    "inputs": [
+      "docs/mobile/DELIVERY.md"
+    ],
+    "files_to_inspect": [
+      "flutter_app/tool/build_ios_simulator.sh",
+      "docs/mobile/evidence/startup-revision/**"
+    ],
+    "files_allowed_to_edit": [
+      "flutter_app/tool/build_ios_simulator.sh",
+      "docs/mobile/evidence/startup-revision/**"
+    ],
+    "local_test_artifact_dir": "flutter_app/test",
+    "constraints": [
+      "No production signing, release upload, SDK upgrade or unrelated emulator changes",
+      "Preserve source, dependencies, deliverables and evidence; clean only idle task caches"
+    ],
+    "acceptance_criteria": [
+      "Complete ad-hoc resource signature, no production team",
+      "Three cold launches and fresh install have no black interval",
+      "Final packaged bundle matches tested signed bundle"
+    ],
+    "dependencies": [],
+    "evidence_required": [
+      "build",
+      "unit_test",
+      "simulator",
+      "visual"
+    ],
+    "status": "passed",
+    "review_record": "evidence/startup-revision/REVIEW.json",
+    "cleanup_record": "evidence/startup-revision/CLEANUP.json"
+  },
+  {
+    "task_id": "START-ANDROID-02",
+    "parent_id": "MOBILE-003",
+    "mode": "implementation",
+    "assigned_role": "Executor",
+    "objective": "Resolve Android first-run acceptance packaging and measure startup",
+    "context": "User 2026-11-04 continuation: close startup and Android workflow gaps",
+    "inputs": [
+      "docs/mobile/DELIVERY.md"
+    ],
+    "files_to_inspect": [
+      "flutter_app/tool/build_android_local.sh",
+      "docs/mobile/evidence/startup-revision/**"
+    ],
+    "files_allowed_to_edit": [
+      "flutter_app/tool/build_android_local.sh",
+      "docs/mobile/evidence/startup-revision/**"
+    ],
+    "local_test_artifact_dir": "flutter_app/test",
+    "constraints": [
+      "No production signing, release upload, SDK upgrade or unrelated emulator changes",
+      "Preserve source, dependencies, deliverables and evidence; clean only idle task caches"
+    ],
+    "acceptance_criteria": [
+      "Same-source debug vs arm64 AOT on dedicated stable API35 emulator",
+      "Each mode has three process-cold starts in total including the first installed launch, all without timeout; OS file caches are not dropped",
+      "TTID/Fully drawn and immediate interaction recorded; distinguish emulator from phone"
+    ],
+    "dependencies": [],
+    "evidence_required": [
+      "build",
+      "unit_test",
+      "simulator",
+      "visual"
+    ],
+    "status": "passed",
+    "review_record": "evidence/startup-revision/REVIEW.json",
+    "cleanup_record": "evidence/startup-revision/CLEANUP.json"
+  },
+  {
+    "task_id": "START-FLOW-03",
+    "parent_id": "MOBILE-003",
+    "mode": "validation",
+    "assigned_role": "Executor",
+    "objective": "Complete Android app and native system interactions",
+    "context": "User 2026-11-04 continuation: close startup and Android workflow gaps",
+    "inputs": [
+      "docs/mobile/DELIVERY.md"
+    ],
+    "files_to_inspect": [
+      "flutter_app/integration_test/**",
+      "flutter_app/test_driver/**",
+      "docs/mobile/**"
+    ],
+    "files_allowed_to_edit": [
+      "flutter_app/integration_test/**",
+      "flutter_app/test_driver/**",
+      "docs/mobile/**",
+      "flutter_app/test/native_share_receiver/**"
+    ],
+    "local_test_artifact_dir": "flutter_app/test",
+    "constraints": [
+      "No production signing, release upload, SDK upgrade or unrelated emulator changes",
+      "Preserve source, dependencies, deliverables and evidence; clean only idle task caches",
+      "Independent local-only QA share receiver is a test fixture, not included in product dependencies or product APK",
+      "One temporary unique AVD catalog .ini may point to the project-owned AVD for IDE embedding; verify ownership and remove it at teardown"
+    ],
+    "acceptance_criteria": [
+      "Actual native preferences, clipboard, all country/scenario/settings/onboarding interactions",
+      "System sharing and picker, cancellation, malformed/version/tamper/size errors and replay",
+      "No fake platform services represented as native evidence"
+    ],
+    "dependencies": [
+      "START-ANDROID-02"
+    ],
+    "evidence_required": [
+      "build",
+      "unit_test",
+      "simulator",
+      "visual"
+    ],
+    "status": "passed",
+    "review_record": "evidence/startup-revision/REVIEW.json",
+    "cleanup_record": "evidence/startup-revision/CLEANUP.json"
+  }
+]

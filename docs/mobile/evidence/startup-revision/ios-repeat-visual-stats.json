@@ -1,0 +1,20 @@
+[
+  {
+    "run": 1,
+    "sample_interval_seconds": 0.2,
+    "fully_black_viewport_sample_times": [],
+    "sampled_frames": 23
+  },
+  {
+    "run": 2,
+    "sample_interval_seconds": 0.2,
+    "fully_black_viewport_sample_times": [],
+    "sampled_frames": 22
+  },
+  {
+    "run": 3,
+    "sample_interval_seconds": 0.2,
+    "fully_black_viewport_sample_times": [],
+    "sampled_frames": 23
+  }
+]

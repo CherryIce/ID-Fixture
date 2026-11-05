@@ -1,0 +1,20 @@
+[
+  {
+    "index": 1,
+    "simctl_return_seconds": 0.224158042,
+    "returncode": 0,
+    "stdout": "dev.idfixture.idFixture: 9303\n"
+  },
+  {
+    "index": 2,
+    "simctl_return_seconds": 0.21711670799999983,
+    "returncode": 0,
+    "stdout": "dev.idfixture.idFixture: 9335\n"
+  },
+  {
+    "index": 3,
+    "simctl_return_seconds": 0.2062292499999998,
+    "returncode": 0,
+    "stdout": "dev.idfixture.idFixture: 9356\n"
+  }
+]

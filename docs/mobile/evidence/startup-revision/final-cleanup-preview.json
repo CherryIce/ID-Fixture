@@ -1,0 +1,21 @@
+{
+  "mode": "preview",
+  "targets": [
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/android-avd",
+      "status": "eligible",
+      "estimated_bytes": 4104019968
+    }
+  ],
+  "errors": [
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/share-receiver-build/run-20261104T084014-35261",
+      "reason": "contains artifact or evidence requiring retention: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/share-receiver-build/run-20261104T084014-35261/manifest.apk"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/share-receiver-build/run-20261104T083916-34847",
+      "reason": "contains artifact or evidence requiring retention: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/share-receiver-build/run-20261104T083916-34847/manifest.apk"
+    }
+  ],
+  "status": "refused_no_deletion"
+}

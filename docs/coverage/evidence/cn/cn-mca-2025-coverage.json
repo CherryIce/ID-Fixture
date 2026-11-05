@@ -1,0 +1,343 @@
+{
+  "schemaVersion": 1,
+  "sourceId": "CN-MCA-2025",
+  "snapshotDate": "2025-12-31",
+  "retrievedAt": "2026-11-05",
+  "sourceUrl": "https://dmfw.mca.gov.cn/XzqhVersionPublish.html",
+  "sourceEndpoint": "https://dmfw.mca.gov.cn/xzqh/getCodeList",
+  "request": {
+    "parentCode": "",
+    "placeCode": "",
+    "title": "",
+    "tableName": "Xzqh20251231",
+    "type": "",
+    "pageNum": "1",
+    "pageSize": "50000"
+  },
+  "scope": "Official county-and-above administrative catalogue for 31 mainland province-level divisions; not a complete public-security ID-address issuance list; not all historical prefixes.",
+  "issuanceStatus": "unknown",
+  "actualIdentityValidity": "not_checked",
+  "responseTotal": 41935,
+  "responseRecords": 41935,
+  "rawLevels": {
+    "1": 34,
+    "2": 333,
+    "3": 2845,
+    "4": 38723
+  },
+  "scopeCounts": {
+    "province": 31,
+    "prefecture": 333,
+    "county": 2845,
+    "excludedFromDefaultCounty": "350527 金门县",
+    "eligibleCounties": 2844,
+    "prefectureDirectReferences": 4,
+    "eligibleTotal": 2848
+  },
+  "excludedProvinceCodes": [
+    "710000",
+    "810000",
+    "820000"
+  ],
+  "byProvince": [
+    {
+      "provinceCode": "110000",
+      "name": "北京市",
+      "prefectures": 0,
+      "officialCountyEntries": 16,
+      "eligibleCounties": 16,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 16
+    },
+    {
+      "provinceCode": "120000",
+      "name": "天津市",
+      "prefectures": 0,
+      "officialCountyEntries": 16,
+      "eligibleCounties": 16,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 16
+    },
+    {
+      "provinceCode": "130000",
+      "name": "河北省",
+      "prefectures": 11,
+      "officialCountyEntries": 167,
+      "eligibleCounties": 167,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 167
+    },
+    {
+      "provinceCode": "140000",
+      "name": "山西省",
+      "prefectures": 11,
+      "officialCountyEntries": 117,
+      "eligibleCounties": 117,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 117
+    },
+    {
+      "provinceCode": "150000",
+      "name": "内蒙古自治区",
+      "prefectures": 12,
+      "officialCountyEntries": 103,
+      "eligibleCounties": 103,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 103
+    },
+    {
+      "provinceCode": "210000",
+      "name": "辽宁省",
+      "prefectures": 14,
+      "officialCountyEntries": 100,
+      "eligibleCounties": 100,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 100
+    },
+    {
+      "provinceCode": "220000",
+      "name": "吉林省",
+      "prefectures": 9,
+      "officialCountyEntries": 60,
+      "eligibleCounties": 60,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 60
+    },
+    {
+      "provinceCode": "230000",
+      "name": "黑龙江省",
+      "prefectures": 13,
+      "officialCountyEntries": 121,
+      "eligibleCounties": 121,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 121
+    },
+    {
+      "provinceCode": "310000",
+      "name": "上海市",
+      "prefectures": 0,
+      "officialCountyEntries": 16,
+      "eligibleCounties": 16,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 16
+    },
+    {
+      "provinceCode": "320000",
+      "name": "江苏省",
+      "prefectures": 13,
+      "officialCountyEntries": 95,
+      "eligibleCounties": 95,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 95
+    },
+    {
+      "provinceCode": "330000",
+      "name": "浙江省",
+      "prefectures": 11,
+      "officialCountyEntries": 90,
+      "eligibleCounties": 90,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 90
+    },
+    {
+      "provinceCode": "340000",
+      "name": "安徽省",
+      "prefectures": 16,
+      "officialCountyEntries": 104,
+      "eligibleCounties": 104,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 104
+    },
+    {
+      "provinceCode": "350000",
+      "name": "福建省",
+      "prefectures": 9,
+      "officialCountyEntries": 84,
+      "eligibleCounties": 83,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 83
+    },
+    {
+      "provinceCode": "360000",
+      "name": "江西省",
+      "prefectures": 11,
+      "officialCountyEntries": 100,
+      "eligibleCounties": 100,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 100
+    },
+    {
+      "provinceCode": "370000",
+      "name": "山东省",
+      "prefectures": 16,
+      "officialCountyEntries": 136,
+      "eligibleCounties": 136,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 136
+    },
+    {
+      "provinceCode": "410000",
+      "name": "河南省",
+      "prefectures": 17,
+      "officialCountyEntries": 157,
+      "eligibleCounties": 157,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 157
+    },
+    {
+      "provinceCode": "420000",
+      "name": "湖北省",
+      "prefectures": 13,
+      "officialCountyEntries": 103,
+      "eligibleCounties": 103,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 103
+    },
+    {
+      "provinceCode": "430000",
+      "name": "湖南省",
+      "prefectures": 14,
+      "officialCountyEntries": 122,
+      "eligibleCounties": 122,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 122
+    },
+    {
+      "provinceCode": "440000",
+      "name": "广东省",
+      "prefectures": 21,
+      "officialCountyEntries": 122,
+      "eligibleCounties": 122,
+      "directReferenceEntries": 2,
+      "eligibleTotal": 124
+    },
+    {
+      "provinceCode": "450000",
+      "name": "广西壮族自治区",
+      "prefectures": 14,
+      "officialCountyEntries": 111,
+      "eligibleCounties": 111,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 111
+    },
+    {
+      "provinceCode": "460000",
+      "name": "海南省",
+      "prefectures": 4,
+      "officialCountyEntries": 25,
+      "eligibleCounties": 25,
+      "directReferenceEntries": 1,
+      "eligibleTotal": 26
+    },
+    {
+      "provinceCode": "500000",
+      "name": "重庆市",
+      "prefectures": 0,
+      "officialCountyEntries": 37,
+      "eligibleCounties": 37,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 37
+    },
+    {
+      "provinceCode": "510000",
+      "name": "四川省",
+      "prefectures": 21,
+      "officialCountyEntries": 183,
+      "eligibleCounties": 183,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 183
+    },
+    {
+      "provinceCode": "520000",
+      "name": "贵州省",
+      "prefectures": 9,
+      "officialCountyEntries": 88,
+      "eligibleCounties": 88,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 88
+    },
+    {
+      "provinceCode": "530000",
+      "name": "云南省",
+      "prefectures": 16,
+      "officialCountyEntries": 129,
+      "eligibleCounties": 129,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 129
+    },
+    {
+      "provinceCode": "540000",
+      "name": "西藏自治区",
+      "prefectures": 7,
+      "officialCountyEntries": 74,
+      "eligibleCounties": 74,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 74
+    },
+    {
+      "provinceCode": "610000",
+      "name": "陕西省",
+      "prefectures": 10,
+      "officialCountyEntries": 107,
+      "eligibleCounties": 107,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 107
+    },
+    {
+      "provinceCode": "620000",
+      "name": "甘肃省",
+      "prefectures": 14,
+      "officialCountyEntries": 86,
+      "eligibleCounties": 86,
+      "directReferenceEntries": 1,
+      "eligibleTotal": 87
+    },
+    {
+      "provinceCode": "630000",
+      "name": "青海省",
+      "prefectures": 8,
+      "officialCountyEntries": 44,
+      "eligibleCounties": 44,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 44
+    },
+    {
+      "provinceCode": "640000",
+      "name": "宁夏回族自治区",
+      "prefectures": 5,
+      "officialCountyEntries": 22,
+      "eligibleCounties": 22,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 22
+    },
+    {
+      "provinceCode": "650000",
+      "name": "新疆维吾尔自治区",
+      "prefectures": 14,
+      "officialCountyEntries": 110,
+      "eligibleCounties": 110,
+      "directReferenceEntries": 0,
+      "eligibleTotal": 110
+    }
+  ],
+  "currentUndatedTreeComparison": {
+    "warning": "getList is an undated current navigation tree and does not equal the fixed Xzqh20251231 snapshot; it was not merged.",
+    "countyCount": 2847,
+    "addedSinceFixedSnapshot": [
+      {
+        "code": "653132",
+        "name": "岑岭县"
+      },
+      {
+        "code": "659013",
+        "name": "草湖市"
+      }
+    ]
+  },
+  "outOfScope": [
+    "All historical ID address prefixes",
+    "Real-time police allocation status",
+    "Actual assignment, person, document or validity lookup",
+    "Township/village/statistical-only codes"
+  ]
+}

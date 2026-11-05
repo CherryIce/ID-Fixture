@@ -1,0 +1,22 @@
+{
+  "device": "emulator-5562",
+  "api": "35",
+  "package": "dev.idfixture.id_fixture",
+  "version": "1.1.0+2",
+  "ordinaryArm64AotInstalled": true,
+  "installedApkSha256": "8868ce1cf292ad2fa0f740395230484ed764c872b82b32028bd858177eb7573b",
+  "deliveredApkSha256Match": true,
+  "firstOrdinaryAotLaunch": {
+    "status": "ok",
+    "launchState": "COLD",
+    "totalTimeMs": 916,
+    "waitTimeMs": 917,
+    "source": "root install + am start -W returned transcript, 2026-11-05 local; one sample, not a performance distribution"
+  },
+  "onboardingScreenshot": "android-aot-first-launch.png",
+  "newRegionalFlutterInteractions": "android-integration/summary.json",
+  "systemShareAndPickerRetestedThisRevision": false,
+  "previousSystemShareAndPickerEvidence": "../../mobile/evidence/startup-revision/MANUAL_ANDROID.json",
+  "physicalDevice": false,
+  "artifactRevision": "before TW current-prefix historical-flag roundtrip fix; final artifact requires new smoke"
+}

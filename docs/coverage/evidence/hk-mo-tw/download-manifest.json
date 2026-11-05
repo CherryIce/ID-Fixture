@@ -1,0 +1,63 @@
+[
+  {
+    "file": "tw-check-method-2022.pdf",
+    "url": "https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg028236/ch04/type2/gov30/num5/images/BB.pdf",
+    "accessed_date": "2026-11-05",
+    "http_status": 200,
+    "bytes": 3373183,
+    "sha256": "0131b008ad91b92dbcb31dd977f125ca3489cd3787ab17af303463118678adda",
+    "content_type": "application/pdf"
+  },
+  {
+    "file": "tw-check-method-2023.pdf",
+    "url": "https://gazette2.nat.gov.tw/EG_FileManager/eguploadpub/eg029234/ch04/type2/gov30/num6/images/Eg01.pdf",
+    "accessed_date": "2026-11-05",
+    "http_status": 200,
+    "bytes": 3646240,
+    "sha256": "6a40cb4d708b8678f3b57908e22a33b42d95a1a4ba20f8a56e40c7658e9545d2",
+    "content_type": "application/pdf"
+  },
+  {
+    "file": "mo-regulation-41-2023.html",
+    "url": "https://bo.dsaj.gov.mo/bo/i/2023/45/regadm41_cn.asp?printer=1",
+    "accessed_date": "2026-11-05",
+    "http_status": 200,
+    "bytes": 30264,
+    "sha256": "3ebb6254c2935b76ba6fe1bc927b3908379d5ac06dc77c005b6729112889ed0b",
+    "content_type": "text/html"
+  },
+  {
+    "file": "hk-schema-v1.xsd",
+    "url": "https://www.digitalpolicy.gov.hk/en/our_work/data_governance/policies_standards/interoperability_framework/doc/common_schemas/hkid_number_v1_0.xsd",
+    "accessed_date": "2026-11-05",
+    "http_status": 200,
+    "bytes": 2134,
+    "sha256": "34d8d937c8b14c1fdc07f34d0c68762672518b7cffe0be7d3e200065669151fc",
+    "content_type": null
+  },
+  {
+    "file": "tw-current-regions.html",
+    "url": "https://ilhhr.e-land.gov.tw/cp.aspx?n=3515",
+    "accessed_date": "2026-11-05",
+    "http_status": 200,
+    "bytes": 107231,
+    "sha256": "96228b503f42a396bc227d8c976f0d74007f66cc9b41a649acfe8918aafeadbe",
+    "content_type": "text/html; charset=utf-8"
+  },
+  {
+    "file": "tw-historical-regions.pdf",
+    "url": "https://www.htaiping.taichung.gov.tw/media/371529/662813505431.pdf",
+    "accessed_date": "2026-11-05",
+    "http_status": 200,
+    "bytes": 578849,
+    "sha256": "fc06d5de8a965637df72bcc8def27f3ad7a6121e13c547a643c9211fe0af7498"
+  },
+  {
+    "file": "mo-historical-1992.html",
+    "url": "https://bo.dsaj.gov.mo/bo/i/92/04/declei06_cn.asp?printer=1",
+    "accessed_date": "2026-11-05",
+    "http_status": 200,
+    "bytes": 18055,
+    "sha256": "27c6641b8dd939500c3beae0af901d93697879af5fcc4a842eeacb09a1793d29"
+  }
+]

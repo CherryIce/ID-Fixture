@@ -1,0 +1,27 @@
+[
+  {
+    "file": "android-launch-frame-01.png",
+    "elapsed_seconds": 4.5,
+    "bytes": 1374164
+  },
+  {
+    "file": "android-launch-frame-02.png",
+    "elapsed_seconds": 5.9,
+    "bytes": 40960
+  },
+  {
+    "file": "android-launch-frame-03.png",
+    "elapsed_seconds": 7.1,
+    "bytes": 40960
+  },
+  {
+    "file": "android-launch-frame-04.png",
+    "elapsed_seconds": 7.57,
+    "bytes": 40960
+  },
+  {
+    "file": "android-launch-frame-05.png",
+    "elapsed_seconds": 8.46,
+    "bytes": 40960
+  }
+]

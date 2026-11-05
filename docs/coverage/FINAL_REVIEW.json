@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "reviewedDate": "2026-11-05",
+  "role": "independent_reviewer",
+  "revision": "coverage-20261105-r1",
+  "applicationVersion": "1.1.0+2",
+  "verdict": "accepted_with_explicit_validation_limits",
+  "outstandingFindingsP0ToP2": [],
+  "taskVerdicts": {
+    "COV-DATA": "accepted",
+    "COV-ENGINE": "accepted",
+    "COV-UI": "accepted",
+    "COV-PREVIEW": "accepted_for_recorded_http_preview_and_package_checks",
+    "COV-VERIFY": "accepted_for_executed_local_checks_with_limits_below"
+  },
+  "data": {
+    "version": "coverage-20261105-v1",
+    "canonicalSha256": "0c19b230bcba8d76a476dd85e293b77823ec45e4fae54cba33984c8e8cefeaa6",
+    "mainland": {
+      "provinceGroups": 31,
+      "candidates": 2851,
+      "annualEligibleCounties": 2844,
+      "separatelyArchivedCurrentTreeAdditions": 2,
+      "annualBaselineDate": "2025-12-31",
+      "supplementFetchedAt": "2026-11-05",
+      "supplementAsOfUnknown": true,
+      "prefectureReferences": 4,
+      "reportedIdentityPrefixExceptions": 1,
+      "policeIssuanceCatalogueComplete": false
+    },
+    "taiwan": {
+      "currentPrefixes": 22,
+      "additionalHistoricalPrefixes": 4,
+      "historicalGenerationRequiresOptIn": true
+    },
+    "vietnam": {
+      "currentNavigationAreas": 34,
+      "historicalBirthplaceCodes": 63,
+      "currentAdministrativeCodesAreIdentityPrefixes": false,
+      "currentNewIssuanceConformity": "unknown"
+    },
+    "macaoChecksum": "unknown",
+    "issuanceAndIdentityVerification": "unknown; not queried"
+  },
+  "evidenceReviewed": {
+    "sourceArchiveHashesChecked": 35,
+    "mainlandAnnualDerivedRowsComparedWithRawSource": 2849,
+    "vietnam63CodeNamePairsIndependentlyExtracted": true,
+    "vietnam34AdministrativeCodesVisuallyComparedWithOfficialAnnex": true,
+    "flutterQualityGate": "docs/coverage/validation/quality-final/20261105T183503+0800/quality-gate.json",
+    "flutterTestsPassed": 53,
+    "nodeTestsPassed": 28,
+    "legacyGoldenPackages": 52,
+    "realLegacyExportsReplayed": [
+      "prototype-exported-package.json",
+      "android-aot-original-export.json"
+    ],
+    "newCrossLanguageGoldenPackages": 66,
+    "crossLanguageTimestampPolicy": "Compare canonical package JSON after retaining the original golden exportedAt; export clock time is not deterministic.",
+    "androidIntegration": {
+      "evidence": "docs/coverage/validation/android-integration/summary.json",
+      "businessCasesPassed": 6,
+      "businessCasesFailed": 0,
+      "completedChecks": 20,
+      "approximateSeconds": 82,
+      "exitCode": 0,
+      "sourceHashesBeforeAfterAndCurrentMatch": true,
+      "path": "flutter drive / VMService",
+      "androidInstrumentationClaimed": false,
+      "pluginWarningPreserved": true
+    },
+    "androidFinalOrdinaryAot": {
+      "evidence": "docs/coverage/validation/android-aot-smoke-final.json",
+      "installedApkHashMatchesDelivery": true,
+      "coldStatus": "ok",
+      "singleSampleTotalTimeMs": 921,
+      "performanceDistributionClaimed": false
+    },
+    "iosFinal": {
+      "evidence": "docs/coverage/validation/ios-smoke.json",
+      "build": "docs/coverage/validation/ios-build-final.log",
+      "strictCompleteAdHocResourceSeal": true,
+      "installedLaunchPid": 23981,
+      "renderedMainlandScreenInspected": true,
+      "fullNewSelectorManualInteraction": false
+    },
+    "browser": {
+      "standaloneDependencyAudit": "docs/coverage/validation/engine/standalone-dependency-audit.json",
+      "standaloneEmbeddedModules": 4,
+      "externalRuntimeDependencies": 0,
+      "standaloneHongKongRenderedChecksInspected": true,
+      "actualVietnamExport": "docs/coverage/validation/browser-actual-export.json",
+      "replayReport": "docs/coverage/validation/browser-export-replay.json",
+      "actualVietnamExportHasLockedScopeMetadata": true,
+      "replayMatches": true
+    },
+    "artifactSourceHashDrift": [],
+    "iosArchiveRegularFilesIndependentlyCounted": 102,
+    "iosArchiveAppleDoubleFiles": 0,
+    "iosArchiveExactBuildBundleMatch": "Coordinator's artifacts.json records all 102 files matching; archive hash and entry count independently rechecked."
+  },
+  "resolvedFindings": [
+    {
+      "id": "COV-R1",
+      "priority": "P2",
+      "title": "Macao source URL referenced wrong Gazette issue",
+      "status": "closed"
+    },
+    {
+      "id": "COV-R2",
+      "priority": "P2",
+      "title": "Taiwan checksum primary source missing from in-app source catalogue",
+      "status": "closed"
+    },
+    {
+      "id": "COV-R3",
+      "priority": "P2",
+      "title": "Vietnam ruleVersion and format_only assurance omitted from exported package",
+      "status": "closed"
+    },
+    {
+      "id": "COV-R4",
+      "priority": "P2",
+      "title": "Settings displayed old application version",
+      "status": "closed"
+    },
+    {
+      "id": "COV-R5",
+      "priority": "P2",
+      "title": "Standalone packager retained relative module dependencies after engine split",
+      "status": "closed"
+    },
+    {
+      "id": "COV-R6",
+      "priority": "P2",
+      "title": "Exported JS rule snapshot allowed mutable Taiwan checksum mapping",
+      "status": "closed"
+    },
+    {
+      "id": "COV-R7",
+      "priority": "P2",
+      "title": "Imported Taiwan current-prefix allowHistorical=true drifted on regeneration",
+      "status": "closed",
+      "regression": "Red-before/green-after; cancel and same-code confirmation preserve permission; actual area/profile changes update it."
+    }
+  ],
+  "finalArtifacts": [
+    {
+      "path": "outputs/ID-Fixture-1.1.0-2-android-arm64-local-test.apk",
+      "bytes": 18702965,
+      "sha256": "80735e6838319a12ffef7dddb4351907022b3362855613751d06f5ad020b96f2",
+      "signing": "Existing local Android debug certificate; ordinary arm64 AOT; not production signing"
+    },
+    {
+      "path": "outputs/ID-Fixture-1.1.0-2-ios-simulator-signed.zip",
+      "bytes": 36989835,
+      "sha256": "4fa137881023bb1782fdf1218be720b576292b8ad2adb800116b43db289eca62",
+      "signing": "Complete ad-hoc simulator resource signature; not a physical-device package"
+    }
+  ],
+  "validationLimits": [
+    "iOS new-region selectors and import workflows were not fully manually exercised this revision; final build/signature/install/launch/mainland screenshot do not establish that coverage.",
+    "Android native Sharesheet, DocumentsUI file selection and native file replay were not retested this coverage revision. The 1.0 historical evidence remains historical.",
+    "The six Android business cases use the integration entrypoint; the final ordinary AOT package has separately recorded installation/hash/cold-launch smoke.",
+    "The final Android 921ms cold launch is one simulator smoke sample, not a benchmark distribution or a physical-device performance claim.",
+    "No physical-device, iPad, other Android vendor/provider, production signing, store submission, upload or publication acceptance is claimed.",
+    "Standalone preview was exercised over local HTTP; file-protocol behavior was not validated."
+  ],
+  "cleanup": {
+    "status": "coordinator_completed_and_record_reviewed",
+    "evidence": "docs/coverage/validation/CLEANUP.json",
+    "allocatedBytesRemoved": 2671734784,
+    "finalExactTargetsRemoved": 81,
+    "protectedFilesCompared": 141,
+    "protectedChanged": [],
+    "globalCachesDeleted": false,
+    "unrelatedEmulatorTargeted": false,
+    "previewServerRetained": true
+  },
+  "reviewerWork": {
+    "productCodeEdited": false,
+    "additionalBuildsOrDeviceOperations": false,
+    "filesWritten": [
+      "docs/coverage/FINAL_REVIEW.md",
+      "docs/coverage/FINAL_REVIEW.json"
+    ]
+  }
+}

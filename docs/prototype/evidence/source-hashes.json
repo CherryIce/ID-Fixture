@@ -1,0 +1,11 @@
+{
+  "prototype/README.md": "4d180d9e1600ece1af5914da191f482f80dd0858f8b5ccb3d9103542ba271aff",
+  "prototype/app.mjs": "1a496f60f1d26247cd0f4431edfb88875224a9c29a55b9387d26bf068b09b2bd",
+  "prototype/engine.mjs": "ee60fc02b6a1bb7da4302e528b09667f01831b5fa6df03add3d77d12b4c82240",
+  "prototype/engine.test.mjs": "43d5114bf99c6b408e88e0589c4008989e3272d707c5dab81e5732270b1fc010",
+  "prototype/icon.svg": "18d6ceea337da23428ab1426eaae728057c50e9bb99d6386235c10e111fa6bb0",
+  "prototype/index.html": "6e0ee01461a9dd8d1a2ee0d137f5bf0d633ec2860ff68c5cbe58bfb293da1a00",
+  "prototype/package-preview.mjs": "07d230536102c4b7f611d45a6718788529fadb44d62a7f3ee3e71237ae9f0e03",
+  "prototype/standalone.html": "e50a1eae34869a410800cc6977683c881497974d5c02a90fc1cd00d6f4466cc3",
+  "prototype/style.css": "1ddba8ea5ac89c1b9f2c257b17236ba45e7d69f525f16293fddc215d4e9ac7b7"
+}

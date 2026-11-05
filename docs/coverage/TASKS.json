@@ -1,0 +1,243 @@
+[
+  {
+    "task_id": "COV-DATA",
+    "parent_id": null,
+    "mode": "implementation",
+    "assigned_role": "Researcher + Coordinator",
+    "objective": "Archive authoritative regional rules and build a single versioned dataset",
+    "context": "User coverage revision 2026-11-05",
+    "inputs": [
+      "docs/product/PRODUCT_BRIEF.md",
+      "docs/coverage/evidence/"
+    ],
+    "files_to_inspect": [
+      "docs/coverage/evidence/**",
+      "data/coverage_snapshot.json",
+      "flutter_app/tool/generate_coverage_data.py"
+    ],
+    "files_allowed_to_edit": [
+      "docs/coverage/evidence/**",
+      "data/coverage_snapshot.json",
+      "flutter_app/tool/generate_coverage_data.py"
+    ],
+    "local_test_artifact_dir": "flutter_app/test",
+    "constraints": [
+      "No accounts, backend, live identity checks or production signing/release",
+      "No guaranteed non-issuance or identity validity",
+      "Preserve exact legacy package semantics and source snapshot traceability"
+    ],
+    "acceptance_criteria": [
+      "CN31 provinces and2851 typed candidates reconcile to archived sources",
+      "HK official client/TW official checksum vectors; Macau checksumunknown",
+      "VN34 navigation vs63 birthplace codes kept distinct"
+    ],
+    "dependencies": [],
+    "evidence_required": [
+      "static",
+      "unit_test",
+      "build",
+      "simulator",
+      "visual"
+    ],
+    "status": "passed",
+    "evidence_refs": [
+      "data/coverage_snapshot.json",
+      "docs/coverage/evidence/cn/SOURCE_MANIFEST.json",
+      "docs/coverage/evidence/hk-mo-tw/download-manifest.json",
+      "docs/coverage/evidence/vn/download-manifest.json"
+    ]
+  },
+  {
+    "task_id": "COV-ENGINE",
+    "parent_id": null,
+    "mode": "implementation",
+    "assigned_role": "Executor-engine",
+    "objective": "Enable five new profiles and retain exact legacy replay",
+    "context": "User coverage revision 2026-11-05",
+    "inputs": [
+      "docs/product/PRODUCT_BRIEF.md",
+      "docs/coverage/evidence/"
+    ],
+    "files_to_inspect": [
+      "flutter_app/lib/domain/**",
+      "prototype/*engine*.mjs",
+      "flutter_app/test/*engine*"
+    ],
+    "files_allowed_to_edit": [
+      "flutter_app/lib/domain/**",
+      "prototype/*engine*.mjs",
+      "flutter_app/test/*engine*"
+    ],
+    "local_test_artifact_dir": "flutter_app/test",
+    "constraints": [
+      "No accounts, backend, live identity checks or production signing/release",
+      "No guaranteed non-issuance or identity validity",
+      "Preserve exact legacy package semantics and source snapshot traceability"
+    ],
+    "acceptance_criteria": [
+      "Old52goldens and real native1.0 export replay without migration",
+      "Newprofilesgenerate100positive/negative cases; source-backed checks only",
+      "NewDart/JS packages replay cross-language; strict tamper/version guards"
+    ],
+    "dependencies": [],
+    "evidence_required": [
+      "static",
+      "unit_test",
+      "build",
+      "simulator",
+      "visual"
+    ],
+    "status": "passed",
+    "evidence_refs": [
+      "docs/coverage/validation/engine/ENGINE_IMPLEMENTATION.json",
+      "docs/coverage/validation/engine/node-tests.log"
+    ]
+  },
+  {
+    "task_id": "COV-UI",
+    "parent_id": null,
+    "mode": "implementation",
+    "assigned_role": "Executor-UI",
+    "objective": "Provide usable China region and large regional selectors",
+    "context": "User coverage revision 2026-11-05",
+    "inputs": [
+      "docs/product/PRODUCT_BRIEF.md",
+      "docs/coverage/evidence/"
+    ],
+    "files_to_inspect": [
+      "flutter_app/lib/ui/**",
+      "flutter_app/test/app_widget_test.dart",
+      "flutter_app/integration_test/**"
+    ],
+    "files_allowed_to_edit": [
+      "flutter_app/lib/ui/**",
+      "flutter_app/test/app_widget_test.dart",
+      "flutter_app/integration_test/**"
+    ],
+    "local_test_artifact_dir": "flutter_app/test",
+    "constraints": [
+      "No accounts, backend, live identity checks or production signing/release",
+      "No guaranteed non-issuance or identity validity",
+      "Preserve exact legacy package semantics and source snapshot traceability"
+    ],
+    "acceptance_criteria": [
+      "CN mainland/HK/MO/TW switch invalidates old results",
+      "Search2851 candidates; province/city/county navigation and cancel/reopen safe",
+      "VN current34 selects correct63 subset; Taiwan historical opt-in",
+      "Legacy import restores oldprofile/3codes;320width200percent text actions reachable"
+    ],
+    "dependencies": [],
+    "evidence_required": [
+      "static",
+      "unit_test",
+      "build",
+      "simulator",
+      "visual"
+    ],
+    "status": "passed",
+    "evidence_refs": [
+      "docs/coverage/validation/ui/README.md",
+      "docs/coverage/validation/android-integration/summary.json"
+    ]
+  },
+  {
+    "task_id": "COV-PREVIEW",
+    "parent_id": null,
+    "mode": "implementation",
+    "assigned_role": "Coordinator",
+    "objective": "Synchronize browser preview and source-based profile catalogue",
+    "context": "User coverage revision 2026-11-05",
+    "inputs": [
+      "docs/product/PRODUCT_BRIEF.md",
+      "docs/coverage/evidence/"
+    ],
+    "files_to_inspect": [
+      "prototype/app.mjs",
+      "prototype/index.html",
+      "prototype/package-preview.mjs",
+      "prototype/standalone.html"
+    ],
+    "files_allowed_to_edit": [
+      "prototype/app.mjs",
+      "prototype/index.html",
+      "prototype/package-preview.mjs",
+      "prototype/standalone.html"
+    ],
+    "local_test_artifact_dir": "flutter_app/test",
+    "constraints": [
+      "No accounts, backend, live identity checks or production signing/release",
+      "No guaranteed non-issuance or identity validity",
+      "Preserve exact legacy package semantics and source snapshot traceability"
+    ],
+    "acceptance_criteria": [
+      "Allnewregionscanselect/generate/export/replay",
+      "LocalHTTPpreview matches new app scope"
+    ],
+    "dependencies": [],
+    "evidence_required": [
+      "static",
+      "unit_test",
+      "build",
+      "simulator",
+      "visual"
+    ],
+    "status": "passed",
+    "evidence_refs": [
+      "docs/coverage/validation/browser-runtime.json",
+      "docs/coverage/validation/browser-export-replay.json"
+    ]
+  },
+  {
+    "task_id": "COV-VERIFY",
+    "parent_id": null,
+    "mode": "validation",
+    "assigned_role": "Coordinator + Reviewer",
+    "objective": "Build and inspect requested local revision, independently review and clean",
+    "context": "User coverage revision 2026-11-05",
+    "inputs": [
+      "docs/product/PRODUCT_BRIEF.md",
+      "docs/coverage/evidence/"
+    ],
+    "files_to_inspect": [
+      "docs/coverage/**",
+      "flutter_app/pubspec.yaml",
+      "outputs/**"
+    ],
+    "files_allowed_to_edit": [
+      "docs/coverage/**",
+      "flutter_app/pubspec.yaml",
+      "outputs/**"
+    ],
+    "local_test_artifact_dir": "flutter_app/test",
+    "constraints": [
+      "No accounts, backend, live identity checks or production signing/release",
+      "No guaranteed non-issuance or identity validity",
+      "Preserve exact legacy package semantics and source snapshot traceability"
+    ],
+    "acceptance_criteria": [
+      "Qualitygate passes; exact artifacts hashed",
+      "Rendered newselector/region/generation/native replay states inspected",
+      "Preserve source/dependencies/evidence/artifacts while clean idle task caches"
+    ],
+    "dependencies": [],
+    "evidence_required": [
+      "static",
+      "unit_test",
+      "build",
+      "simulator",
+      "visual"
+    ],
+    "status": "passed_with_explicit_validation_limits",
+    "evidence_refs": [
+      "docs/coverage/validation/quality-final/20261105T183503+0800/quality-gate.json",
+      "docs/coverage/validation/artifacts.json",
+      "docs/coverage/validation/CLEANUP.json",
+      "docs/coverage/FINAL_REVIEW.md"
+    ],
+    "untested": [
+      "Physical devices, release signing/store",
+      "iOS newselector/importexport manual path",
+      "Android native system share/picker not rerun; historical evidence only"
+    ]
+  }
+]

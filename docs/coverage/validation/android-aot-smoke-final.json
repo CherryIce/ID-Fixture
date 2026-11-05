@@ -1,0 +1,17 @@
+{
+  "device": "emulator-5562",
+  "api": 35,
+  "package": "dev.idfixture.id_fixture",
+  "version": "1.1.0+2",
+  "revision": "coverage-20261105-r1 final TW flag fix included",
+  "ordinaryArm64AotInstalled": true,
+  "installedApkSha256": "80735e6838319a12ffef7dddb4351907022b3362855613751d06f5ad020b96f2",
+  "deliveredApkSha256Match": true,
+  "firstOrdinaryAotLaunchLog": "android-aot-start-final.log",
+  "performanceScope": "single cold smoke after integration test, not a performance distribution",
+  "onboardingScreenshot": "android-aot-first-launch-final.png",
+  "newRegionalFlutterInteractions": "android-integration/summary.json",
+  "systemShareAndPickerRetestedThisRevision": false,
+  "previousSystemShareAndPickerEvidence": "../../mobile/evidence/startup-revision/MANUAL_ANDROID.json",
+  "physicalDevice": false
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "mode": "release",
+    "trial": 1,
+    "definition": "force-stop cold process; first trial is first launch after installation; OS filesystem caches are not dropped",
+    "old_process_absent": true,
+    "pid_after": "4558",
+    "status": "ok",
+    "am_start_metrics_ms": {
+      "TotalTime": 934,
+      "WaitTime": 936
+    },
+    "host_command_wall_ms": 973,
+    "displayed_ttid_ms": 934,
+    "display_lines": [
+      "11-04 16:13:43.386   544   563 I ActivityTaskManager: Displayed dev.idfixture.id_fixture/.MainActivity for user 0: +934ms",
+      "11-04 16:13:43.386   544   563 I ActivityTaskManager: Fully drawn dev.idfixture.id_fixture/.MainActivity: +934ms"
+    ],
+    "resource_extraction_lines": [],
+    "resource_extraction_span_ms": null,
+    "screenshot": "android-release-cold-1.png",
+    "captured_at": "2026-11-04T16:13:45+08:00"
+  },
+  {
+    "mode": "release",
+    "trial": 2,
+    "definition": "force-stop cold process; first trial is first launch after installation; OS filesystem caches are not dropped",
+    "old_process_absent": true,
+    "pid_after": "4619",
+    "status": "ok",
+    "am_start_metrics_ms": {
+      "TotalTime": 804,
+      "WaitTime": 807
+    },
+    "host_command_wall_ms": 834,
+    "displayed_ttid_ms": 804,
+    "display_lines": [
+      "11-04 16:13:51.924   544   563 I ActivityTaskManager: Displayed dev.idfixture.id_fixture/.MainActivity for user 0: +804ms",
+      "11-04 16:13:51.925   544   563 I ActivityTaskManager: Fully drawn dev.idfixture.id_fixture/.MainActivity: +804ms"
+    ],
+    "resource_extraction_lines": [],
+    "resource_extraction_span_ms": null,
+    "screenshot": "android-release-cold-2.png",
+    "captured_at": "2026-11-04T16:13:53+08:00"
+  },
+  {
+    "mode": "release",
+    "trial": 3,
+    "definition": "force-stop cold process; first trial is first launch after installation; OS filesystem caches are not dropped",
+    "old_process_absent": true,
+    "pid_after": "4681",
+    "status": "ok",
+    "am_start_metrics_ms": {
+      "TotalTime": 870,
+      "WaitTime": 871
+    },
+    "host_command_wall_ms": 896,
+    "displayed_ttid_ms": 870,
+    "display_lines": [
+      "11-04 16:14:00.027   544   563 I ActivityTaskManager: Displayed dev.idfixture.id_fixture/.MainActivity for user 0: +870ms",
+      "11-04 16:14:00.027   544   563 I ActivityTaskManager: Fully drawn dev.idfixture.id_fixture/.MainActivity: +870ms"
+    ],
+    "resource_extraction_lines": [],
+    "resource_extraction_span_ms": null,
+    "screenshot": "android-release-cold-3.png",
+    "captured_at": "2026-11-04T16:14:01+08:00"
+  }
+]

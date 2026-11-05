@@ -1,0 +1,51 @@
+{
+  "conclusion": "Use the measured ordinary arm64 AOT local-test APK for local acceptance. Stable same-source comparison found Debug-specific first-launch extraction and longer startup; no persistent native/business startup blocker was demonstrated, and no speculative product code optimization was made.",
+  "method": "One task AVD, existing Android 35 arm64 image, system boot completed before sampling; same frozen source; three force-stop cold process launches per mode. First sample follows fresh install. OS filesystem caches were not dropped. ActivityTaskManager Displayed / am start -W used for TTID.",
+  "resultsMs": {
+    "debug": [
+      2340,
+      1531,
+      1853
+    ],
+    "releaseAOT": [
+      934,
+      804,
+      870
+    ]
+  },
+  "extraction": {
+    "debugFirstLogSpanMs": 286,
+    "debugFirstAssets": [
+      "kernel_blob.bin",
+      "vm_snapshot_data",
+      "isolate_snapshot_data"
+    ],
+    "debugRepeats": "Found extracted resources",
+    "release": "No ResourceExtractor or kernel/snapshot extraction lines in three trials."
+  },
+  "interpretation": [
+    "The 286ms log span is extraction log interval, not total Debug runtime cost.",
+    "Prior new-AVD/Debug timeout at 12.7s was an uncontrolled busy-start observation and eventually displayed onboarding. A command timeout is not established as the root cause.",
+    "Current stable six launches all returned Status ok with first screen evidence.",
+    "Emulator timing is not representative of production physical-device performance. Fully drawn appears in ActivityTaskManager logs but no new product reportFullyDrawn instrumentation was added."
+  ],
+  "frozenSource": "android-source-baseline.json",
+  "packages": "android-baseline-packages.json",
+  "rawResults": [
+    "android-debug-startup-results.json",
+    "android-release-startup-results.json"
+  ],
+  "measurementScript": "measure_android_startup.py",
+  "finalPackage": {
+    "path": "outputs/ID-Fixture-1.0.0-1-android-arm64-local-test.apk",
+    "bytes": 18178677,
+    "sha256": "b04b9b478cf737f846e31b12e6c87d2d81f5fa7344869fadc804cd0be4d11ddb",
+    "reproducibleBuild": "flutter_app/tool/build_android_local.sh (root executed; identical hash to measured AOT package)",
+    "signature": "Existing local Android Debug keystore; local-test only, not production release signing."
+  },
+  "officialReferences": [
+    "https://docs.flutter.dev/testing/build-modes",
+    "https://developer.android.com/topic/performance/issues/launch-time"
+  ],
+  "nativeManual": "MANUAL_ANDROID.json"
+}

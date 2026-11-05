@@ -1,0 +1,20 @@
+[
+  {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/android-avd",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/share-receiver-build/run-20261104T084014-35261",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/share-receiver-build/run-20261104T083916-34847",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  }
+]

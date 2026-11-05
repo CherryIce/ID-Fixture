@@ -1,0 +1,30 @@
+{
+  "preparation": "Fixture copies prepared on host and adb push to task AVD Downloads; valid fixture is existing actual browser export, not final AOT export.",
+  "files": [
+    {
+      "name": "01-valid-browser-export.json",
+      "bytes": 4818,
+      "sha256": "58fd979b3e9449c1213e4229c7570a2bf8da1f4eff835f8de924e3174d443cb3"
+    },
+    {
+      "name": "02-invalid-json.json",
+      "bytes": 10,
+      "sha256": "7e3eb5fc8da3096692ed52e9ff2a99e4f5bcb43640259131f8ab783a7723862a"
+    },
+    {
+      "name": "03-wrong-version.json",
+      "bytes": 4820,
+      "sha256": "33a042e8d1d99b8a565a87409d6a5cb87254c6e66bc88ca6c77454c6259bdc69"
+    },
+    {
+      "name": "04-tampered-case.json",
+      "bytes": 4818,
+      "sha256": "6931297eaecebe2ffe252f7204dcd0800e41643d211d5879d33659472fe8a0ce"
+    },
+    {
+      "name": "05-over-1mb.json",
+      "bytes": 1048577,
+      "sha256": "9d78de4e5b12fc166bed811cd230621ea1e1e353553fe31b92a73bfbf45d68ee"
+    }
+  ]
+}

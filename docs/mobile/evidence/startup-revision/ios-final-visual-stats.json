@@ -1,0 +1,30 @@
+[
+  {
+    "case": "final-fresh",
+    "interval_seconds": 0.2,
+    "samples": 27,
+    "black_viewport_sample_times": [],
+    "video_includes_preroll": true
+  },
+  {
+    "case": "final-repeat-1",
+    "interval_seconds": 0.2,
+    "samples": 21,
+    "black_viewport_sample_times": [],
+    "video_includes_preroll": true
+  },
+  {
+    "case": "final-repeat-2",
+    "interval_seconds": 0.2,
+    "samples": 21,
+    "black_viewport_sample_times": [],
+    "video_includes_preroll": true
+  },
+  {
+    "case": "final-repeat-3",
+    "interval_seconds": 0.2,
+    "samples": 21,
+    "black_viewport_sample_times": [],
+    "video_includes_preroll": true
+  }
+]

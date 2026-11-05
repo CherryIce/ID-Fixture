@@ -1,0 +1,19 @@
+{
+  "frames": 97,
+  "sample_interval_seconds": 0.2,
+  "selected_seconds": [
+    4.6000000000000005,
+    4.800000000000001,
+    5.0,
+    5.2,
+    5.4,
+    5.6000000000000005,
+    5.800000000000001,
+    6.0,
+    6.4,
+    6.800000000000001,
+    7.6000000000000005,
+    8.8
+  ],
+  "note": "Actual icon launch. Video includes recording pre-roll; timestamps are not startup-latency measurements."
+}

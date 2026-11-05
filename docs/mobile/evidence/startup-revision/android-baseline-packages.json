@@ -1,0 +1,21 @@
+{
+  "source_unchanged_during_build": true,
+  "release_signature": "existing local Android debug keystore; diagnostic only, not production release",
+  "packages": [
+    {
+      "path": "outputs/startup-baseline/ID-Fixture-arm64-debug.apk",
+      "bytes": 84098731,
+      "sha256": "cd3d6b26e5e2e5addebeb0096ab8a33dbc8a02494cc302913d1a5175b11f9cf6"
+    },
+    {
+      "path": "outputs/startup-baseline/ID-Fixture-arm64-release-local-diagnostic.apk",
+      "bytes": 18178677,
+      "sha256": "b04b9b478cf737f846e31b12e6c87d2d81f5fa7344869fadc804cd0be4d11ddb"
+    },
+    {
+      "path": "outputs/startup-baseline/ID-Fixture-arm64-release-unsigned.apk",
+      "bytes": 18141466,
+      "sha256": "e9c958b35b3caaf10be5c1805e149be826f8c8d497fa4ed6e33e8e4a8aa0ce3d"
+    }
+  ]
+}

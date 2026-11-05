@@ -1,0 +1,6 @@
+{
+  "baseline": "docs/mobile/evidence/startup-revision/android-source-baseline.json",
+  "checked_files": 6,
+  "changed_product_files": [],
+  "note": "New build scripts and test-only fixtures are intentional changes outside this baseline."
+}

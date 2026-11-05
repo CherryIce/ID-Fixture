@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:cct="http://www.xml.gov.hk/schemas/cct" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:import namespace="http://www.xml.gov.hk/schemas/cct" schemaLocation="https://www.digitalpolicy.gov.hk/en/our_work/data_governance/policies_standards/interoperability_framework/doc/cct/cct.xsd"/>
+	<xs:complexType name="HKIDNumberDetails.V1.0.CT">
+		<xs:annotation>
+			<xs:documentation>UID = COM000001, Dictionary Entry Name = HKID Number. Details,
+			A unique reference associated with the holder of a Hong Kong Identity Card issued by the Immigration Department of the HKSARG.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Identifier" type="HKIDNumberIdentifier.V1.0.CT"/>
+			<xs:element name="CheckDigit" type="HKIDNumberCheckDigitText.V1.0.CT" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HKIDNumberIdentifier.V1.0.CT">
+		<xs:annotation>
+			<xs:documentation>UID = COM000002, Dictionary Entry Name = HKID Number. Identifier,
+			Hong Kong ID number without check digit</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:restriction base="cct:Identifier.CT">
+				<xs:pattern value="[A-Z]{1,2}[0-9]{6}"/>
+				<xs:minLength value="7"/>
+				<xs:maxLength value="8"/>
+				<xs:attribute name="agencyName" default="Immigration Department of HKSARG">
+					<xs:simpleType>
+						<xs:restriction base="xs:normalizedString">
+							<xs:enumeration value="Immigration Department of HKSARG"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="HKIDNumberCheckDigitText.V1.0.CT">
+		<xs:annotation>
+			<xs:documentation>UID = COM000003, Dictionary Entry Name = HKID Number. Check Digit. Text,
+			Check digit of Hong Kong ID number</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:restriction base="cct:Text.CT">
+				<xs:pattern value="[A0-9]"/>
+				<xs:length value="1"/>
+			</xs:restriction>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

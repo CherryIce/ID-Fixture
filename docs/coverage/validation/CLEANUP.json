@@ -1,0 +1,23 @@
+{
+  "status": "complete",
+  "currentRunOnly": true,
+  "phase1Bytes": 317329408,
+  "finalBytes": 2354405376,
+  "totalAllocatedBytesRemoved": 2671734784,
+  "finalTargetsRemoved": 81,
+  "finalProtectedFilesCompared": 141,
+  "protectedChanged": [],
+  "occupancy": "cleanup-occupancy.json; rechecked no handles immediately before apply",
+  "globalCachesDeleted": false,
+  "git": "not a repository before/after; no staging/commit/push",
+  "retained": [
+    "source and tests",
+    "Pods, pub, Android SDK, Gradle dependencies",
+    "outputs including1.0and1.1anddiagnostic artifacts",
+    "all required logs/screenshots/raw source evidence",
+    "build subtrees containing app/framework/SO/JAR/APK and logs; see cleanup-plan.json",
+    "local preview server left running, serves prototype source only",
+    "iOS installed copy; cannot claim new native interactions fully tested"
+  ],
+  "ownAndroid5562": "stopped then task-only AVD removed; pre-existing5554 not targeted"
+}

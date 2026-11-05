@@ -1,0 +1,167 @@
+{
+  "baseline": "用户要求继续下一个流程；沿用已验收浏览器原型，推进有限规则范围的Flutter本地应用，不含发布",
+  "workspace": "新建flutter_app，父目录无Git仓库，保留原型与全部历史证据",
+  "toolchain": "Flutter 3.35.7 / Dart 3.9.2 / Xcode 26.5；不更新全局工具链",
+  "tasks": [
+    {
+      "task_id": "MOBILE-001",
+      "parent_id": null,
+      "mode": "implementation",
+      "assigned_role": "Executor-engine",
+      "objective": "将JS规则与包协议移植为可独立测试的Dart层，并保持跨平台重放兼容",
+      "files_to_inspect": [
+        "prototype/engine.mjs",
+        "prototype/engine.test.mjs",
+        "docs/prototype/evidence/*.json"
+      ],
+      "files_allowed_to_edit": [
+        "flutter_app/lib/domain/fixture_engine.dart",
+        "flutter_app/test/fixture_engine_test.dart",
+        "flutter_app/test/fixtures/*"
+      ],
+      "local_test_artifact_dir": "flutter_app/test",
+      "constraints": [
+        "不扩大已核规则范围",
+        "VN禁用",
+        "不使用真实身份服务",
+        "测试不打印完整号码"
+      ],
+      "acceptance_criteria": [
+        "JS合法导出包可在Dart重放一致",
+        "正反例、版本/哈希拒绝、确定性与前导零保持",
+        "中国规则仍标demo，美国仅格式层"
+      ],
+      "dependencies": [],
+      "evidence_required": [
+        "Dart单元测试",
+        "独立只读复核"
+      ],
+      "status": "passed"
+    },
+    {
+      "task_id": "MOBILE-002",
+      "parent_id": null,
+      "mode": "implementation",
+      "assigned_role": "Executor-ui",
+      "objective": "实现本地化手机核心流程、设置和首次引导",
+      "files_to_inspect": [
+        "docs/product/PRODUCT_BRIEF.md",
+        "docs/prototype/REVIEW.md",
+        "prototype/index.html",
+        "prototype/style.css"
+      ],
+      "files_allowed_to_edit": [
+        "flutter_app/lib/ui/**",
+        "flutter_app/test/app_widget_test.dart"
+      ],
+      "local_test_artifact_dir": "flutter_app/test",
+      "constraints": [
+        "使用root提供的平台服务与设置接口",
+        "不改原生配置、pubspec或引擎",
+        "Cupertino弹层与动态安全区",
+        "仅显式语言/外观覆盖持久化"
+      ],
+      "acceptance_criteria": [
+        "国家/证件/州联动、生成、检查、导出及导入复现完整",
+        "首次引导可跳过/完成/重看且状态持久化",
+        "取消/错误/版本差异保持原状态",
+        "中英、深浅色、小屏及大字核心操作可达"
+      ],
+      "dependencies": [
+        "MOBILE-001接口",
+        "root服务接口"
+      ],
+      "evidence_required": [
+        "Widget测试",
+        "模拟器渲染和交互",
+        "独立只读复核"
+      ],
+      "status": "passed"
+    },
+    {
+      "task_id": "MOBILE-003",
+      "parent_id": null,
+      "mode": "implementation",
+      "assigned_role": "Executor-platform",
+      "objective": "搭建工程、原生图标/启动、持久化和系统文件/分享服务，集成验证",
+      "files_allowed_to_edit": [
+        "flutter_app/pubspec*",
+        "flutter_app/lib/main.dart",
+        "flutter_app/lib/services/**",
+        "flutter_app/ios/**",
+        "flutter_app/android/**",
+        "flutter_app/branding/**",
+        "flutter_app/tool/**",
+        "flutter_app/test/settings_test.dart",
+        "flutter_app/integration_test/**",
+        "docs/mobile/**"
+      ],
+      "local_test_artifact_dir": "flutter_app/test",
+      "constraints": [
+        "只在本任务专用模拟器验证",
+        "不使用已有用户模拟器或真机",
+        "不签名发布或创建证书",
+        "构建输出在本项目内并按技能收尾清理"
+      ],
+      "acceptance_criteria": [
+        "非默认图标及原生启动配置",
+        "真实本地JSON文件选择与系统分享",
+        "格式/分析/测试通过且有构建和运行证据",
+        "只在实际加密盘点支持时写豁免声明"
+      ],
+      "dependencies": [
+        "MOBILE-001",
+        "MOBILE-002"
+      ],
+      "evidence_required": [
+        "插件/加密清单",
+        "iOS模拟器及Android构建",
+        "截图和运行记录",
+        "清理量及保留项"
+      ],
+      "status": "passed_for_scoped_simulator_acceptance",
+      "previous_status": "implemented_with_validation_gaps",
+      "resolved_by": [
+        "START-IOS-01",
+        "START-ANDROID-02",
+        "START-FLOW-03"
+      ]
+    },
+    {
+      "task_id": "MOBILE-003-R1",
+      "parent_id": "MOBILE-003",
+      "mode": "implementation",
+      "assigned_role": "Executor-platform",
+      "objective": "受限启动修订：原生背景对齐及异步初始设置首帧保持，冷启动黑色过渡复测仍存在",
+      "files_allowed_to_edit": [
+        "flutter_app/ios/Runner/AppDelegate.swift",
+        "flutter_app/ios/Runner/Base.lproj/Main.storyboard",
+        "flutter_app/lib/main.dart"
+      ],
+      "constraints": [
+        "不重建window、不提前makeKeyAndVisible、不增加delay、不迁移Scene或升级SDK"
+      ],
+      "acceptance_criteria": [
+        "本地DerivedData构建通过",
+        "相同专用模拟器由图标冷启动视频对比",
+        "若仍有黑段如实保留视觉未闭合结论"
+      ],
+      "evidence_required": [
+        "build",
+        "simulator",
+        "visual"
+      ],
+      "status": "closed_by_later_revision",
+      "previous_status": "needs_revision_visual_gap_remains",
+      "resolved_by": "START-IOS-01",
+      "resolution": "Original background trial remained unsuccessful; final fix is the complete simulator resource signature, not that trial."
+    }
+  ],
+  "final_verdict": {
+    "functional": "passed_for_inspected_native_android_workflows_and_prior_ios_core_paths",
+    "startup_visual": "passed_ios26_5_simulator_scope",
+    "android_runtime": "controlled_aot_cold_start_and_native_workflow_passed",
+    "release": "outside_scope"
+  },
+  "current_revision": "STARTUP_TASKS.json"
+}

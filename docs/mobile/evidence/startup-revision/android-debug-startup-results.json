@@ -1,0 +1,77 @@
+[
+  {
+    "mode": "debug",
+    "trial": 1,
+    "definition": "force-stop cold process; first trial is first launch after installation; OS filesystem caches are not dropped",
+    "old_process_absent": true,
+    "pid_after": "4184",
+    "status": "ok",
+    "am_start_metrics_ms": {
+      "TotalTime": 2340,
+      "WaitTime": 2356
+    },
+    "host_command_wall_ms": 2393,
+    "displayed_ttid_ms": 2340,
+    "display_lines": [
+      "11-04 16:11:55.927   544   563 I ActivityTaskManager: Displayed dev.idfixture.id_fixture/.MainActivity for user 0: +2s340ms",
+      "11-04 16:11:55.927   544   563 I ActivityTaskManager: Fully drawn dev.idfixture.id_fixture/.MainActivity: +2s340ms"
+    ],
+    "resource_extraction_lines": [
+      "11-04 16:11:54.422  4184  4205 I ResourceExtractor: Resource version mismatch res_timestamp-1-1793779717432",
+      "11-04 16:11:54.671  4184  4205 I ResourceExtractor: Extracted baseline resource assets/flutter_assets/kernel_blob.bin",
+      "11-04 16:11:54.672  4184  4205 I ResourceExtractor: Extracted baseline resource assets/flutter_assets/vm_snapshot_data",
+      "11-04 16:11:54.708  4184  4205 I ResourceExtractor: Extracted baseline resource assets/flutter_assets/isolate_snapshot_data"
+    ],
+    "resource_extraction_span_ms": 286,
+    "screenshot": "android-debug-cold-1.png",
+    "captured_at": "2026-11-04T16:11:57+08:00"
+  },
+  {
+    "mode": "debug",
+    "trial": 2,
+    "definition": "force-stop cold process; first trial is first launch after installation; OS filesystem caches are not dropped",
+    "old_process_absent": true,
+    "pid_after": "4273",
+    "status": "ok",
+    "am_start_metrics_ms": {
+      "TotalTime": 1531,
+      "WaitTime": 1534
+    },
+    "host_command_wall_ms": 1580,
+    "displayed_ttid_ms": 1531,
+    "display_lines": [
+      "11-04 16:12:05.189   544   563 I ActivityTaskManager: Displayed dev.idfixture.id_fixture/.MainActivity for user 0: +1s531ms",
+      "11-04 16:12:05.189   544   563 I ActivityTaskManager: Fully drawn dev.idfixture.id_fixture/.MainActivity: +1s531ms"
+    ],
+    "resource_extraction_lines": [
+      "11-04 16:12:04.251  4273  4291 I ResourceExtractor: Found extracted resources res_timestamp-1-1793779717432"
+    ],
+    "resource_extraction_span_ms": null,
+    "screenshot": "android-debug-cold-2.png",
+    "captured_at": "2026-11-04T16:12:07+08:00"
+  },
+  {
+    "mode": "debug",
+    "trial": 3,
+    "definition": "force-stop cold process; first trial is first launch after installation; OS filesystem caches are not dropped",
+    "old_process_absent": true,
+    "pid_after": "4342",
+    "status": "ok",
+    "am_start_metrics_ms": {
+      "TotalTime": 1853,
+      "WaitTime": 1853
+    },
+    "host_command_wall_ms": 1879,
+    "displayed_ttid_ms": 1853,
+    "display_lines": [
+      "11-04 16:12:14.791   544   563 I ActivityTaskManager: Displayed dev.idfixture.id_fixture/.MainActivity for user 0: +1s853ms",
+      "11-04 16:12:14.791   544   563 I ActivityTaskManager: Fully drawn dev.idfixture.id_fixture/.MainActivity: +1s853ms"
+    ],
+    "resource_extraction_lines": [
+      "11-04 16:12:13.598  4342  4360 I ResourceExtractor: Found extracted resources res_timestamp-1-1793779717432"
+    ],
+    "resource_extraction_span_ms": null,
+    "screenshot": "android-debug-cold-3.png",
+    "captured_at": "2026-11-04T16:12:16+08:00"
+  }
+]

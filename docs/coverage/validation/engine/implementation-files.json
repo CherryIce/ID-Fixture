@@ -1,0 +1,70 @@
+{
+  "prototype/engine.mjs": {
+    "bytes": 1567,
+    "sha256": "6fe651a74e8b1bce220c0017b7f370da9f44840b99b91d3b3ae1e8290f57b207"
+  },
+  "prototype/engine_legacy.mjs": {
+    "bytes": 20203,
+    "sha256": "5467636695446d4fd82ea948d31b346bccaf99b65f46b58b5af0c3fa9b2dd28e"
+  },
+  "prototype/coverage_engine.mjs": {
+    "bytes": 26756,
+    "sha256": "ea6ab1eed15665c56870cbe8b766f93934e9d2ff53f5680819b63d3bd01f4262"
+  },
+  "prototype/engine.test.mjs": {
+    "bytes": 11138,
+    "sha256": "2cd8c4caae1c0b4a00d5b08375a9078c8f588672834767f8b98e6af235f364b0"
+  },
+  "prototype/coverage_engine.test.mjs": {
+    "bytes": 13904,
+    "sha256": "d607eb84ac342ecdfdf41984249a208425dd8ee6dbb82bc6f485bb912067ad8f"
+  },
+  "prototype/engine_generate_goldens.mjs": {
+    "bytes": 1570,
+    "sha256": "1cf27099ca3f3f8ac5c7ee199985fd8060fca4aeb6acd81a7bd91e1f10892c2c"
+  },
+  "flutter_app/lib/domain/fixture_engine.dart": {
+    "bytes": 3437,
+    "sha256": "731bdc46c0af190139c111662c1e8989519c4e6c65accd38b2b4d38a76c0cc24"
+  },
+  "flutter_app/lib/domain/fixture_models.dart": {
+    "bytes": 3786,
+    "sha256": "8a6941bad40a87555c1d660a86e53c5f27c53ea0a800a027cfcbedb2d556ccd0"
+  },
+  "flutter_app/lib/domain/legacy_fixture_engine.dart": {
+    "bytes": 27532,
+    "sha256": "c187980c4dd4eb0238ab5b4c378c0af021ff40da4a0a90086b9780b0976ffd66"
+  },
+  "flutter_app/lib/domain/coverage_fixture_engine.dart": {
+    "bytes": 25369,
+    "sha256": "36561ef2209458b0bbd3b026d1d9c7bfaa1255304fda958ed521eb8fdb8f0d9d"
+  },
+  "flutter_app/lib/domain/coverage_profiles.dart": {
+    "bytes": 8018,
+    "sha256": "8e26f641f47b82d85c1b9cae62bfb10434ca829fbeebf3768eb22bfcd5f680d8"
+  },
+  "flutter_app/test/fixture_engine_test.dart": {
+    "bytes": 18402,
+    "sha256": "8cbbc8bdaef4ca70b6c47d129d5763732c7c6b6f327695f6047b7040cd8ab17e"
+  },
+  "flutter_app/test/coverage_engine_test.dart": {
+    "bytes": 16878,
+    "sha256": "097ebb1e5c8e61f38b036627b9ad86761dbc5f0e1226bddf2492e361cdec9103"
+  },
+  "flutter_app/test/fixtures/js_golden_packages.json": {
+    "bytes": 732187,
+    "sha256": "aa0f01058c8a74dd055698e45760b771d9f2dbe9316239837ee279e2e3030739"
+  },
+  "flutter_app/test/fixtures/prototype-exported-package.json": {
+    "bytes": 4818,
+    "sha256": "58fd979b3e9449c1213e4229c7570a2bf8da1f4eff835f8de924e3174d443cb3"
+  },
+  "flutter_app/test/fixtures/coverage_js_golden_packages.json": {
+    "bytes": 391379,
+    "sha256": "0009df41f659db798b8584d23878f12953913254c913f416009db6a135241ada"
+  },
+  "prototype/coverage_data.mjs": {
+    "bytes": 905646,
+    "sha256": "8774165ec57a0063a2e32df96311cdce7c7b31d1354e06430d0e3d7ea1d72aa5"
+  }
+}

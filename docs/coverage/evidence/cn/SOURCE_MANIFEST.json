@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "retrievedAt": "2026-11-05T09:38:16.488902+00:00",
+  "userDate": "2026-11-05",
+  "dataBaseline": "Xzqh20251231",
+  "retrievalMethod": "HTTPS urllib.request; public endpoints referenced by the official publication UI; no authentication or captcha bypass.",
+  "sourceFiles": [
+    {
+      "file": "mca-version-publish.html",
+      "url": "https://dmfw.mca.gov.cn/XzqhVersionPublish.html",
+      "httpStatus": 200,
+      "bytes": 32547,
+      "sha256": "4b5198d67feed8fce221ecfdacd551793a629d3f0bb3e12ffed57de9539530fe",
+      "note": "Official publication UI; states cutoff 2025-12-31 and fixed table Xzqh20251231."
+    },
+    {
+      "file": "mca-baseUrl.js",
+      "url": "https://dmfw.mca.gov.cn/common/baseUrl.js",
+      "httpStatus": 200,
+      "bytes": 3111,
+      "sha256": "96cce2cc48ad7eb17e946b9794a022e62ea4274726ea2e1c372703873ecfba6c",
+      "note": "Official UI endpoint configuration."
+    },
+    {
+      "file": "mca-Xzqh20251231-all.raw.json",
+      "url": "https://dmfw.mca.gov.cn/xzqh/getCodeList",
+      "httpStatus": 200,
+      "bytes": 7725128,
+      "sha256": "a0fb57c80b602be05c3182958609ca9f10c5d66c5ec647e48bb317eb8f2338bc",
+      "note": "POST parameters recorded in normalized datasets; complete 41935-row fixed table."
+    },
+    {
+      "file": "mca-current-undated-tree.json",
+      "url": "https://dmfw.mca.gov.cn/xzqh/getList?code=0&trimCode=true&maxLevel=3",
+      "httpStatus": 200,
+      "bytes": 251010,
+      "sha256": "9908f56c5ae53136caade2d0aae79742f0872146b46be4b9c0d06c460706cf94",
+      "note": "Current undated navigation tree, deliberately not merged into 2025 snapshot."
+    },
+    {
+      "file": "mca-2024-county-and-above.html",
+      "url": "https://www.mca.gov.cn/mzsj/xzqh/2025/202401xzqh.html",
+      "httpStatus": 200,
+      "bytes": 1482962,
+      "sha256": "d4669f6c81091287127147720bad0f3c3465e9e2a2dcc7e887893cc787a23431",
+      "note": "Official 2024 Excel-generated HTML fallback; not the chosen baseline."
+    },
+    {
+      "file": "samr-gb11643-current.html",
+      "url": "https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=080D6FBF2BB468F9007657F26D60013E&refer=outter",
+      "httpStatus": 200,
+      "bytes": 23962,
+      "sha256": "f9743eeb35858c5a881fcb725df7bd43c7aa98cd251d72091b6f3e86b056017a",
+      "note": "Current standard-status page; GB11643-1999 is current."
+    },
+    {
+      "file": "gb11643-1999-beijing-gov.pdf",
+      "url": "https://zjw.beijing.gov.cn/Portals/0/zhuanti/fazhan/%E8%BA%AB%E4%BB%BD%E8%AF%81GB11643-1999.pdf",
+      "httpStatus": 200,
+      "bytes": 237274,
+      "sha256": "bd4944aa76ce10af33e4c6ea98c74445cd68882412d2fab1d00ed13f313fbc69",
+      "note": "Official government-hosted full standard copy; clauses 5.1.1-5.1.4 for rules."
+    },
+    {
+      "file": "nbs-statistical-code-rules.html",
+      "url": "https://www.stats.gov.cn/sj/tjbz/gjtjbz/202302/t20230213_1902741.html",
+      "httpStatus": 200,
+      "bytes": 180107,
+      "sha256": "00feace28725f818fde94f6d74f78a1fe51488d342c8911bf447b33acc24e8f1",
+      "note": "12-digit statistical code and separate urban/rural segments; not an ID address issuance register."
+    },
+    {
+      "file": "xiongan-address-code-133100.html",
+      "url": "https://www.xiongan.gov.cn/2023-11/01/c_1212295926.htm",
+      "httpStatus": 200,
+      "bytes": 14499,
+      "sha256": "5486893173a162484d058ee34cfad8961f6f159fceb4081bc7e596dfbd98af44",
+      "note": "Official report on 133100 newborn identity-prefix adoption, dated 2023-11-01."
+    },
+    {
+      "file": "citizen-id-lifetime-ningcheng.html",
+      "url": "https://www.ningchengxian.gov.cn/jczwgk/jczwgk_zfbm/jczwgk_gaj/jczwgk_gaj_hjgl/jczwgk_gaj_hjgl_ssqk/202411/t20241104_2450315.html",
+      "httpStatus": 200,
+      "bytes": 27081,
+      "sha256": "4134a200c32c57d4693e7660fa1767ce57f7d1d842d801463f863aa14e3e7e35",
+      "note": "Official reproduction of national decision: lifetime identity code; allocation by public-security authorities."
+    }
+  ],
+  "additionalPrimarySources": [
+    {
+      "id": "CN-CODE-MGMT-2025",
+      "url": "https://www.moj.gov.cn/pub/sfbgw/flfggz/flfggzbmgz/202512/t20251204_528920.html",
+      "title": "行政区划代码管理办法",
+      "sourceDate": "2025-06-30",
+      "observed": "Rules specify publication through national place-name database every January for preceding year-end. Search result readable; direct fetch redirect loop."
+    },
+    {
+      "id": "ID-USAGE-441900",
+      "sourceUrl": "https://dgsafety.dg.gov.cn/zfxxgkml/qt/tzgg/content/post_4372943.html",
+      "sourceDate": "2025-04-22",
+      "observation": "Official Dongguan announcement contains a masked citizen ID beginning 441900. No names or full IDs retained here.",
+      "conclusion": "Observed use only; current allocation unknown."
+    },
+    {
+      "id": "ID-USAGE-442000",
+      "sourceUrl": "https://www.zs.gov.cn/hpz/gggs/content/post_2599384.html",
+      "sourceDate": "2026-03-19",
+      "observation": "Official Zhongshan announcement contains a masked citizen ID beginning 442000. No names or full IDs retained here.",
+      "conclusion": "Observed use only; current allocation unknown."
+    },
+    {
+      "id": "ID-USAGE-460400",
+      "sourceUrl": "https://dmfw.mca.gov.cn/XzqhVersionPublish.html",
+      "sourceDate": "snapshot 2025-12-31",
+      "observation": "Official MCA snapshot lists Danzhou as a prefecture with code 460400; no county child. No primary-source ID issuance statement found in this run.",
+      "conclusion": "Administrative reference only; ID allocation unknown."
+    },
+    {
+      "id": "ID-USAGE-620200",
+      "sourceUrl": "https://dmfw.mca.gov.cn/XzqhVersionPublish.html",
+      "sourceDate": "snapshot 2025-12-31",
+      "observation": "Official MCA snapshot lists Jiayuguan as a prefecture with code 620200; no county child. Official masked ID usage found separately for 620201, not 620200.",
+      "conclusion": "Administrative reference only; ID allocation unknown."
+    },
+    {
+      "id": "ID-USAGE-620201",
+      "url": "https://www.jyg.gov.cn/rsj/xwdt/tzgg/art/2026/art_6aa70dc090ad45d88e1ba99f5ece25fe.html",
+      "observed": "Masked official IDs begin 620201; no names or full IDs retained."
+    }
+  ],
+  "derivedFiles": [
+    {
+      "file": "cn-mca-2025-mainland31-county-and-above.json",
+      "bytes": 2174142,
+      "sha256": "d751b37b16a9b416e6258a9296d5742e7447f2257d4762810538e1a5f9d0d097"
+    },
+    {
+      "file": "cn-mca-2025-fixture-regions.json",
+      "bytes": 1936227,
+      "sha256": "1e7c45dad87b48bd2d66991ba6dd29839eba85ca0c8d2ca3a3d477d75fb4c5af"
+    },
+    {
+      "file": "cn-mca-2025-coverage.json",
+      "bytes": 8756,
+      "sha256": "3ae58ff7ccd38f69a78837e2ba0573412e747cee57a7e210ac141f2a4340a11f"
+    },
+    {
+      "file": "cn-identity-prefix-exceptions.json",
+      "bytes": 1438,
+      "sha256": "e51c7c9a7dac568941d73164d6b2e64e6edc9ba7e4b7c698260147c28c2026ff"
+    },
+    {
+      "file": "cn-mca-current-20261105-supplement.json",
+      "bytes": 3488,
+      "sha256": "a2d671a60ef7cf57590c789a32d875fabbca614117be794fc9fd4d2bfff406c1"
+    }
+  ]
+}

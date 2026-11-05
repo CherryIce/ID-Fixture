@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "path": "outputs/ID-Fixture-1.0.0-1-debug.apk",
+      "bytes": 173270179,
+      "sha256": "c8a172ac6da9acffe1ae1418a572c7d31973fe4dfc915953275b4024910222d7"
+    },
+    {
+      "path": "outputs/ID-Fixture-1.0.0-1-ios-simulator.zip",
+      "bytes": 36772627,
+      "sha256": "7818588df532f44562e7869de9cf21bdb59224ef701dee6f72bd89269894a9d4"
+    }
+  ],
+  "simulator_zip_files_verified": 75,
+  "simulator_bundle": {
+    "CFBundleIdentifier": "dev.idfixture.idFixture",
+    "CFBundleShortVersionString": "1.0.0",
+    "CFBundleVersion": "1",
+    "MinimumOSVersion": "13.0",
+    "ITSAppUsesNonExemptEncryption": false
+  }
+}

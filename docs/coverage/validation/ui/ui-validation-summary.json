@@ -1,0 +1,117 @@
+{
+  "stage": "coverage-expansion-ui",
+  "recorded_at_utc": "2026-11-05T10:40:58.020970+00:00",
+  "widget_tests": {
+    "count": 21,
+    "passed": 21,
+    "failed": 0,
+    "exit_code": 0,
+    "log": "widget-final-21.log",
+    "duration_seconds_approx": 7
+  },
+  "analyze": {
+    "files": [
+      "lib/ui/app.dart",
+      "lib/ui/widgets/address_picker.dart",
+      "test/app_widget_test.dart",
+      "integration_test/android_workflow_test.dart",
+      "test_driver/integration_driver.dart"
+    ],
+    "exit_code": 0,
+    "log": "analyze-tw-permission-final.log",
+    "issues": 0
+  },
+  "android_integration": {
+    "business_cases": 6,
+    "status": "final_source_executed_6_of_6_passed",
+    "device_operated": true,
+    "native_services": true,
+    "native_share_or_file_picker_automated": false,
+    "evidence": "../android-integration/summary.json",
+    "source_relation": "Final run after Taiwan permission fix; source hashes unchanged during device run. First-run evidence retained separately.",
+    "response": "../android-integration/response-final.json",
+    "log": "../android-integration/drive-final.log",
+    "business_cases_passed": 6,
+    "exit_code": 0,
+    "runtime_seconds_approx": 82
+  },
+  "attempts": [
+    {
+      "log": "widget-first.log",
+      "passed": 17,
+      "failed": 2,
+      "cause": "Stale checksum label expectation and large-text lazy search locator."
+    },
+    {
+      "log": "widget-second.log",
+      "passed": 18,
+      "failed": 1,
+      "cause": "Search locator used scroll step larger than tiny keyboard-constrained viewport."
+    },
+    {
+      "log": "widget-keyboard-diagnostic.log",
+      "status": "diagnostic_failure"
+    },
+    {
+      "log": "widget-keyboard-diagnostic2.log",
+      "status": "diagnostic_failure",
+      "finding": "100px real scroll reached search; long row center can be clipped."
+    },
+    {
+      "log": "widget-keyboard-third.log",
+      "passed": 1,
+      "failed": 0,
+      "scope": "focused keyboard case"
+    },
+    {
+      "log": "widget-final.log",
+      "passed": 19,
+      "failed": 0,
+      "scope": "before additional five-profile import test"
+    },
+    {
+      "log": "widget-final-20.log",
+      "passed": 20,
+      "failed": 0
+    },
+    {
+      "log": "tw-permission-before.log",
+      "passed": 0,
+      "failed": 1,
+      "cause": "Reviewer P2 reproduced: legitimate TW current A with allowHistorical=true was silently rewritten to false on regeneration."
+    },
+    {
+      "log": "tw-permission-after.log",
+      "passed": 1,
+      "failed": 0,
+      "scope": "focused current-prefix historical permission and picker cancellation/same-code/actual-change/reset test"
+    },
+    {
+      "log": "widget-final-21.log",
+      "passed": 21,
+      "failed": 0
+    }
+  ],
+  "source_sha256": {
+    "lib/ui/app.dart": "0f1486ddcb83bbf76e455a60531b7118fc7f4f3494db4ee7c1c3a63250071ff7",
+    "lib/ui/widgets/address_picker.dart": "dacae7278cff35549e33bcc9f979dc6b40971b52464b580b3bd9cad0d7f34e5a",
+    "test/app_widget_test.dart": "029023ed4734decb96901a542767a0cad2fb528a240d59aebff7fdafab0b77be",
+    "integration_test/android_workflow_test.dart": "fd6bd004e92da297a20033bdd053b8dbe6040eea76e8c4ad447103f80fdfcf23",
+    "test_driver/integration_driver.dart": "278a9269ae192761f919756a56fda73343bea9dd0af4cf3e69c4d35a3328a9af"
+  },
+  "cleanup": {
+    "status": "retained_for_coordinator",
+    "reason": "Coordinator is concurrently building and validating final Android/iOS artifacts from shared project build trees; only focused widget/analyze run here. Coordinator owns protected final cleanup."
+  },
+  "scope_limits": [
+    "Widget tests use fake platform services, not system sheets.",
+    "Final dedicated Android run passed six business cases after the Taiwan permission fix; see ../android-integration/summary.json.",
+    "Native share/file picker and ordinary AOT/cold-start acceptance remain separate coordinator checks."
+  ],
+  "final_quality_gate": {
+    "flutter_tests_passed": 53,
+    "format": "passed",
+    "analyze": "passed",
+    "report": "../quality-final/20261105T183503+0800/quality-gate.json"
+  }
+}

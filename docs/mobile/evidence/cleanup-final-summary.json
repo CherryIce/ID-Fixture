@@ -1,0 +1,69 @@
+{
+  "completed_at": "2026-11-04T07:50:56.572105+00:00",
+  "removed_directory_count": 97,
+  "allocated_bytes_removed": 3306979328,
+  "protected_source_dependencies_package_config_unchanged": true,
+  "delivery_hashes_unchanged": true,
+  "git_status": "not_a_git_repository",
+  "retained_mixed_artifact_trees": [
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/cxx",
+      "status": "retained",
+      "reason": "contains protected data: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/cxx/debug/4w1r2s11/logs"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar",
+      "status": "retained",
+      "reason": "contains artifact or evidence requiring retention: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/processDebugResources/R.jar"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/merged_java_res",
+      "status": "retained",
+      "reason": "contains artifact or evidence requiring retention: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/merged_java_res/debug/mergeDebugJavaResource/base.jar"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/project_dex_archive",
+      "status": "retained",
+      "reason": "contains artifact or evidence requiring retention: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/project_dex_archive/debug/dexBuilderDebug/out/6ff8b5363b22ab6b9fc6468c8f3ff06afa2a1cf848bc6e243d75c58947591312_3.jar"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/flutter",
+      "status": "retained",
+      "reason": "contains artifact or evidence requiring retention: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/flutter/debug/libs.jar"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/merged_native_libs",
+      "status": "retained",
+      "reason": "contains artifact or evidence requiring retention: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/merged_native_libs/debug/mergeDebugNativeLibs/out/lib/armeabi-v7a/libflutter.so"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/compressed_assets",
+      "status": "retained",
+      "reason": "contains artifact or evidence requiring retention: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/compressed_assets/debug/compressDebugAssets/out/assets/flutter_assets/AssetManifest.json.jar"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/stripped_native_libs",
+      "status": "retained",
+      "reason": "contains artifact or evidence requiring retention: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/build/app/intermediates/stripped_native_libs/debug/stripDebugDebugSymbols/out/lib/armeabi-v7a/libflutter.so"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.dart_tool/flutter_build",
+      "status": "retained",
+      "reason": "contains artifact or evidence requiring retention: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.dart_tool/flutter_build/5a06c3b12d2b2b455d736ae35774806a/App.framework"
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/DerivedData/Build/Intermediates.noindex",
+      "status": "retained",
+      "reason": "contains artifact or evidence requiring retention: /Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/DerivedData/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator/integration_test.framework"
+    }
+  ],
+  "retained_other": [
+    "outputs delivery artifacts",
+    "source, Pods, SDK, lockfiles and evidence",
+    "project Gradle state while its daemon may retain handles",
+    "installed iOS simulator app for user inspection",
+    "shared/global caches not authorized for cleanup"
+  ],
+  "free_bytes_after": 8505626624,
+  "android_validation_avd_removed": true
+}

@@ -1,0 +1,8 @@
+# Keep archived official documents byte-identical to their source manifests.
+docs/coverage/evidence/** -text -diff
+
+# Deliberately malformed import fixtures include whitespace and oversized input.
+docs/mobile/evidence/startup-revision/android-picker-fixtures/** -text -diff
+
+# Preserve the standard Windows wrapper without newline conversion.
+*.bat -text whitespace=cr-at-eol

@@ -1,0 +1,4104 @@
+/*
+
+[All Var will initial in app_mo_initVar.js]
+
+*/
+
+window.onload = function() {
+	callTokenServlet();
+	//showPromoPopup();
+};
+
+function showPromoPopup(){
+	if(!isContainOTPandAppsource()){
+		showPopUp(getString("voting_2025_title", lang),getString("voting_2025_content", lang), getString("display_btn_CLOSE", lang));
+		canShowPopupNow = false;
+	}
+}
+
+//application_mo run #0001 - start
+if (isInternalSite() && isLoggedInInternal() != null) {
+	altFunctionJS_001();
+}
+if (location.pathname.indexOf("hkp") == 1) {
+	$('div[id*=_captchaCode]').hide();
+}
+go_reg();
+//application_mo run #0001 - end
+
+$('#myModal').on('hidden.bs.modal', function (e) {
+    // Custom code to execute after the modal is closed
+    canShowPopupNow = true;
+    showPopUp(tempModalTitle,tempModalContent,tempModalFooterBtn);
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all links with the class "link_with_param"
+    const links = document.querySelectorAll('.link_with_param');
+    const currentUrl = window.location.href;
+
+    // Check if there are query parameters in the current URL
+    const queryString = currentUrl.includes('?') ? currentUrl.substring(currentUrl.indexOf('?')) : '';
+
+    // Update each link's href to include query parameters
+    links.forEach(link => {
+        link.href += queryString;
+    });
+});
+
+$("#initial").ready(function() {
+	//setup system param
+	getAllSystemParams();
+	
+	//--- [start] Checker for Covid or SIVFHS or HEPA----
+	if(sysType === HEPA){ 
+		$("#footer_privacy").remove();
+	}else if(sysType === SIVFHS){ 
+		// SIVFHS only
+		$('#step_1_ATGC_NATCARDTYPE').val('BIRTH_CERT'); 
+	}else{ 
+		// Covid only
+	}
+	//--- [end] Checker for Covid or SIVFHS or HEPA----
+	
+	
+	controlLayoutAndTextBySysType();
+	
+	
+	//hkp_document_type_eep
+
+	$(".step_1_documentId_detail input[type=text]").blur(function() {
+		$(this).val($(this).val().replace(/\s/g, ''));
+	});
+
+	var browserType = getBrowserType();
+	if (browserType != "PC_Browser") {
+		altFunctionJS_009();
+	}
+
+	$("#pre_reg_sinovac").click(function() {
+		homePageButtonClick_Common();
+		$("#step_1_third_dose_vacc_Sinovac").prop("checked", true);
+		select_vacc_code = doseCodeSin;
+		select_vacc_name = doseNameSin;
+		$("#step_2_ref_bv_indicator").val("N");
+	});
+	
+	$("#pre_reg_c19").click(function() {
+		homePageButtonClick_Common();
+		$("#step_1_third_dose_vacc_BioNTech").prop("checked", true);
+		select_vacc_code = doseCodeBio;
+		select_vacc_name = doseNameBio;
+		$("#step_2_ref_bv_indicator").val("N");
+		controlCoadminDynamicMsg(systemParamResponseJs.COADMIN_CLOSE_MSG_EN,langEN);
+		controlCoadminDynamicMsg(systemParamResponseJs.COADMIN_CLOSE_MSG_TC,langTC);
+		controlCoadminDynamicMsg(systemParamResponseJs.COADMIN_CLOSE_MSG_SC,langSC);
+	});
+	
+	$("#pre_reg_sivfhs").click(function() {
+		homePageButtonClick_Common();
+		$("#step_1_third_dose_vacc_SIVFHS").prop("checked", true);
+		select_vacc_code = doseCodeSiv;
+		select_vacc_name = sivfhsDoseName;
+		$("#step_2_ref_bv_indicator").val("N");
+	});
+	
+	$("#pre_reg_hepa").click(function() {
+		
+		$("#step_1_third_dose_vacc_HEPA").prop("checked", true);
+		select_vacc_code = doseCodeHepA;
+		select_vacc_name = hepaDoseName;
+		$("#step_2_ref_bv_indicator").val("N");
+		$("#select_additional_dose").val("1").change();
+		homePageButtonClick_Common();
+	});
+	
+	$("#step_1_date_of_second_dose_year, #step_1_date_of_second_dose_month, #step_1_date_of_second_dose_day").change(function() {
+		//For Last Dose Date (3)
+	    filterAndHidePriorityGroupByDOBandDoseInterval();
+	});
+
+	$("#select_additional_dose").change(function() {
+		//For Dose round select (1)
+		filterAndHidePriorityGroupByDOBandDoseInterval();
+
+		
+		$(".to_vacc_dose_tag, .common_dose_content").hide();
+		$(".step_1_date_of_second_dose").show();
+		$('#step_1_date_of_second_dose_year, #step_1_date_of_second_dose_month, #step_1_date_of_second_dose_day').prop('required', true);
+		isFirstDose = false;
+		
+		showInactivatedVaccineDeadlineMsg();
+				
+	    var doseUIConfig = [
+	        [$(".to_vacc_dose_tag"), "Y"], // Default case
+	    ];
+
+    	// Loop through the supported dose rounds
+	    for (var i = 1; i <= supportedDoseRound; i++) {
+	        var doseLabel = int_To_LowerDoseNum_EN[i];
+	        if(doseLabel !== undefined){
+				 doseUIConfig.push([$(`.to_vacc_${doseLabel.toLowerCase()}`), "Y"]); // Default "N" for all
+			}else{
+				console.log("[info] supported dose round is not sync with cache");
+			}
+	    }
+	    
+		if(supportedDoseRound >= 2){
+	        doseUIConfig[2][1] = "N";
+		}
+		if(supportedDoseRound >= 3){
+	        doseUIConfig[3][1] = "N";
+		}
+		if(supportedDoseRound >= 4){
+	        doseUIConfig[4][1] = "N";
+		}
+		
+		selectedDoseRound = $(this).val();
+		$(doseUIConfig[selectedDoseRound][0]).show();
+		if(isCurrentHEPA()){
+			// For HEPA
+			$(".common_dose_content").show();
+			$(".step_1_date_of_second_dose").hide();
+			$('#step_1_date_of_second_dose_year, #step_1_date_of_second_dose_month, #step_1_date_of_second_dose_day').prop('required', false);
+			addition_dose_display = getString("num_" + selectedDoseRound, lang);
+			isFirstDose = true;
+			
+		} else if(isCurrentSIVFHS() && selectedDoseRound == 2){
+			// For SIVFHS Dose 2
+			$(".common_dose_content").show();
+			$(".step_1_date_of_second_dose").hide();
+			$('#step_1_date_of_second_dose_year, #step_1_date_of_second_dose_month, #step_1_date_of_second_dose_day').prop('required', false);
+			
+		} else if (selectedDoseRound == 1 || (isCurrentSIVFHS() && selectedDoseRound == 1) ) {
+			// For Covid Dose 1 & For SIVFHS Dose 1 
+			$(".common_dose_content").show();
+			$(".step_1_date_of_second_dose").hide();
+			$('#step_1_date_of_second_dose_year, #step_1_date_of_second_dose_month, #step_1_date_of_second_dose_day').prop('required', false);
+			addition_dose_display = getString("num_" + selectedDoseRound, lang);
+			isFirstDose = true;
+		} else if (selectedDoseRound > 1 && selectedDoseRound <= supportedDoseRound) {
+			// For Covid Dose 2 and after
+			$(".common_dose_content").show();
+			addition_dose_display = getString("num_" + selectedDoseRound, lang);
+			if (doseUIConfig[selectedDoseRound][1] == "N") {
+				if (select_vacc_code == doseCodeSin && select_vacc_name == doseNameSin) {
+					$(".d" + selectedDoseRound + "_elig_grp_sin").show();
+					$(".d" + selectedDoseRound + "_elig_grp_bnt").hide();
+				} else if (select_vacc_code == doseCodeBio && select_vacc_name == doseNameBio) {
+					$(".d" + selectedDoseRound + "_elig_grp_sin").hide();
+					$(".d" + selectedDoseRound + "_elig_grp_bnt").show();
+				}
+			}
+		} else {
+			$(doseUIConfig[0][0]).hide();
+			$(".common_dose_content").hide();
+		}
+		
+		$('.hkid_input').show();
+		$(".step_1_third_dose").hide();
+		
+		// visibility of infected person dropdown	
+		if (isCurrentC19()) {
+			if (selectedDoseRound >= minDoseForPriorInfectedChecking && selectedDoseRound <= maxDoseForPriorInfectedChecking) {
+				$(".step_1_infected_person").show();
+			} else {
+				$(".step_1_infected_person").hide();
+				executeInfectedPersonLogic("I"); // set "I" to show infected UI by default for dose 5 and above
+				filterAndHidePriorityGroupByDOBandDoseInterval();
+			}
+		}
+		
+		// update the UI when user selects a 'Infected' status and modifies the dose sequence.
+		if (isCurrentC19()) {
+			$("#step_1_infected_person").change();
+		}
+		//prefillPMIData(decryptedContent);
+		
+		if(isCurrentC19()){
+			controlPriority_grp_filtering_div_Text();
+		}
+		
+	})
+	
+	$("#step_1_infected_person").change(function() {
+		if (selectedDoseRound >= minDoseForPriorInfectedChecking && selectedDoseRound <= maxDoseForPriorInfectedChecking) {
+			if ($(this).val()) {
+				executeInfectedPersonLogic($(this).val());
+				filterAndHidePriorityGroupByDOBandDoseInterval();
+			}
+		}
+	});
+
+	$("#step_2_priority_group").change(function() {
+		var priority_id = $(this).val();
+		$('#step_2_statistic_group option:not([value=""])').remove();
+
+		$.each(statistic_groups.statistic_groups, function(index, statistic_group) {
+			var display_label = "";
+			var invisible_label = "";
+			if (priority_id != statistic_group.SG_CAT_ID) {
+				return;
+			}
+			if (lang == langEN) {
+				display_label = statistic_group.SG_ENG_NAME;
+			}
+			if (lang == langTC) {
+				display_label = statistic_group.SG_CHI_NAME;
+			}
+			if (lang == langSC) {
+				display_label = statistic_group.SG_SCHI_NAME;
+			}
+			invisible_label = getString("invisible_label", lang);
+			
+			$('#step_2_statistic_group').append('<option value="' + statistic_group.SG_GROUP_ID + '" statistic_group_id="' + statistic_group.SG_GROUP_ID + '" statistic_group_eng_name="' + statistic_group.SG_ENG_NAME + '" statistic_group_tc_name="' + statistic_group.SG_CHI_NAME + '" statistic_group_sc_name="' + statistic_group.SG_SCHI_NAME + '"  >' + display_label + ' </option>');
+		});
+
+		$("#step_2_statistic_group").prop('disabled', false);
+
+		if ($("#step_2_priority_group option:checked").attr("priority_group_is_age") == "Y") {
+			$("#step_2_statistic_group").val($("#step_2_statistic_group option:not(:disabled)").val());
+			$("#step_2_statistic_group").parent().hide();
+			$(".group_remark").hide();
+		}
+		else {
+			$("#step_2_statistic_group").parent().show();
+			$(".group_remark").show();
+		}
+
+	});
+
+	$('form, :checkbox, :radio').attr('autocomplete', 'off');
+
+	$(".tip-top").tooltip({
+		placement: 'top'
+	});
+
+	moment.locale($("html").attr('lang'));
+	load_booking_period();
+
+	
+	
+	$('#step_2_tel_for_sms_notif_confirm').bind('cut copy paste', function(e) {
+		e.preventDefault();
+	});
+
+	$("#step_1_ATGC_NATCARDTYPE option").each(function() {
+		if ($(this).val() != "") {
+			$(this).html(get_ATGC_NATCARDTYPE($(this).val()));
+		}
+	});
+
+	$("#step_1_ATGC_NATCARDTYPE").change(function() {
+		$('.step_1_documentId_detail input:not([readonly])').prop("required", false);
+		$('.step_1_documentId_detail input:not([readonly])').val("");
+		$('.step_1_documentId_detail > span').addClass("hide");
+		if (hkidFormatList.includes($(this).val())){
+			$(".step_1_documentId_detail > .hk_id_input").removeClass("hide");
+			$(".step_1_documentId_detail > .hk_id_input input:not([readonly])").prop("required", true);
+		}
+
+		else if ($(this).val() == "EC") {
+			$(".step_1_documentId_detail > .ec_input").removeClass("hide");
+			$(".step_1_documentId_detail > .ec_input input:not([readonly])").prop("required", true);
+		}
+		else {
+			$(".step_1_documentId_detail > .other_id_input").removeClass("hide");
+			$(".step_1_documentId_detail > .other_id_input input:not([readonly])").prop("required", true);
+		}
+		altFunctionJS_002();
+	});
+
+	$("input[name=step_1_priority_group]").change(function() {
+		if ($("input[name=step_1_priority_group]:checked").val() == "n") {
+			$("#pg_n").parent().append('<div class="statement_priority_group">'+ getString("pg_n", lang)+'</div>');
+		}
+		else {
+			$(".statement_priority_group").remove();
+		}
+	});
+
+
+	$("#start_reg_button").click(function() {
+		btnClick_start_reg_button();
+	});
+	
+	$(".go_cancel").click(function(e) {
+		e.preventDefault();
+		$(".input_review_control").hide();
+		$(".input_confirm_control").show();
+		show_target($(".step_cancel_booking"));
+	});
+
+	$(".go_update").click(function(e) {
+		e.preventDefault();
+		show_target($(".step_update_booking"));
+		setTimeout(handleTimeout, 1800000);
+
+
+		$(".is_coadm").show();
+		$(".is_not_coadm").hide();
+		$("#step_2_select_join_flu").css({ "max-width": "100%" });
+		$("#step_2_select_join_flu option[value=Y]").text(getString("coadmin_together", lang));
+		showInactivatedVaccineDeadlineMsg();
+		
+		$(".input_review_control").show();
+		$(".input_confirm_control").hide();
+	});
+
+	$(':checkbox').keypress(function(event) {
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+		if (keycode == 13) {
+			$(this).prop('checked', !$(this).prop('checked'));
+		}
+	});
+
+	$("#note_2_confirm").click(function(e) {
+		btnClick_note_2_confirm();
+		if (!isCurrentSIVFHS()) {
+			updateDoseSelect();
+		}
+	});
+
+	$("#e_Consent_confirm").click(function(e) {
+		window.scrollTo(0, 0);
+		$(".consentContent label").find(".highlight_red").remove();
+		if (!isCurrentSIVFHS() && !isCurrentHEPA()) {
+			if ($(".consentContent:visible .e_Consent_checkbox1").is(':checked') == false ||
+				$(".consentContent:visible .e_Consent_checkbox2").is(':checked') == false ||
+				$(".consentContent:visible .e_Consent_checkbox3").is(':checked') == false ||
+				$(".consentContent:visible .e_Consent_checkbox4").is(':checked') == false ||
+				$(".consentContent:visible .e_Consent_checkbox5").is(':checked') == false) {
+				$(".consentContent:visible .e_Consent_checkbox").focus();
+				$("#e_Consent_validate_msg").html(getString("agree_all_consent", lang));
+
+				var first_checkbox = null;
+
+				$(".consentContent:visible input").each(function() {
+					if ($(this).is(':checked') == false) {
+						if (first_checkbox == null) {
+							first_checkbox = $(this);
+						}
+						$("#e_Consent_checkbox").focus();
+						$(".consentContent label[for=" + $(this).attr("class") + "]").append('<span class="highlight_red" role="alert"><br/>' + getString("read_and_understood", lang) + '</span>');
+					}
+				});
+				if (isValueValid(first_checkbox)) {
+					$('html, body').animate({
+						scrollTop: first_checkbox.offset().top - 50
+					}, 500);
+				}
+				return;
+			}
+		}
+
+		if ($("#step_1_ATGC_NATCARDTYPE").val() == "ROP140" || isCurrentSIVFHS() || isCurrentHEPA()) {
+			$("#step_1_join_ess_n").click();
+			$("#ehrss_Consent_confirm").click();
+		}
+		else {
+			if(isRedirectFromEHealthApp()){
+				$("#step_1_join_ess_n").click();
+				$("#ehrss_Consent_confirm").click();
+			}else{
+				show_target($(".ehrss_Consent"));
+			}
+			
+		}
+	});
+
+	$("#ehrss_Consent_confirm").click(function(e) {
+		if ($('input[name=step_1_join_ess]').is(':checked') == false) {
+			$("#ehrss_Consent_validate_msg").html(getString("please_select", lang));
+			$('html, body').animate({
+				scrollTop: $("#ehrss_Consent_validate_msg").offset().top - 50
+			}, 500);
+			return;
+		}
+
+		if ($('input[name=step_1_join_ess]:checked').val() == 'N') {
+			$("#step_2_join_ess_n").prop("checked", true);
+			$("#step_2_join_ess_n").parent().show();
+			$("#step_2_join_ess_y").parent().hide();
+			if (!isCurrentSIVFHS() && !isCurrentHEPA()) {
+				// only hide in C19, SIV need to show but there is no ehrss consent page
+				$(".ehrss_tip_info_p").hide();
+			}
+		}
+		else {
+			$("#step_2_join_ess_y").prop("checked", true);
+			$("#step_2_join_ess_y").parent().show();
+			$("#step_2_join_ess_n").parent().hide();
+			$(".ehrss_tip_info_p").show();
+		}
+		$(".step_2_join_ess").show();
+		if(isCurrentSIVFHS()){
+			$(".step_2_join_ess").hide();
+			if($("#select_additional_dose").val()==1){
+				$("#sivfhs_step2_title_D1").show();
+				$("#sivfhs_step2_title_D2").hide();
+			}else{
+				$("#sivfhs_step2_title_D2").show();
+				$("#sivfhs_step2_title_D1").hide();
+			}
+		}
+		if(isCurrentHEPA()){
+			$(".step_2_join_ess").hide();
+			if($("#select_additional_dose").val()==1){
+				$("#hepa_step2_title_D1").show();
+				$("#hepa_step2_title_D2").hide();
+			}else{
+				$("#hepa_step2_title_D2").show();
+				$("#hepa_step2_title_D1").hide();
+			}
+		}
+		if(isRedirectFromEHealthApp()){
+			$(".step_2_join_ess").hide();
+		}
+		show_target($(".step_2"));
+		setTimeout(handleTimeout, 1800000);
+	});
+
+	$('input[id*=e_Consent_checkbox_past_]').on('change', function() {
+		$('input[id*="' + this.id.slice(0, -1) + '"]').not(this).prop('checked', false);
+	});
+
+	$("#pics_consent").change(function() {
+		if ($("#pics_consent").is(':checked') == true) {
+			$("#pics_consent").prop('checked', true);
+		} else {
+			$("#pics_consent").prop('checked', false);
+		}
+	});
+
+	$("#step_2_dose1_district").change(function() {
+
+		$(".dose1_list_timeslot").html("");
+		$("#step_2_dose1_avalible_timeslots_validate_msg").html("");
+		$("#step_2_dose1_center").empty();
+		$(".dose2_list_timeslot").html("");
+		$("#step_2_dose2_avalible_timeslots_validate_msg").html("");
+		$(".v_mask").show(); $(".dose2 :input").prop("disabled", true);
+		$(".no_quota_error_msg").hide();
+
+		var default_option = "";
+		if(isCurrentHEPA()){
+			default_option = getString("please_select_shsc_centre", lang);
+		}else if(isCurrentSIVFHS()){
+			default_option = getString("please_select_mchc_centre", lang);
+		}else{
+			default_option = getString("please_select_centre", lang);
+		}	
+		$("#step_2_dose1_center").append('<option disabled selected hidden value="">'+ default_option +'</option>');
+
+		var selected_district_id = $(this).val();
+		$.each(ct_center.children, function(index, district) {
+			if (district.id == selected_district_id) {
+				//co admin 1 - separate co admin group for dose 1
+				//start
+				$.each(district.children, function(index, center) {
+					altFunctionJS_010(center);
+				});
+				//end
+			}
+		});
+
+		//co admin 2 - filter each co admin group in UI for dose 1
+		//start
+		var selectedJoinFlu = $("#step_2_select_join_flu").find("option:selected").val();
+		var get_age_full_dob = $("#step_2_date_of_birth_year").val() + "/" + $("#step_2_date_of_birth_month").val() + "/" + $("#step_2_date_of_birth_day").val();
+
+		if (selectedJoinFlu == "Y") {
+			$("#step_2_dose1_center option[data-flu='N']").hide();
+			$("#step_2_dose1_center option[data-flu='N']").attr('disabled', 'disabled');
+
+			var removeCACVC = true;
+			var removeBaby = true;
+			var removeChild = true;
+			if (is_AgeMatchCoAdminCVC(get_age_full_dob)) {						
+				$("#step_2_dose1_center option[data-flu='YCVC']").show();
+				$("#step_2_dose1_center option[data-flu='YCVC']").removeAttr("disabled");
+				removeCACVC = false;
+			} 
+			if (is_AgeBTWBaby(get_age_full_dob)){						
+				$("#step_2_dose1_center option[data-flu='YMCHC']").show();
+				$("#step_2_dose1_center option[data-flu='YMCHC']").removeAttr("disabled");
+				removeBaby = false;
+			} 
+			if ( (select_vacc_name == doseNameSin && is_AgeBTWChildForSinovac(get_age_full_dob)) || (select_vacc_name != doseNameSin && is_AgeBTWChild(get_age_full_dob)) ) {					
+				$("#step_2_dose1_center option[data-flu='YSTSC']").show();
+				$("#step_2_dose1_center option[data-flu='YSTSC']").removeAttr("disabled");
+				removeChild = false;
+			}
+			
+			if(removeCACVC){
+				$("#step_2_dose1_center option[data-flu='YCVC']").hide();
+				$("#step_2_dose1_center option[data-flu='YCVC']").attr('disabled', 'disabled');
+			}
+			if(removeBaby){
+				$("#step_2_dose1_center option[data-flu='YMCHC']").hide();
+				$("#step_2_dose1_center option[data-flu='YMCHC']").attr('disabled', 'disabled');
+			}
+			if(removeChild){
+				$("#step_2_dose1_center option[data-flu='YSTSC']").hide();
+				$("#step_2_dose1_center option[data-flu='YSTSC']").attr('disabled', 'disabled');
+			}
+			
+		} else {
+			$("#step_2_dose1_center option[data-flu='N'],#step_2_dose1_center option[data-flu='YCVC'],#step_2_dose1_center option[data-flu='YSTSC'],#step_2_dose1_center option[data-flu='YMCHC']").show();
+			$("#step_2_dose1_center option[data-flu='N'],#step_2_dose1_center option[data-flu='YCVC'],#step_2_dose1_center option[data-flu='YSTSC'],#step_2_dose1_center option[data-flu='YMCHC']").removeAttr("disabled");
+
+		};
+		
+		if(select_vacc_name == doseNameBio){
+			if (isValueValid($("input[name=step_1_dose_vacc]:checked").val())
+			||	$("#step_2_select_join_bv").find("option:selected").val() == "Y"
+			||	$("#step_2_select_join_xbb").find("option:selected").val() == "Y"){
+				if($("input[name=step_1_dose_vacc]:checked").val() == "BioNTechBV"
+				|| $("#step_2_select_join_bv").find("option:selected").val() == "Y"){
+					$("#step_2_dose1_center option[data-bv='N']").hide();
+					$("#step_2_dose1_center option[data-bv='N']").attr('disabled', 'disabled');
+				}else if($("input[name=step_1_dose_vacc]:checked").val() == "BioNTechXBB"
+					||	$("#step_2_select_join_xbb").find("option:selected").val() == "Y"){
+					$("#step_2_dose1_center option[data-xbb='N']").hide();
+					$("#step_2_dose1_center option[data-xbb='N']").attr('disabled', 'disabled');
+				}
+			}
+		}
+		//end
+
+		altFunctionJS_006(avaliable_ctc_id);
+
+		$("#step_2_dose1_center").prop("disabled", "");
+		
+		$("#step_2_dose1_center option:disabled").each(function() {
+			if ($(this).val() !== "") {
+				$(this).remove();
+			}
+		});
+	});
+
+	$("#step_2_dose1_center").change(function() {
+
+		// for coadmin close usage
+		var isSelectedCoadmin = $("#step_2_select_join_flu").find("option:selected").val();	
+		
+		var selected_center_id = $(this).val();
+
+		select_vacc_ctc_type = $("#step_2_dose1_center option:selected").attr("ctc_type");
+
+		first_available_booking_date =  moment(moment().startOf('day'), 'YYYY-MM-DD');
+		last_available_booking_date = first_available_booking_date.clone().add(28, 'd');
+
+		$.ajax({
+			type: "GET",
+			async: false,
+			url: getURLbyWithCDNlogic()+"/api_center",
+			data: { center_id: $(this).val(), cv_ctc_type: select_vacc_ctc_type, cv_name: select_vacc_name },
+			success: function(data) {
+				data = JSON.parse(data);
+				var ctc_id = data.center_id;
+
+				let ctcAgeLimitObj = prepareCTCageLimit(data.CTC_NATURE, bio_for_age_below_18, select_vacc_name);
+				let ctc_age_lowest = ctcAgeLimitObj.ctcAge_lowest;
+				let ctc_age_highest = ctcAgeLimitObj.ctcAge_highest;
+
+				//show the date
+				$(".dose1_list_timeslot").html("");
+				$(".not_available_date_msg").hide();
+				var dose_1_timeslots_limit = 29;
+				var dose_1_timeslots_limit_counter = 0;
+				$.each(data.avalible_timeslots, function(index, obj) {
+					if(!isCurrentSIVFHS() && moment(obj.date, 'YYYY-MM-DD HH:mm') >= last_available_booking_date){
+						return;
+					}
+					
+					let momObj = prepareMomObj(obj,ctc_age_lowest,ctc_age_highest);
+					let list_item = genTimeslotsListItem(1,
+														momObj, obj, isSelectedCoadmin, selected_center_id, ctc_id, index, 
+														!location.hostname.includes("hksarg"), 
+														false, 
+														null);
+					
+					if(dose_1_timeslots_limit_counter < dose_1_timeslots_limit){
+						$(".dose1_list_timeslot").append(list_item);
+					}
+					dose_1_timeslots_limit_counter ++;
+					
+				});
+
+				if ($(".dose1_list_timeslot").html() == "") {
+					var list_item = $('<li class="highlight_red" role="alert"></li>');
+					var no_timeslot_str = "";
+					no_timeslot_str = getString("no_timeslot", lang);
+					list_item.append(no_timeslot_str);
+					$(".dose1_list_timeslot").append(list_item);
+				}
+				$(".timeslots_selection").show();
+
+				$(".v_mask").show(); $(".dose2 :input").prop("disabled", true);
+
+				$(".dose1_list_timeslot .date").on('keypress click', function() {
+					$(this).next(".timeslots").stop().slideToggle();
+					$(this).attr('aria-expanded', $(this).attr('aria-expanded') == 'false' ? 'true' : 'false');
+				});
+
+				$(".dose1_list_timeslot .timeslots").each(function(index, obj) {
+					markTimeSlotNotApplicable(obj);
+				})
+				$(".dose1_list_timeslot .full_booked[aria-expanded=true]").click()
+				$(".dose1_list_timeslot .date:not(.full_booked):lt(3)").click();
+
+			}
+		});
+	});
+
+	$("#step_2_dose2_district").change(function() {
+
+		$(".dose2_list_timeslot").html("");
+		$("#step_2_dose2_avalible_timeslots_validate_msg").html("");
+		$("#step_2_dose2_center").empty();
+		$(".no_quota_error_msg").hide();
+		if (isCurrentHEPA()) {
+			$("#step_2_dose2_center").append('<option disabled selected hidden value="">' + getString("please_select_shsc_centre", lang) + '</option>');
+		} else if (isCurrentSIVFHS()) {
+			$("#step_2_dose2_center").append('<option disabled selected hidden value="">' + getString("please_select_mchc_centre", lang) + '</option>');
+		} else {
+			$("#step_2_dose2_center").append('<option disabled selected hidden value="">' + getString("please_select_centre", lang) + '</option>');
+		}
+	
+		var selected_district_id = $(this).val();
+		$.each(ct_center.children, function(index, district) {
+			if (district.id == selected_district_id) {
+				//co admin 4 - separate each co admin group for dose 2
+				//BV dose4 - separate each BV group for dose 2
+				//start
+				$.each(district.children, function(index, center) {
+					altFunctionJS_011(center,is_3_4_dose_tab);
+				});
+				//end
+			}
+		});
+
+		//co admin 5 - filter each co admin group in UI for dose 2
+		//start
+		if ($("#step_2_doses_2").is(':checked')) {
+
+			var get_age_year = $("#step_2_date_of_birth_year").val();
+			var get_age_full_dob = $("#step_2_date_of_birth_year").val() + "/" + $("#step_2_date_of_birth_month").val() + "/" + $("#step_2_date_of_birth_day").val();
+			var selectedJoinFlu2 = $("#step_2_select_join_flu").find("option:selected").val();
+
+			if (selectedJoinFlu2 == "Y") {
+				$("#step_2_dose2_center option[data-flu='N']").hide();
+				$("#step_2_dose2_center option[data-flu='N']").attr('disabled', 'disabled');
+
+				var removeCACVC = true;
+				var removeBaby = true;
+				var removeChild = true;
+				if (is_AgeMatchCoAdminCVC(get_age_full_dob)) {						
+					$("#step_2_dose2_center option[data-flu='YCVC']").show();
+					$("#step_2_dose2_center option[data-flu='YCVC']").removeAttr("disabled");
+					removeCACVC = false;
+				} 
+				if (is_AgeBTWBaby(get_age_full_dob)){						
+					$("#step_2_dose2_center option[data-flu='YMCHC']").show();
+					$("#step_2_dose2_center option[data-flu='YMCHC']").removeAttr("disabled");
+					removeBaby = false;
+				} 
+				if ( (select_vacc_name == doseNameSin && is_AgeBTWChildForSinovac(get_age_full_dob)) || (select_vacc_name != doseNameSin && is_AgeBTWChild(get_age_full_dob)) ){						
+					$("#step_2_dose2_center option[data-flu='YSTSC']").show();
+					$("#step_2_dose2_center option[data-flu='YSTSC']").removeAttr("disabled");
+					removeChild = false;
+				}
+				
+				if(removeCACVC){
+					$("#step_2_dose2_center option[data-flu='YCVC']").hide();
+					$("#step_2_dose2_center option[data-flu='YCVC']").attr('disabled', 'disabled');
+				}
+				if(removeBaby){
+					$("#step_2_dose2_center option[data-flu='YMCHC']").hide();
+					$("#step_2_dose2_center option[data-flu='YMCHC']").attr('disabled', 'disabled');
+				}
+				if(removeChild){
+					$("#step_2_dose2_center option[data-flu='YSTSC']").hide();
+					$("#step_2_dose2_center option[data-flu='YSTSC']").attr('disabled', 'disabled');
+				}
+				
+	
+			} else {
+				$("#step_2_dose2_center option[data-flu='N'],#step_2_dose2_center option[data-flu='YCVC'],#step_2_dose2_center option[data-flu='YSTSC'],#step_2_dose2_center option[data-flu='YMCHC']").show();
+				$("#step_2_dose2_center option[data-flu='N'],#step_2_dose2_center option[data-flu='YCVC'],#step_2_dose2_center option[data-flu='YSTSC'],#step_2_dose2_center option[data-flu='YMCHC']").removeAttr("disabled");
+	
+			};
+
+
+			//handle bv/xbb center for dose 3-7
+			var selectedJoinBV2 = $("#step_2_select_join_bv").find("option:selected").val();
+			
+			if (selectedJoinBV2 == "Y") {
+				$("#step_2_dose2_center option[data-bv='N']").hide();
+				$("#step_2_dose2_center option[data-bv='N']").attr('disabled', 'disabled');
+				$("#step_2_dose2_center option[data-bv='YCVC'],#step_2_dose2_center option[data-bv='YMCHC'],#step_2_dose2_center option[data-bv='YSTSC']").show();
+				$("#step_2_dose2_center option[data-bv='YCVC'],#step_2_dose2_center option[data-bv='YMCHC'],#step_2_dose2_center option[data-bv='YSTSC']").removeAttr("disabled");
+				
+			}
+
+			if (selectedJoinFlu2 == "Y") {
+				$("#step_2_dose2_center option[data-flu='N']").hide();
+				$("#step_2_dose2_center option[data-flu='N']").attr('disabled', 'disabled');
+			}
+			if (selectedJoinBV2 == "Y") {
+				$("#step_2_dose2_center option[data-bv='N']").hide();
+				$("#step_2_dose2_center option[data-bv='N']").attr('disabled', 'disabled');
+			}
+
+			if (selectedJoinFlu2 == "Y" && selectedJoinBV2 == "Y") {
+				setTimeout(function(){
+					$("#step_2_dose2_center option[data-flu='N']").hide();
+					$("#step_2_dose2_center option[data-flu='N']").attr('disabled', 'disabled');
+					$("#step_2_dose2_center option[data-bv='N']").hide();
+					$("#step_2_dose2_center option[data-bv='N']").attr('disabled', 'disabled');  
+				}, 500);
+			}
+			
+			if(select_vacc_name == doseNameBio){
+				if($("input[name=step_1_dose_vacc]:checked").val() == "BioNTechBV"
+					|| $("#step_2_select_join_bv").find("option:selected").val() == "Y"){
+					$("#step_2_dose2_center option[data-bv='N']").hide();
+					$("#step_2_dose2_center option[data-bv='N']").attr('disabled', 'disabled');
+				}
+				if($("input[name=step_1_dose_vacc]:checked").val() == "BioNTechXBB"
+						||	$("#step_2_select_join_xbb").find("option:selected").val() == "Y"){
+					$("#step_2_dose2_center option[data-xbb='N']").hide();
+					$("#step_2_dose2_center option[data-xbb='N']").attr('disabled', 'disabled');
+				}
+			}
+
+		}else{
+			if(select_vacc_name == doseNameBio){
+				if (isValueValid($("input[name=step_1_dose_vacc]:checked").val())
+				||	$("#step_2_select_join_bv").find("option:selected").val() == "Y"
+				||	$("#step_2_select_join_xbb").find("option:selected").val() == "Y"){
+					if($("input[name=step_1_dose_vacc]:checked").val() == "BioNTechBV"
+					|| $("#step_2_select_join_bv").find("option:selected").val() == "Y"){
+						$("#step_2_dose2_center option[data-bv='N']").hide();
+						$("#step_2_dose2_center option[data-bv='N']").attr('disabled', 'disabled');
+					}else if($("input[name=step_1_dose_vacc]:checked").val() == "BioNTechXBB"
+						||	$("#step_2_select_join_xbb").find("option:selected").val() == "Y"){
+						$("#step_2_dose2_center option[data-xbb='N']").hide();
+						$("#step_2_dose2_center option[data-xbb='N']").attr('disabled', 'disabled');
+					}
+				}
+			}
+			
+		}
+		//end
+		
+		
+
+		altFunctionJS_007(avaliable_ctc_id);
+
+		$("#step_2_dose2_center").prop("disabled", "");
+		
+		$("#step_2_dose2_center option:disabled").each(function() {
+			if ($(this).val() !== "") {
+				$(this).remove();
+			}
+		});
+	});
+
+	$("#step_2_dose2_center").change(function() {
+		// for coadmin close usage
+		var isSelectedCoadmin = $("#step_2_select_join_flu").find("option:selected").val();	
+
+		var selected_center_id = $(this).val();
+
+		if ($("input[name=step_2_dose1_booking_timeslot]:checked").length != 0) {
+			dose1_mom_date = moment($("input[name=step_2_dose1_booking_timeslot]:checked").val(), 'YYYY-MM-DD HH:mm');
+		}
+		else {
+			dose1_mom_date = check_status_previous_dose_date;
+		}
+
+		if(isCurrentSIVFHS()){
+			//set a dummy earlier date for D1
+			dose1_mom_date = moment("2000-11-11 11:11", 'YYYY-MM-DD HH:mm');
+		}
+
+		first_dose_date_str = dose1_mom_date.clone().add(dose_time_apart, 'days').format("YYYY-MM-DD");
+
+		if (moment().diff(moment(lowest_age_of_applicants()), 'year') < additional_dose_age_lowest_limit) {
+			var first_age_lowest_limit = moment(lowest_age_of_applicants()).add(additional_dose_age_lowest_limit, 'year').subtract(1, "day");
+
+			if (moment(first_dose_date_str).isBefore(first_age_lowest_limit)) {
+				first_dose_date_str = first_age_lowest_limit.format("YYYY-MM-DD");
+			}
+		}
+
+		var data_obj = null;
+
+		if ($("#step_2_doses_2").val() != "1") {
+			select_vacc_ctc_type = $(this).find('option[value=' + selected_center_id + ']').attr('ctc_type');
+		}
+
+		//data_obj = { center_id: $(this).val(), cv_ctc_type: select_vacc_ctc_type, cv_name: select_vacc_name, first_dose_date: first_dose_date_str };
+		data_obj = { center_id: $(this).val(), cv_ctc_type: select_vacc_ctc_type, cv_name: select_vacc_name };
+		
+		first_available_booking_date =  moment(first_dose_date_str, 'YYYY-MM-DD');
+		last_available_booking_date = first_available_booking_date.clone().add(28, 'd');
+		
+		const cal_grace_first_dose_date = moment(first_dose_date_str, 'YYYY-MM-DD');
+		const cal_grace_today = moment().startOf('day');
+		const cal_grace_isBeforeToday = cal_grace_first_dose_date.isBefore(cal_grace_today);
+		if(cal_grace_isBeforeToday){
+			first_available_booking_date =  moment(cal_grace_today, 'YYYY-MM-DD');
+			last_available_booking_date = first_available_booking_date.clone().add(28, 'd');	
+		}
+		
+		
+		//Ajax ID - A002
+		$.ajax({
+			type: "GET",
+			async: false,
+			url: getURLbyWithCDNlogic()+"/api_center",
+			data: data_obj,
+			success: function(data) {
+				data = JSON.parse(data);
+				//show the date
+				var ctc_id = data.center_id;
+
+				let ctcAgeLimitObj = prepareCTCageLimit(data.CTC_NATURE, bio_for_age_below_18, select_vacc_name);
+				let ctc_age_lowest = ctcAgeLimitObj.ctcAge_lowest;
+				let ctc_age_highest = ctcAgeLimitObj.ctcAge_highest;
+
+
+				$(".dose2_list_timeslot").html("");
+
+				if (!is_3_4_dose_tab) {
+
+					if (select_vacc_name == doseNameBio && !bio_for_age_below_18) {
+
+						var second_dose_day_options = 42;
+						//display timeslot (63d-21d)
+
+						//$(".v_BNT_rmks").show();
+					} else {
+
+						var second_dose_day_options = 29;
+					}
+				} else {
+
+					var second_dose_day_options = 29;
+				}
+
+				if (!is_3_4_dose_tab && bio_for_age_below_18) {
+					dose_time_apart_tolerance = 7;
+				}
+
+				$.each(data.avalible_timeslots, function(index, obj) {
+					if(!isCurrentSIVFHS() && moment(obj.date, 'YYYY-MM-DD HH:mm') >= last_available_booking_date){
+						return;
+					}
+					
+					if ($("input[name=step_2_dose1_booking_timeslot]:checked").length != 0) {
+						dose1_mom_date = moment($("input[name=step_2_dose1_booking_timeslot]:checked").val(), 'YYYY-MM-DD HH:mm');
+					}
+					else {
+						dose1_mom_date = check_status_previous_dose_date;
+					}
+					
+					let momObj = prepareMomObj(obj,ctc_age_lowest,ctc_age_highest);
+					let dose2_mon_date = momObj.momObj_mom_obj_date;
+					
+					
+					if (isValueValid(check_status_previous_dose_date) && moment().diff(dose1_mom_date, 'days') > (dose_time_apart)) {
+						//if dose1_mon_date is exceed the second dose range, display next 14 dates
+
+						if ($(".dose2_list_timeslot li").length < second_dose_day_options) {
+							if(is_3_4_dose_tab && !isCurrentSIVFHS() && dose2_mon_date.diff(moment(), 'day') >= dose_interval_grace_period)
+							{								
+								return;	
+							}
+							
+							
+							let list_item = genTimeslotsListItem(2,
+																momObj, obj, isSelectedCoadmin, selected_center_id, ctc_id, index, 
+																true, 
+																false, 
+																first_dose_date_str);
+
+							$(".dose2_list_timeslot").append(list_item);
+						}
+					}
+					else {
+
+						if (isValueValid(check_status_previous_dose_date)) {
+							dose_time_apart_tolerance = second_dose_day_options;
+							if ($(".dose2_list_timeslot .date").length >= dose_time_apart_tolerance) {
+								return;
+							}
+
+							// update timeslot display date range
+							if(!isCurrentSIVFHS() && dose2_mon_date.diff(moment(), 'day') >= dose_interval_grace_period)
+							{								
+								return;								
+							}
+						}
+
+						else if (!(moment.duration(dose2_mon_date.startOf('day').diff(dose1_mom_date.startOf('day'))).asDays() > dose_time_apart && moment.duration(dose2_mon_date.startOf('day').diff(dose1_mom_date.startOf('day'))).asDays() <= (dose_time_apart + dose_time_apart_tolerance))) {
+							return;
+						}
+						
+						let list_item = genTimeslotsListItem(2,
+															momObj, obj, isSelectedCoadmin, selected_center_id, ctc_id, index, 
+															true, 
+															true, 
+															first_dose_date_str);
+
+						$(".dose2_list_timeslot").append(list_item);
+					}
+				});
+
+				if ($(".dose2_list_timeslot").html() == "") {
+					var list_item = $('<li class="highlight_red"></li>');
+					var no_timeslot_str = "";
+					no_timeslot_str = getString("no_timeslot", lang);
+					list_item.append(no_timeslot_str);
+					$(".dose2_list_timeslot").append(list_item);
+				}else {
+					$(".timeslots_selection").show();
+				}
+
+
+
+				$(".dose2_list_timeslot .date").on('keypress click', function() {
+					$(this).next(".timeslots").stop().slideToggle();
+					$(this).attr('aria-expanded', $(this).attr('aria-expanded') == 'false' ? 'true' : 'false');
+				});
+
+				$(".dose2_list_timeslot .timeslots").each(function(index, obj) {
+					markTimeSlotNotApplicable(obj);
+				})
+				$(".dose2_list_timeslot .full_booked[aria-expanded=true]").click()
+				$(".dose2_list_timeslot .date:not(.full_booked):lt(3)").click();
+
+				if (typeof booking_group_round_2 !== "undefined") {
+					$(".dose2_list_timeslot input[booking_timeslot_id=" + booking_group_round_2 + "]").prop("disabled", false);
+					$(".dose2_list_timeslot label[for$=" + booking_group_round_2 + "]").removeClass("timeslots_label_disabled");
+					$(".dose2_list_timeslot input[booking_timeslot_id=" + booking_group_round_2 + "]").parents("li").find($(".date[aria-expanded=false]")).click();
+				}
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				ajaxErrorLogging("A002", xhr, textStatus, errorThrown, this.url);
+				show_error_page(1,xhr.status,'');
+				return;
+			}
+		});
+	});
+
+
+	$("#step_1_date_of_birth_year").change(function() {
+		$(".optDesc").css("display", "none");
+		//For DOB Year select (1/3)
+		filterAndHidePriorityGroupByDOBandDoseInterval();
+	});
+
+	$("#step_1_date_of_birth_month").change(function() {
+		var naOpt = $("#step_1_date_of_birth_month option:selected").val();
+		if (naOpt == "-") {
+			$("#step_1_date_of_birth_day option").attr('disabled', 'disabled');
+			$('#step_1_date_of_birth_day option[value="-"]').removeAttr("disabled").prop("selected", true);
+		} else {
+			$("#step_1_date_of_birth_day option").removeAttr("disabled");
+		}
+		//For DOB Month select (2/3)
+		filterAndHidePriorityGroupByDOBandDoseInterval();
+	});
+	
+	$("#step_1_date_of_birth_day").change(function() {
+		//For DOB Day select (3/3)
+		filterAndHidePriorityGroupByDOBandDoseInterval();
+	});
+
+	$("input[name=step_2_doses]").change(function() {
+		$(".doses_date_panel").hide();
+		$('#step_2_dose1_district, #step_2_dose2_district').prop('selectedIndex', 0).change();
+
+		if ($("input[name='step_2_doses']:checked").val() == "1" || $("input[name='step_2_doses']:checked").val() == "2") {
+			if (select_vacc_name == doseNameBio && !bio_for_age_below_18 && !is_3_4_dose_tab) {
+
+				//$(".v_BNT_rmks").show();
+			}
+		}
+		if ($("input[name='step_2_doses']:checked").val() == "1") {
+			$(".dose1_date").hide();
+			$(".dose1 :input").prop("disabled", false);
+			$(".dose1").show();
+			$(".v_mask").show(); $(".dose2 :input").prop("disabled", true);
+			$(".dose2").hide();
+		}
+		if ($("input[name='step_2_doses']:checked").val() == "2" || $("input[name='step_2_doses']:checked").val() == "3") {
+			//$(".dose1_date").show();
+			$(".dose1 :input").prop("disabled", true);
+			$(".dose1").hide();
+			$(".v_mask").hide(); $(".dose2 :input").prop("disabled", false);
+		}
+		$(".doses_date_panel").slideDown();
+	});
+
+
+	//co admin 7 - pulldown list
+	//start
+	$("#step_2_select_join_flu").change(function() {
+		var selectedJoinBV = $("#step_2_select_join_bv").find("option:selected").val();
+		var selectedJoinFlu = $("#step_2_select_join_flu").find("option:selected").val();
+		var lastSecInd = $("#step_2_ref_indicator").val().slice(0);
+		var get_age_year = $("#step_2_date_of_birth_year").val();
+		var get_age_full_dob = $("#step_2_date_of_birth_year").val() + "/" + $("#step_2_date_of_birth_month").val() + "/" + $("#step_2_date_of_birth_day").val();
+		var is_join_bv = false;
+		if (selectedJoinBV == "Y") { is_join_bv = true; }
+
+		//refresh unclickable feature
+		$("#step_2_dose2_center").removeAttr("disabled");
+		$("#step_2_dose2_district").removeAttr("disabled");
+		$("#step_2_dose2_district").prop('selectedIndex', 0).change();
+		$(".dose1_list_timeslot").html("");
+
+		if (selectedJoinFlu == "Y") {
+			is_flu_center = true;
+
+			var lastSecChar = lastSecInd.replace("N", "Y");
+			$("#step_2_ref_indicator").val(lastSecChar);
+
+
+			// remind user there maybe no center available
+			if (select_vacc_name == doseNameBio) {
+				$(getString("bio_child_notes", lang)).appendTo(".bio_child_notes");
+				$(".codamin_expire_notes").show();
+			}
+
+			if ($("#step_2_doses_12").is(':checked')) {
+				
+				$("#step_2_dose1_center").empty();
+				if (isCurrentHEPA()) {
+					$("#step_2_dose1_center").append('<option disabled selected hidden value="">'+ getString("please_select_shsc_centre", lang) +'</option>');
+				} else if (isCurrentSIVFHS()) {
+					$("#step_2_dose1_center").append('<option disabled selected hidden value="">'+ getString("please_select_mchc_centre", lang) +'</option>');
+				} else {
+					$("#step_2_dose1_center").append('<option disabled selected hidden value="">'+ getString("please_select_centre", lang) +'</option>');
+				}
+				
+				$("#step_2_dose1_center").val($("#step_2_dose1_center option:first").val());
+				$("#step_2_dose1_district").val($("#step_2_dose1_district option:first").val());
+		
+				var selectedDate = moment($("input[name='step_2_dose1_booking_timeslot']:checked").val()).format("YYYYMMDD");
+
+				$("#step_2_dose1_center option[data-flu='N']").hide();
+				$("#step_2_dose1_center option[data-flu='N']").attr('disabled', 'disabled');
+
+				$("#step_2_dose1_center").val($("#step_2_dose1_center option:first").val());
+				$("#step_2_dose2_center").val($("#step_2_dose2_center option:first").val());
+				$("#step_2_dose1_district").val($("#step_2_dose1_district option:first").val());
+				$("#step_2_dose2_district").val($("#step_2_dose2_district option:first").val());
+				$(".v_mask").show(); $(".dose2 :input").prop("disabled", true);
+				$(".timeslots_selection").hide();
+
+				if (!(availableDate.diff(selectedDate, 'days') <= 0)) {
+					if ($("input[name=step_2_dose1_booking_timeslot]").is(':checked')) {
+						$(".not_available_date_msg").show();
+						$('html, body').animate({
+							scrollTop: $(".not_available_date_msg").offset().top - 30
+						}, 500);
+						$(".not_available_date_msg").html(getString("join_flu_notes", lang));
+					} else {
+						$(".not_available_date_msg").hide();
+						$(".not_available_date_msg").html("");
+					}
+				}
+				else {
+					$(".not_available_date_msg").hide();
+					$(".not_available_date_msg").html("");
+				}
+
+			} else if ($("#step_2_doses_2").is(':checked')) {//dose 2 only or 3 or 4
+				
+				var selectedDate2 = moment($("input[name='step_2_dose2_booking_timeslot']:checked").val()).format("YYYYMMDD");
+
+				$("#step_2_dose2_center option[data-flu='N']").hide();
+				$("#step_2_dose2_center option[data-flu='N']").attr('disabled', 'disabled');
+				
+				$("#step_2_dose2_center").empty();
+				if (isCurrentHEPA()) {
+					$("#step_2_dose2_center").append('<option disabled selected hidden value="">'+ getString("please_select_shsc_centre", lang) +'</option>');
+				} else if (isCurrentSIVFHS()) {
+					$("#step_2_dose2_center").append('<option disabled selected hidden value="">'+ getString("please_select_mchc_centre", lang) +'</option>');
+				} else {
+					$("#step_2_dose2_center").append('<option disabled selected hidden value="">'+ getString("please_select_centre", lang) +'</option>');
+				}		
+				
+				$("#step_2_dose2_center").val($("#step_2_dose2_center option:first").val());
+				$("#step_2_dose2_district").val($("#step_2_dose2_district option:first").val());
+				$(".timeslots_selection").hide();
+
+				if (!(availableDate.diff(selectedDate2, 'days') <= 0)) {
+					if ($("input[name=step_2_dose2_booking_timeslot]").is(':checked')) {
+						$(".not_available_date_msg").show();
+						$('html, body').animate({
+							scrollTop: $(".not_available_date_msg").offset().top - 50
+						}, 500);
+						$(".not_available_date_msg").html(getString("join_flu_notes", lang));
+					} else {
+						$(".not_available_date_msg").hide();
+						$(".not_available_date_msg").html("");
+					}
+				}
+				else {
+					$(".not_available_date_msg").hide();
+					$(".not_available_date_msg").html("");
+				}
+			}
+		} else {
+			is_flu_center = false;
+
+			var lastSecChar = lastSecInd.replace("Y", "N");
+			$("#step_2_ref_indicator").val(lastSecChar);
+			$(".dose2_list_timeslot li").remove();
+
+			$("#step_2_dose1_center option[data-flu='N'],#step_2_dose1_center option[data-flu='YCVC'],#step_2_dose1_center option[data-flu='YSTSC'],#step_2_dose1_center option[data-flu='YMCHC']").show();
+			$("#step_2_dose2_center option[data-flu='N'],#step_2_dose2_center option[data-flu='YCVC'],#step_2_dose2_center option[data-flu='YSTSC'],#step_2_dose2_center option[data-flu='YMCHC']").show();
+			
+			$("#step_2_dose1_center option[data-flu='N'],#step_2_dose1_center option[data-flu='YCVC'],#step_2_dose1_center option[data-flu='YSTSC'],#step_2_dose1_center option[data-flu='YMCHC']").removeAttr("disabled");
+			$("#step_2_dose2_center option[data-flu='N'],#step_2_dose2_center option[data-flu='YCVC'],#step_2_dose2_center option[data-flu='YSTSC'],#step_2_dose2_center option[data-flu='YMCHC']").removeAttr("disabled");
+
+			$("#step_2_dose1_center").empty();
+			if(isCurrentHEPA()){
+				$("#step_2_dose1_center").append('<option disabled selected hidden value="">'+ getString("please_select_shsc_centre", lang) +'</option>');
+			}else if(isCurrentSIVFHS()){
+				$("#step_2_dose1_center").append('<option disabled selected hidden value="">'+ getString("please_select_mchc_centre", lang) +'</option>');
+			}else{
+				$("#step_2_dose1_center").append('<option disabled selected hidden value="">'+ getString("please_select_centre", lang) +'</option>');
+			}
+
+			$("#step_2_dose1_center").val($("#step_2_dose1_center option:first").val());
+			$("#step_2_dose1_district").val($("#step_2_dose1_district option:first").val());
+			
+			$(".timeslots_selection").show();
+			$(".not_available_date_msg").hide();
+			$(".not_available_date_msg").html("");
+			$(".bio_child_notes").html("");
+			$(".codamin_expire_notes").hide();
+			
+			if($("#step_2_doses_12").is(':checked')){
+				$(".dose1_list_timeslot").html("");
+				$(".v_mask").show(); $(".dose2 :input").prop("disabled", true);
+			}
+		}
+
+		if (is_join_bv) {
+			$("#step_2_dose2_center option[data-bv='N']").hide();
+			$("#step_2_dose2_center option[data-bv='N']").attr('disabled', 'disabled');
+		}
+		if (selectedJoinFlu == "Y") {
+			$("#step_2_dose2_center option[data-flu='N']").hide();
+			$("#step_2_dose2_center option[data-flu='N']").attr('disabled', 'disabled');
+		}
+
+		altFunctionJS_007(avaliable_ctc_id);
+		
+	});
+	//end
+
+
+	// --backup_001 --
+
+	$("input[name=step_1_dose_vacc]").change(function() {
+		if(!is_3_4_dose_tab){
+			$("#step_2_dose1_center").val($("#step_2_dose1_center option:first").val());
+			$("#step_2_dose1_district").val($("#step_2_dose1_district option:first").val());
+			if($('#step_2_doses_12').prop('checked')){
+				$(".v_mask").show(); $(".dose2 :input").prop("disabled", true);
+			}
+		}
+		$("#step_2_dose2_center").val($("#step_2_dose2_center option:first").val());
+		$("#step_2_dose2_district").val($("#step_2_dose2_district option:first").val());
+		$(".timeslots_selection").hide();
+		
+		switch($("input[name=step_1_dose_vacc]:checked").val()){
+			case "BioNTechBV":	$("#step_2_ref_bv_indicator").val("V");break;
+			case "BioNTechXBB":	$("#step_2_ref_bv_indicator").val("X");break;
+			default:			$("#step_2_ref_bv_indicator").val("N");break;
+		}
+		
+	});
+
+
+	controlSinovacVisibility();
+	
+	if (isRedirectFromEHealthApp()) {
+		// hide the iAMSmart button
+		$(".smart-button").hide();
+	}
+	//backup code B0001
+
+});
+$(function() {
+
+	$(".cancel_booking_cancel_button").click(function(e) {
+		e.preventDefault();
+		if ($('#step_1_enq_form').length == 1) {
+			show_target($("#booking_result"));
+			return;
+		}
+
+		$('html, body').animate({
+			scrollTop: $(".step_2").offset().top
+		}, 500);
+
+		$("#step_2_input_page input").not(':input[type=hidden], input[type=radio], :input[type=button], :input[type=submit], :input[type=reset]').each(function(index) {
+			$(this).parents(".input-div").removeClass("input-div-no-border");
+			$(this).show();
+		});
+
+		$(".review_input, .review_input_na").not(".review_enquiry_init_input").remove();
+		$("#cancel_booking input").not(':input[type=hidden], :input[type=radio], :input[type=button], :input[type=submit], :input[type=reset]').each(function(index) {
+			$(this).parents(".input-div").removeClass("input-div-no-border");
+			$(this).show();
+		});
+
+		$(".cancel_booking_doses_date_panel").hide();
+
+		$("#cancel_booking_enquiry_captchaCode").html("");
+
+		$('.question_note').show();
+
+		$("#cancel_booking  .input_review_control").show();
+		$("#cancel_booking  .input_confirm_control").hide();
+	});
+
+	$(".step_2_cancel_button").click(function(e) {
+		e.preventDefault();
+		
+		$('html, body').animate({
+			scrollTop: $("#initial").offset().top
+		}, 500);
+
+		$(".review_highlight_note").remove();
+		$(".review_input, .review_input_na").not(".review_enquiry_init_input").remove();
+		$(".timeslots_selection").show();
+		$(".step_2_tel_for_sms_notif").show();
+		$(".login_note").show();
+		$(".content_notes").show();
+		$(".dose2_selection_remarks").show();
+		$(".form-control-plaintext").not(".dose1_remarks").show();
+
+
+		$("#step_2_input_page input").not(':input[type=hidden], input[type=radio], :input[type=button], :input[type=submit], :input[type=reset]').each(function(index) {
+			$(this).parents(".input-div").removeClass("input-div-no-border");
+			$(this).show();
+		});
+
+
+		$("#step_2_input_page select").each(function(index) {
+			$(this).show();
+			$(this).parents(".input-div").removeClass("input-div-no-border");
+		});
+		
+		$("#step_2_input_page input[type=radio]:checked").each(function(index) {
+			$(this).parents(".radio_group_parent").find('input[type=radio]:not(:disabled)').parent(".radio_group").show();
+		});
+		
+		if(isCurrentSIVFHS() && is_3_4_dose_tab){
+			$('#step_2_is_inject_sivfhs_before_yes').parent(".radio_group").show();
+			$('#step_2_is_inject_sivfhs_before_no').parent(".radio_group").show();
+		}
+
+		$(".input_review_control").show();
+		$(".input_confirm_control").hide();
+		
+		//mRNA - match condition to display  pulldown 
+		//start
+		const dobObject = dateFormatter("step_2_date_of_birth_year", "step_2_date_of_birth_month", "step_2_date_of_birth_day");
+		const {full_date: get_age_full_dob} = dobObject;
+		
+		if (select_vacc_name == doseNameBio && !is_3_4_dose_tab) {
+			controlVaccineDisplay_12(get_age_full_dob);
+			
+			$("#lable_vacc_biontech_bv_ps").show();
+			$("#label_vacc_ps").show();
+			$("#step_1_dose_vacc_BioNTech_XBB_IMMU").prop("checked", true);
+			$(".step_1_dose_selection").hide();
+		}
+		//end
+		sivfhsPreferredLanguageUiInputPage();
+		return;
+	});
+
+	$("#step_2_tel_for_sms_notif_confirm").focus(function() {
+		$("#step_2_tel_for_sms_notif").attr("type", "password");
+	});
+
+	$("#step_2_tel_for_sms_notif_confirm").focusout(function() {
+		$("#step_2_tel_for_sms_notif").attr("type", "tel");
+	});
+
+
+	$("#step_1_enq_form").submit(function(e) {
+		e.preventDefault();
+
+		$("#step_1_validate_msg").html("");
+
+		if (hkidFormatList.includes($("select[name='step_1_documentId_Type']").val())){
+			$("#step_1_documentId_HKIC").val($("#step_1_documentId_HKIC_prefix").val() + $("#step_1_documentId_HKIC_check_digit").val());
+
+			if (!IsHKID($("#step_1_documentId_HKIC").val())) {
+				$("#step_1_validate_msg").html(getString("invalid_hkid", lang));
+				return;
+			}
+		}
+		else if ($("select[name='step_1_documentId_Type']").val() == "EC") {
+			$("#step_1_documentId_HKIC").val($("#step_1_ec_documentId_ref_initial").val() +
+				$("#step_1_ec_documentId_ref_first").val() +
+				$("#step_1_ec_documentId_ref_second").val() +
+				$("#step_1_ec_documentId_ref_digit").val());
+		}
+		else {
+			var input_string = $("#step_1_other_documentId").val();
+			if (!input_string.match(/^[a-zA-Z0-9\_\=\!\@\#\&\(\)\-]+$/)) {
+				$("#step_1_validate_msg").html(getString("invalid_idc", lang));
+				return;
+			}
+			$("#step_1_documentId_HKIC").val(input_string);
+		}
+
+		var url = $(this).attr('action');
+		var form_id = $(this).attr("id");
+		// prepare payload without verifiedtoken
+	    let formData = $(this).serializeArray();
+	    formData = formData.filter(item => item.name !== 'mtcaptcha-verifiedtoken');
+	    formData.push({ name: 'X-CSRF-Token', value: $('#csrf_token').val()});
+	    let serializedData = $.param(formData);
+		//Ajax ID - A003
+		$.ajax({
+			type: "POST",
+			async: true,
+			xhrFields:{withCredentials : true},
+			url: getURLbyWithCDNlogic()+url, //api_booking
+			data: serializedData, // serializes the form's elements.
+			success: function(returnData) {
+				handleCSRFandSessionCallBack(returnData);
+				
+				$("#step_1_captchaCode_validate_msg").html("");
+
+				var data = progressDataFormat(returnData);
+				if(data === null){ return; }
+
+				if (data.result == "captcha invalid") {
+					console.log('Captcha invalid caused by: ' + data.errorCode);
+					reRenderMtcaptcha('step_1_mt_captchaCode');
+					$("#step_1_captchaCode_validate_msg").html("");
+					$("#step_1_captchaCode_validate_msg").html(getString("captcha_err", lang));
+				}
+				else if (data.is_booking_exist) {
+					
+					var showUpdatePage = true;					
+					
+					if(data.AT_CREATED_DATE!==null && data.AT_CREATED_DATE !==""){
+						var targetDate = new Date(systemParamResponseJs.SIMPLIFIED_FLOW_DEPLOY_DATE);
+						var createDateFormatted = new Date(data.AT_CREATED_DATE.replace(' ', 'T'));
+						
+						if (createDateFormatted < targetDate) {
+						    showUpdatePage = false;
+						}
+					}
+					
+					
+					if(showUpdatePage){
+						show_update_detail(data, function(){
+							//callback from api_center_by_cv_name
+							$(".go_cancel").parent(".input-submit-div").show();
+							altFunctionJS_008(data);
+							show_cancel_detail(data);
+							show_result_success(data);
+							$(".reg_confirm_notes").hide();
+						});
+					}else{
+						show_error_page(7,'','Booking Created Before Revamp');
+					}
+				} else if (data.errorCode === 'E012' || data.errorCode === 'E013') {
+					show_error_page(1, '', data.errorCode);
+				} else {
+					show_error_page(7, '', 'Ajax A003 success, return fail');
+					return;
+				}
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				ajaxErrorLogging("A003", xhr, textStatus, errorThrown, this.url);
+				show_error_page(1,xhr.status,'');
+				return;
+			}
+		});
+	});
+
+	$("#step_2_form_control_confirm").on('keypress click', function(e) {
+		if (isValueValid($("#step_2_refno").val())) {
+			if (isCurrentSIVFHS()) {
+				var sivLastDoseDate = $("#step_2_last_dose_date").val();
+				if (altFunctionJS_025() && sivLastDoseDate!== "") {
+					// SIVFHS last dose date related checking
+					var sivLastDoseDate = $("#step_2_last_dose_date").val();
+					const parts = sivLastDoseDate.split('-');
+					var lastDoseYear = parts[0];
+					var lastDoseMonth = ((parts[1] == "-") ? "01" : parts[1]);
+					var lastDoseDay = ((parts[2] == "-") ? "01" : parts[2]);
+					var lastDoseDate = lastDoseYear + "/" + lastDoseMonth + "/" + lastDoseDay;
+					var doseRound = $("input[name=step_2_doses]:checked").val();
+					var validateMsgElementId = "";
+					if (doseRound == 1) {
+						validateMsgElementId = "step_2_dose1_avalible_timeslots_validate_msg";
+					} else {
+						validateMsgElementId = "step_2_dose2_avalible_timeslots_validate_msg";
+					}
+					if (!altFunctionJS_028(lastDoseDate,
+						$("input[name='step_2_dose1_booking_timeslot']:checked").val(),
+						$("input[name='step_2_dose2_booking_timeslot']:checked").val(),
+						$("input[name=step_2_doses]:checked").val())) {
+						e.preventDefault();
+						showLastDoseDateValidateMsgInUpdatePage("step_2_validate_msg_at_least_28_day", validateMsgElementId);
+						return;
+					} else {
+						$(".is_coadm").show();
+						$(".is_not_coadm").hide();
+						$("#step_2_select_join_flu").css({ "max-width": "100%" });
+					}
+				} else {
+					$(".is_coadm").show();
+					$(".is_not_coadm").hide();
+					$("#step_2_select_join_flu").css({ "max-width": "100%" });
+				}
+			} else if(isCurrentHEPA()){
+				$(".is_coadm").show();
+				$(".is_not_coadm").hide();
+				$("#step_2_select_join_flu").css({ "max-width": "100%" });
+			} else{
+				$(".is_coadm").show();
+				$(".is_not_coadm").hide();
+				$("#step_2_select_join_flu").css({ "max-width": "100%" });
+			}
+		} else {
+			$(".is_coadm").hide();
+			$(".is_not_coadm").show();
+		}
+	});
+	
+	$("#step_2_form_control_edit").on('keypress click', function() {
+		isClickedFromStep2Edit = true;
+		show_target($(".step_1"));
+		$("#select_additional_dose").prop('disabled', true);
+		if(isCurrentSIVFHS() && isValueValid(PMI_Data)){
+			if(systemParamResponseJs.IS_SKIP_PREFILL_PMI_DATA != "Y"){
+				prefillPMIData(PMI_Data, systemParamResponseJs.IS_DISABLE_AFTER_PREFILL_PMI_DATA == "Y");
+			}
+		}
+		altFunctionJS_034();
+	});
+	
+	
+	$("#step_1_booking_form").submit(function(e) {
+		e.preventDefault();
+		$(".is_coadm").hide();
+		$(".is_not_coadm").show();
+		
+		$("#select_additional_dose").prop('disabled', false);
+		$('#step_1_ATGC_NATCARDTYPE').prop('disabled', false);
+		//Clean error message
+		$("#step_1_validate_msg").html("");
+		$("#step_1_date_of_second_dose_validate_msg").html("");
+		$("#step_1_dose_" + selectedDoseRound + "_vacc_group_validate_msg").html("");
+		$("#step_1_third_dose_vacc_validate_msg").html("");
+		$("#step_1_date_of_birth_validate_msg").html("");
+		
+		
+		//set up common dob
+		const dobObject = dateFormatter("step_1_date_of_birth_year", "step_1_date_of_birth_month", "step_1_date_of_birth_day");
+		const { year: dob_year, month: dob_month, day: dob_day, full_date: dob} = dobObject;
+		dobYear = dob_year;
+		dobMonth = dob_month;
+		dobDay = dob_day;
+		
+		if (hkidFormatList.includes($("select[name='step_1_documentId_Type']").val())){
+			$("#step_1_documentId_HKIC").val($("#step_1_documentId_HKIC_prefix").val() + $("#step_1_documentId_HKIC_check_digit").val());
+
+			if (!IsHKID($("#step_1_documentId_HKIC").val())) {
+				showError("#step_1_validate_msg", getString("invalid_hkid", lang));
+				return;
+			}
+		}
+		else if ($("select[name='step_1_documentId_Type']").val() == "EC") {
+			$("#step_1_documentId_HKIC").val($("#step_1_ec_documentId_ref_initial").val() +
+				$("#step_1_ec_documentId_ref_first").val() +
+				$("#step_1_ec_documentId_ref_second").val() +
+				$("#step_1_ec_documentId_ref_digit").val());
+		}
+		else {
+			var input_string = $("#step_1_other_documentId").val();
+			if (!input_string.match(/^[a-zA-Z0-9\_\=\!\@\#\&\(\)\-]+$/)) {
+				showError("#step_1_validate_msg", getString("invalid_hkid", lang));
+				return;
+			}
+			$("#step_1_documentId_HKIC").val(input_string);
+		}
+		
+		if (isCurrentHEPA()) {
+			if (is_underAge_noGrace_dynamic(dob,18)) {
+				showError("#step_1_date_of_birth_validate_msg", getString("age_should_be", lang) + "18" + getString("age_or_above", lang));
+				return;
+			}
+		}
+		
+		if (!isCurrentSIVFHS()) {
+			if (altFunctionJS_014(dob)) {
+				showError("#step_1_date_of_birth_validate_msg", getString("age_above_6m", lang));
+				return;
+			}
+		}
+		
+		
+		if (isCurrentSIVFHS()) {
+			if (altFunctionJS_027(dob)) {
+				showError("#step_1_date_of_birth_validate_msg", getString("sivfhs_age_below_2_msg", lang));
+				return;
+			}
+		}
+
+		if (is_3_4_dose_tab && !isFirstDose && !isCurrentSIVFHS()) {
+			if (altFunctionJS_018(dob_year, dob_month, dob_day)) {
+				showError("#step_1_date_of_second_dose_validate_msg", getString("invalid_date", lang));
+				return;
+			}
+
+			if (altFunctionJS_019()) {
+				showError("#step_1_dose_" + selectedDoseRound + "_vacc_group_validate_msg",
+					getString("priority_group_on_part_1", lang) + addition_dose_display + getString("priority_group_on_part_2", lang));
+				return;
+			}
+			
+			if (altFunctionJS_020()) {
+				showError("#step_1_third_dose_vacc_validate_msg",
+					getString("please_choose_vaccine", lang) + addition_dose_display + getString("dose", lang));
+				return;
+			}
+			
+			if (altFunctionJS_021(dob)) {
+				showError("#step_1_third_dose_vacc_validate_msg", getString("not_met_xbb_req", lang));
+				return;
+			}
+			
+			if (altFunctionJS_022(dob)) {
+				showError("#step_1_third_dose_vacc_validate_msg", getString("not_met_mRNA_req", lang));
+				return;
+			}
+			
+			
+			
+			
+			vaccine_age_upper_limit = DR_GetVaccineAgeLimits_ByOption($("input[name=step_1_third_dose_vacc_group]:checked").val()).vaccine_age_upper_limit;
+			vaccine_age_lowest_limit = DR_GetVaccineAgeLimits_ByOption($("input[name=step_1_third_dose_vacc_group]:checked").val()).vaccine_age_lowest_limit;
+			
+			let ageRangeObject = altFunctionJS_023(vaccine_age_lowest_limit, vaccine_age_upper_limit, dob);
+			if (ageRangeObject.isUnder6mo) {
+				showError("#step_1_date_of_birth_validate_msg", getString("age_above_6m", lang));
+				return;
+			} else if (ageRangeObject.isUnderLowerLimit) {
+				showError("#step_1_date_of_birth_validate_msg", getString("age_should_be", lang) + vaccine_age_lowest_limit + getString("age_or_above", lang));
+				return;
+			}else if(ageRangeObject.isOverUpperLimit){
+				showError("#step_1_date_of_birth_validate_msg", getString("age_should_below", lang) + vaccine_age_upper_limit + getString("age_or_below", lang));
+				return;
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			if (altFunctionJS_025()) {
+				
+				// fix by updated "inputSecondDoseDate" to "DOB_by_YYYYMMDD"
+				var DOB_by_YYYYMMDD = altFunctionJS_024(dob_year, dob_month, dob_day, dob).inputSecondDoseDate;
+				var step1_dose_time_apart = altFunctionJS_024(dob_year, dob_month, dob_day, dob).step1_dose_time_apart;
+				if (step1_dose_time_apart < 0) {
+					return;
+				}
+				
+				//can -remove-
+				if(is_PassedDoseInterval_withGracePeriod(DOB_by_YYYYMMDD,step1_dose_time_apart)){
+					showError("#step_1_date_of_second_dose_validate_msg", getString("not_met_vaccination_req", lang) + addition_dose_display + getString("interval", lang));
+					return;
+				}
+				//---
+				
+				var previousDoseDateForChecker = moment($("#step_1_date_of_second_dose_year").val() + "" + $("#step_1_date_of_second_dose_month").val() + "" + $("#step_1_date_of_second_dose_day").val(), 'YYYYMMDD');
+								
+				if(is_PassedDoseInterval_withGracePeriod(previousDoseDateForChecker,step1_dose_time_apart)){				
+					showError("#step_1_date_of_second_dose_validate_msg", getString("not_met_vaccination_req", lang) + addition_dose_display + getString("interval", lang));
+					return;
+				}
+				
+				
+				if (!is_validateDate($("#step_1_date_of_second_dose_year").val(),$("#step_1_date_of_second_dose_month").val(),$("#step_1_date_of_second_dose_day").val())) {
+					showError("#step_1_date_of_second_dose_validate_msg", getString("invalid_date", lang));
+					return;
+				}
+				
+			}
+			
+			if (altFunctionJS_013() !== "") {
+				select_vacc_name = altFunctionJS_013();
+			}
+		}
+
+		
+
+		additional_dose_age_lowest_limit = vaccine_age_lowest_limit;
+
+		if (altFunctionJS_015(dob)) {
+			showError("#step_1_date_of_birth_validate_msg", getString("age_should_below", lang) + vaccine_age_upper_limit + getString("age_or_below", lang));
+			return;
+		}
+		
+		if (altFunctionJS_016(dob_year, dob_month, dob_day)) {
+			showError("#step_1_date_of_birth_validate_msg", getString("invalid_date", lang));
+			return;
+		}
+	
+		if (altFunctionJS_017(dob)) {
+			showError("#step_1_date_of_birth_validate_msg", getString("invalid_date", lang));
+			return;
+		}
+		
+		if(isCurrentHEPA()){
+			select_vacc_name = hepaDoseName;	
+		}else if(isCurrentSIVFHS()){
+			select_vacc_name = sivfhsDoseName;
+			if ($("#select_additional_dose").val() == 2) {
+				$("#radio_group_sivfhs_before input[value='Yes']").prop('checked', true).change();
+				$("#radio_group_sivfhs_before input[type='radio']").prop('disabled', true);
+			}			
+		}else if(	$("input[name=step_1_third_dose_vacc]:checked").val() =="BioNTechBV" 	||
+					$("input[name=step_1_third_dose_vacc]:checked").val() =="BioNTechXBB"	||
+					$("input[name=step_1_third_dose_vacc]:checked").val() =="BioNTech"){
+				
+			select_vacc_name = doseNameBio;
+			if($("input[name=step_1_third_dose_vacc]:checked").val() =="BioNTechBV"){
+				is_selected_BV_at_step_1 = true;
+			}
+			if($("input[name=step_1_third_dose_vacc]:checked").val() =="BioNTechXBB"){
+				is_selected_XBB_at_step_1 = true;
+			}
+			
+		}else{
+			if(isValueValid($("input[name=step_1_third_dose_vacc]:checked").val())){
+				select_vacc_name = $("input[name=step_1_third_dose_vacc]:checked").val();
+			}
+		}
+		
+		if (isCurrentC19()) {
+			if (dateChecker("step_1_date_of_birth_year", "step_1_date_of_birth_month", "step_1_date_of_birth_day")) {
+				const dobObject = dateFormatter("step_1_date_of_birth_year", "step_1_date_of_birth_month", "step_1_date_of_birth_day");
+				const { result, isChild } = doseSuspendByAgeAndDate(dobObject);
+				if (result) {
+					const messageKey = isChild ? "c19_vaccine_suspend_alert_child" : "c19_vaccine_suspend_alert_adult";
+					showError("#step_1_date_of_birth_validate_msg", getString(messageKey, lang));
+					return;
+				} else {
+
+				}
+			}
+		}
+		
+		var url = $(this).attr('action');
+		var form_id = $(this).attr("id");
+		var isShowEconsent = false;
+		var isShowStartReg = false;
+		var isStepCancelBooking = false;
+		$(".step_1 .input-submit-div").hide();
+		
+		// prepare payload without verifiedtoken
+	    let formData = $(this).serializeArray();
+	    formData = formData.filter(item => item.name !== 'mtcaptcha-verifiedtoken');
+	    formData.push({ name: 'X-CSRF-Token', value: $('#csrf_token').val()});
+	    let serializedData = $.param(formData);
+		
+		//Ajax ID - A004
+		$.ajax({
+			type: "POST",
+			async: false,
+			xhrFields:{withCredentials : true},
+			url: getURLbyWithCDNlogic()+url, //api_booking
+			data: serializedData, // serializes the form's elements.
+			success: function(returnData) {
+				handleCSRFandSessionCallBack(returnData);
+				
+				var user_dob = dob_year + "/" + dob_month + "/" + dob_day;
+				main_applicant_dob = user_dob;
+				
+				$(".step_1 .input-submit-div").show();
+				$("#step_1_captchaCode_validate_msg").html("");
+				
+				var data = progressDataFormat(returnData);
+				if(data === null){ return; }
+
+
+				if (data.result == "captcha invalid") {
+					console.log('Captcha invalid caused by: ' + data.errorCode);
+					reRenderMtcaptcha('step_1_mt_captchaCode');
+					$("#step_1_captchaCode_validate_msg").html("");
+					$("#step_1_captchaCode_validate_msg").html(getString("captcha_err", lang));
+					$(".step_1 .input-submit-div").show();
+				}
+				else if (data.appl_status == "P" || data.appl_status == "S") {
+					show_loading_progress_status_p_s();
+				}
+				else if (data.is_booking_exist) {
+					show_error_page(6, '');
+					return;
+				}
+				else if (data.result.indexOf("fail") == -1 && form_id == "step_1_booking_form") {
+					
+					altFunctionJS_026();
+					
+					//move to step_2
+					if (hkidFormatList.includes($("select[name='step_1_documentId_Type']").val())){
+						$("#step_2_documentId_display").val(hkid_display(data.documentId));
+					}
+					else if ($("select[name='step_1_documentId_Type']").val() == "EC") {
+						$("#step_2_documentId_display").val(ec_display(data.documentId));
+					}
+					else {
+						$("#step_2_documentId_display").val(data.documentId);
+					}
+					$("#step_2_documentId_Type_display").val(get_ATGC_NATCARDTYPE($("select[name='step_1_documentId_Type']").val()));
+					$("#step_2_documentId_Type").val($("select[name='step_1_documentId_Type']").val());
+
+					if (lang == 'en') {
+						$("#step_2_dob_display").val((($("#step_1_date_of_birth_day").val() == "-") ? "" : $("#step_1_date_of_birth_day option:selected").html()) + " " + (($("#step_1_date_of_birth_month").val() == "-") ? "" : $("#step_1_date_of_birth_month option:selected").html()) + " " + $("#step_1_date_of_birth_year option:selected").html());
+					}
+					else {
+						$("#step_2_dob_display").val($("#step_1_date_of_birth_year option:selected").html() + (($("#step_1_date_of_birth_month").val() == "-") ? "" : $("#step_1_date_of_birth_month option:selected").html()) + (($("#step_1_date_of_birth_day").val() == "-") ? "" : $("#step_1_date_of_birth_day option:selected").html()));
+					}
+					$("#step_2_date_of_birth_year").val($("#step_1_date_of_birth_year").val());
+					$("#step_2_date_of_birth_month").val($("#step_1_date_of_birth_month").val());
+					$("#step_2_date_of_birth_day").val($("#step_1_date_of_birth_day").val());
+
+					if (isValueValid($("input[name=step_1_third_dose_vacc_group]:checked").val()) && $("input[name=step_1_third_dose_vacc_group]:checked").val().indexOf("need") > -1) {/*
+								$("#step_2_ref_indicator").val("I");*/
+						$("#step_2_ref_indicator").val(lastSecChar + "I");
+					}
+
+					if (is_underAge_16_Validate(user_dob)) {
+						$(".ehrss_16_above").hide();
+						$(".ehrss_16_below").show();
+						$(".pics_ > .join_ess_grp").hide();
+						$("#step_1_join_ess_n").click();
+					}
+
+					//co admin 8 - match condition to display co adm pulldown  [closed for 31/07/2024 at 31/05/2024]
+					//start
+					var get_age_full_dob = $("#step_1_date_of_birth_year").val() + "/" + $("#step_1_date_of_birth_month").val() + "/" + $("#step_1_date_of_birth_day").val();
+					var today = moment();
+  					var isAfterStartDate = today.isAfter(COADMIN_START_DATE);
+  					var isBeforeCloseDate = today.isSameOrBefore(COADMIN_CLOSE_DATE, 'day');
+					if(isAfterStartDate && isBeforeCloseDate){
+						//using 1 list
+						if (docTypeRequirementFormatList_1.includes($("select[name='step_1_documentId_Type']").val()) 
+						&& (is_AgeMatchCoAdminCVC(get_age_full_dob))) {
+							$(".step_2_join_flu").show();
+							$("#step_2_select_join_flu").prop('required', true);
+						}
+						//using 2 list
+						else if (docTypeRequirementFormatList_2.includes($("select[name='step_1_documentId_Type']").val())
+						&& (is_AgeBTWBaby(get_age_full_dob))) {
+							$(".step_2_join_flu").show();
+							$("#step_2_select_join_flu").prop('required', true);
+	
+						}
+						//using 2 list
+						else if (docTypeRequirementFormatList_2.includes($("select[name='step_1_documentId_Type']").val())
+						&& ( (select_vacc_name == doseNameSin && is_AgeBTWChildForSinovac(get_age_full_dob)) || (select_vacc_name != doseNameSin && is_AgeBTWChild(get_age_full_dob)) )) {
+							$(".step_2_join_flu").show();
+							$("#step_2_select_join_flu").prop('required', true);
+	
+						}
+						else {
+							$("#step_2_select_join_flu").prop('required', false);
+	
+						}
+					}else {
+						$("#step_2_select_join_flu").prop('required', false);
+					}
+					
+					if(isCurrentSIVFHS() || isCurrentHEPA()){
+						$(".join_flu_remarks, .step_2_join_flu").hide();
+						$("#step_2_select_join_flu").prop('required', false);
+					}
+					//end
+					
+					//Clean BV & XBB first
+					$("#step_2_select_join_bv").val("N");
+					$("#step_2_select_join_xbb").val("N");
+
+
+					//BV bivalent - match condition to display  pulldown 
+					//start
+					if (is_selected_BV_at_step_1 && is_3_4_dose_tab) {
+						$(".step_2_join_bv").show();
+						$("#step_2_select_join_bv").prop('required', true);
+						$("#step_2_select_join_bv").val("Y");
+						$("#step_2_select_join_bv").attr("disabled", true);
+						$(".step_2_join_bv .content_notes").remove();
+						$("#step_2_select_join_bv option[value='N']").remove();
+						$("#step_2_select_join_bv").css({"background": "none", "color": "blue", "border": "none", "padding": "0", "height": "auto", "-webkit-appearance": "none", "appearance": "none"});
+
+					}
+					else {
+						$("#step_2_select_join_bv").prop('required', false);
+					}
+					//end
+					
+					
+					//XBB - match condition to display  pulldown 
+					//start
+					if (is_selected_XBB_at_step_1 && is_3_4_dose_tab) {
+						$(".step_2_join_xbb").show();
+						$("#step_2_select_join_xbb").prop('required', true);
+						$("#step_2_select_join_xbb").val("Y");
+						$("#step_2_select_join_xbb").attr("disabled", true);
+						$(".step_2_join_xbb .content_notes").remove();
+						$("#step_2_select_join_xbb option[value='N']").remove();
+						$("#step_2_select_join_xbb").css({"background": "none", "color": "blue", "border": "none", "padding": "0", "height": "auto", "-webkit-appearance": "none", "appearance": "none"});
+
+					}
+					else {
+						$("#step_2_select_join_xbb").prop('required', false);
+					}
+					//end
+					
+					if ($("input[name=step_1_priority_group]:checked").attr("priority_group_eng_name") == "Enquiry/Cancel booking") {
+						show_error_page(7,'','Enquiry/Cancel booking');
+						return;
+					}
+
+					if ($("input[name=step_1_priority_group]:checked").val() == "n") {
+						$("#step_2_statistic_group").parent().show();
+						$("select[name=step_2_priority_group] option[priority_group_is_age=Y]").remove();
+					}
+					else {
+						$('#step_2_priority_group > option[value=' + $("input[name=step_1_priority_group]:checked").val() + ']').prop('selected', true).change();
+						$("#step_2_statistic_group").val($("#step_2_statistic_group option:not(:disabled)").val());
+						$("#step_2_statistic_group").parent().hide();
+					}
+
+					$("#step_2_documentId").val(data.documentId);
+					$("#step_2_documentId_serial").val($("#step_1_ec_documentId_serial").val());
+
+					if (typeof data.check_status != "undefined") {
+						if (typeof data.check_status.statusList != "undefined") {
+							if (data.check_status.statusList[0].vaccineBrand != "") {
+								try {
+									if (!is_3_4_dose_tab) {
+										select_vacc_name = data.check_status.statusList[0].vaccineBrand;
+									}
+
+									if (select_vacc_name == doseNameSin) {
+										select_vacc_code = doseCodeSin;
+									}
+									else if (select_vacc_name == doseNameBio) {
+										select_vacc_code = doseCodeBio;
+									}
+									else if (select_vacc_name == sivfhsDoseName) {
+										select_vacc_code = doseCodeSiv;
+									}
+									else if (select_vacc_name == hepaDoseName) {
+										select_vacc_code = doseCodeHepA;
+									}
+								}
+								catch (e) {
+									show_error_page(1,'','try catch 001');
+									return false;
+								}
+							}
+
+							$(".vaccinename").html($('.vaccine_inital_notes a[data-cv-name="' + select_vacc_name + '"]').attr("data-cv-display-name"));
+							$(".vaccineday").html($('.vaccine_inital_notes a[data-cv-name="' + select_vacc_name + '"]').attr("data-cv-day"));
+							$('.consent_Sinovac, .consent_biontech, .consent_sivfhs, .consent_hepa, .group_reminder').hide();
+							$(".consentContent input").removeAttr("id");
+
+							if (select_vacc_code == doseCodeSin) {
+								$(".age_note").show();
+							} else {
+								$(".age_note").remove();
+							}
+
+							if (select_vacc_name == doseNameSin) {
+								$('.consent_Sinovac').show();
+								$(".consent_Sinovac .consentContent input").each(function() {
+									$(this).attr('id', $(this).attr('class'));
+								});
+								altFunctionJS_003();
+							}
+							else if (select_vacc_name == doseNameBio) {
+								$('.consent_biontech, .group_reminder').show();
+								$(".consent_biontech .consentContent input").each(function() {
+									$(this).attr('id', $(this).attr('class'));
+								});
+								
+								altFunctionJS_004();
+							}
+							else if (select_vacc_name == sivfhsDoseName) {
+								$('.consent_sivfhs, .group_reminder').show();
+								$(".consent_sivfhs .consentContent input").each(function() {
+									$(this).attr('id', $(this).attr('class'));
+								});
+								
+								altFunctionJS_004();
+							}
+							else if (select_vacc_name == hepaDoseName) {
+								$('.consent_hepa, .group_reminder').show();
+								$(".consent_hepa .consentContent input").each(function() {
+									$(this).attr('id', $(this).attr('class'));
+								});
+								
+								$('input[name="step_2_gender"][value="M"]').prop('checked', true);
+								 
+								altFunctionJS_004();
+							}
+							else {
+								show_error_page(1,'','Selected vaccine out or range 002');
+								return;
+							}
+							
+							if (select_vacc_name == doseNameBio && !is_3_4_dose_tab) {
+								$(".step_1_dose_selection").show();
+								controlVaccineDisplay_12(get_age_full_dob);
+								$("#step_1_dose_vacc_BioNTech_XBB_IMMU").prop("checked", true);
+								$(".step_1_dose_selection").hide();
+							}else{
+								$(".step_1_dose_selection").hide();
+							}
+
+							setVaccDetails();
+							if(isCurrentHEPA()){
+								//By pass below Covid Dose checker
+								isShowStartReg = true;
+								$(".vaccine_inital_notes li.nav-item").hide();
+								$('.vaccine_inital_notes a[data-cv-name="' + $("input[name=step_1_third_dose_vacc]:checked").val() + '"]').click().parent().show().click();
+								$(".vaccinename").html($(".vaccine_inital_notes").find(".active").attr("data-cv-display-name"));
+								$(".radio_group .invisible_label").remove();
+								
+								$("input[name=step_2_doses][value=2]").prop("disabled", true);
+								$("input[name=step_2_doses][value=2]").parent(".radio_group").hide();
+								$("input[name=step_2_doses][value=1]").prop("checked", true).change();
+									
+							}else if(isCurrentSIVFHS()){
+								//By pass below Covid Dose checker
+								isShowStartReg = true;
+								$(".vaccine_inital_notes li.nav-item").hide();
+								$('.vaccine_inital_notes a[data-cv-name="' + $("input[name=step_1_third_dose_vacc]:checked").val() + '"]').click().parent().show().click();
+								$(".vaccinename").html($(".vaccine_inital_notes").find(".active").attr("data-cv-display-name"));
+								$(".radio_group .invisible_label").remove();
+								
+								if(isFirstDose){
+									$("input[name=step_2_doses][value=2]").prop("disabled", true);
+									$("input[name=step_2_doses][value=2]").parent(".radio_group").hide();
+									$("input[name=step_2_doses][value=1]").prop("checked", true).change();
+								}else{
+									$("input[name=step_2_doses][value=1]").prop("disabled", true);
+									$("input[name=step_2_doses][value=1]").parent(".radio_group").hide();
+									$("input[name=step_2_doses][value=2]").prop("checked", true).change();
+									$(".dose2_selection_remarks").html("");
+									check_status_previous_dose_date = moment("2000-11-11 11:11", 'YYYY-MM-DD HH:mm');
+								}
+							}
+							else if (isInvalidDoseHistory(data,1)) {
+								return;
+							}
+							else if (is_3_4_dose_tab && !isFirstDose) {
+								var previousDoseDate;
+								$("input[name=step_2_doses][value=1]").prop("disabled", true);
+								$("input[name=step_2_doses][value=1]").parent(".radio_group").hide();
+								$("input[name=step_2_doses][value=2]").prop("checked", true).change();
+								
+								if(isInvalidDoseHistory(data,2)){
+									return;
+								}
+
+								previousDoseDate = moment($("#step_1_date_of_second_dose_year").val() + "" + $("#step_1_date_of_second_dose_month").val() + "" + $("#step_1_date_of_second_dose_day").val(), 'YYYYMMDD');
+								check_status_previous_dose_date = previousDoseDate;
+								$(".dose2_selection_remarks").html("");
+
+								$("option[priority_group_id=0]").remove();
+								dose_time_apart = third_dose_time_apart;
+
+								
+								var selectedVaccineName_Filtered = doseNameBio;
+								var lastInd = $("#step_2_ref_indicator").val().slice(1);
+
+								var lastChar = lastInd.replace("N", DR_GetLastChar_ByOption($("input[name=step_1_third_dose_vacc_group]:checked").val()));
+								
+								$("#step_2_ref_indicator").val(lastSecChar + lastChar);
+								
+								dose_time_apart = altFunctionJS_012(data, $("input[name=step_1_third_dose_vacc_group]:checked").val());
+								
+								if(dose_time_apart < 0){
+									return;
+								}
+								
+								if(is_PassedDoseInterval_withGracePeriod(previousDoseDate,dose_time_apart)){	
+									show_error_page(5,'','Dose record 028');
+									return;
+								}
+
+								//show_target($(".e_Consent"));
+								if (is_3_4_dose_tab) {
+
+									$(".vaccine_inital_notes li.nav-item").hide();
+									$('.vaccine_inital_notes a[data-cv-name="' + selectedVaccineName_Filtered + '"]').click().parent().show().click();
+									$(".vaccinename").html($(".vaccine_inital_notes").find(".active").attr("data-cv-display-name"));
+									$(".radio_group .invisible_label").remove();
+									isShowStartReg = true;
+								}
+								else {
+									show_error_page(4,'','E0000001');
+									return;
+								}
+							}
+							else if (data.check_status.statusList[0]["doseRecords"].length == 0) {
+								if (is_3_4_dose_tab && !isFirstDose) {
+									show_error_page(4,'','E0000002');
+									return;
+								}
+								var selectedVaccineName_Filtered = doseNameBio;
+								$("input[name=step_2_doses][value=2]").prop("disabled", true);
+								$("input[name=step_2_doses][value=2]").parent(".radio_group").hide();
+								$("input[name=step_2_doses][value=1]").prop("checked", true).change();
+
+
+								isShowStartReg = true;
+								$(".vaccine_inital_notes li.nav-item").hide();
+								$('.vaccine_inital_notes a[data-cv-name="' + selectedVaccineName_Filtered + '"]').click().parent().show().click();
+								$(".vaccinename").html($(".vaccine_inital_notes").find(".active").attr("data-cv-display-name"));
+								$(".radio_group .invisible_label").remove();
+							}
+							else {
+								show_error_page(4,'','E0000003');
+								return;
+							}
+						}
+						else {
+							show_error_page(4,'','E0000004');
+							return;
+						}
+					}
+					else {
+						show_error_page(4,'','E0000005');
+						return;
+					}
+
+					//check for recovery date
+					if (!check_recovery_eligibility(data)) {
+						show_error_page(5,'','E0000006');
+						return;
+					}
+
+					// when showing loading, hide the content of current page content
+					$(".step_loading").show();
+					$(".step_1").hide();
+					
+					//get the center list
+					//Ajax ID - A005
+					
+					
+					
+					$.ajax({
+						type: "GET",
+						async: true,
+						url: getBaseAPIUrl()+"/api_center_by_cv_name/" + select_vacc_name.replace(doseNameBio,doseNameBio_forApiCenter),
+						success: function(data) {
+							$(".step_loading").hide();
+							
+							if(isCurrentHEPA()){
+								show_target($(".step_2"));
+							}else{
+								$(".step_1").show();
+								if (isShowEconsent) {
+									show_target($(".e_Consent"));
+								} else {
+									$(".e_Consent").hide();
+								}
+								if (isShowStartReg) {
+									show_target($(".start_reg"));
+								} else {
+									$(".start_reg").hide();
+								}
+								if (isStepCancelBooking) {
+									show_target($(".step_cancel_booking"));
+								} else {
+									$(".step_cancel_booking").hide();
+								}
+								
+								if(isCurrentC19()){
+									prefillStatGroup();
+								}
+							}
+
+							var data = JSON.parse(data);
+							var avaliable_distric_id = data.avaliable_distric_id;
+							avaliable_ctc_id = data.avaliable_ctc_id;
+							altFunctionJS_005(avaliable_distric_id);
+							
+							
+							
+							
+						},
+						error: function(xhr, textStatus, errorThrown) {
+							$(".step_loading").hide();
+							$(".step_1").show();
+							$(".e_Consent").hide();
+							$(".start_reg").hide();
+							$(".step_cancel_booking").hide();
+							ajaxErrorLogging("A005", xhr, textStatus, errorThrown, this.url);
+							show_error_page(1,xhr.status,'');
+							return;
+						}
+					});
+				}
+				else {
+					if(data.result === "fail" && data.errorCode){
+						show_error_page(1,'','E0000007['+data.errorCode+']');
+					}else{
+						show_error_page(4,'','E0000007');
+					}
+					
+					return;
+				}
+				
+				if(is_AgeAbove18(user_dob) && $("#step_2_doses_2").is(':checked') && select_vacc_name == doseNameBio){
+					$(".dose2_remarks").show();
+				}
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				ajaxErrorLogging("A004", xhr, textStatus, errorThrown, this.url);
+				show_error_page(1,xhr.status,'');
+				return;
+			}
+		});
+	});
+
+	$('#cancel_booking').submit(function(e) {
+		e.preventDefault();
+
+		if (!($("#cancel_booking .input_confirm_control").is(":visible"))) {
+			$('html, body').animate({
+				scrollTop: $("#cancel_booking").offset().top
+			}, 500);
+
+			$("#cancel_booking_action").val("cancel_booking_enquiry");
+			var url = $(this).attr('action');
+			$(".input_confirm_control").hide();
+			
+			// prepare payload without verifiedtoken
+		    let formData = $(this).serializeArray();
+		    formData = formData.filter(item => item.name !== 'mtcaptcha-verifiedtoken');
+		    formData.push({ name: 'X-CSRF-Token', value: $('#csrf_token').val()});
+		    let serializedData = $.param(formData);
+		    
+			$.ajax({
+				type: "POST",
+				xhrFields:{withCredentials : true},
+				url: getURLbyWithCDNlogic()+url, //api_booking
+				data: serializedData, // serializes the form's elements.
+				success: function(returnData) {
+					handleCSRFandSessionCallBack(returnData);
+					
+					$("#cancel_booking_enquiry_captchaCode").html("");
+
+					var data = progressDataFormat(returnData);
+					if(data === null){ return; }
+
+
+					if (data.result == "captcha invalid") {
+						console.log('Captcha invalid caused by: ' + data.errorCode);
+						reRenderMtcaptcha('cancel_booking_mt_captchaCode');
+						$("#cancel_booking_enquiry_captchaCode_validate_msg").html("");
+						$("#cancel_booking_enquiry_captchaCode_validate_msg").html(getString("captcha_err", lang));
+					}
+					else if (data.AT_STATUS == "A") {
+						show_cancel_detail(data);
+					}
+					else {
+						show_error_page(7,'')
+						return;
+					}
+				}
+			});
+			return;
+		}
+
+		$("#cancel_booking_action").val("cancel_booking");
+		var url = $(this).attr('action');
+		
+		// prepare payload without verifiedtoken
+	    let formData = $(this).serializeArray();
+	    formData = formData.filter(item => item.name !== 'mtcaptcha-verifiedtoken');
+	    formData.push({ name: 'X-CSRF-Token', value: $('#csrf_token').val()});
+	    let serializedData = $.param(formData);
+	    
+		//Ajax ID - A006
+		$.ajax({
+			type: "POST",
+			xhrFields:{withCredentials : true},
+			url: getURLbyWithCDNlogic()+url, //api_booking
+			data: serializedData, // serializes the form's elements.
+			success: function(returnData) {
+				handleCSRFandSessionCallBack(returnData);
+				
+				$("#cancel_booking_captchaCode").html("");
+
+				var data = progressDataFormat(returnData);
+				if(data === null){ return; }
+
+				if (data.result == "captcha invalid") {
+					console.log('Captcha invalid caused by: ' + data.errorCode);
+					reRenderMtcaptcha('cancel_booking_mt_captchaCode');
+					$("#cancel_booking_captchaCode_validate_msg").html("");
+					$("#cancel_booking_captchaCode_validate_msg").html(getString("captcha_err", lang));
+				}
+				else if (data.result == "cancel_success") {
+					show_target($(".step_cancel_success"));
+				}
+				else {
+					show_error_page(7,'','E0000008');
+					return;
+				}
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				ajaxErrorLogging("A006", xhr, textStatus, errorThrown, this.url);
+				show_error_page(1,xhr.status,'');
+				return;
+			}
+		});
+
+	});
+
+	$('#step_update_form').submit(function(e) {
+		e.preventDefault();
+		
+		$("coadm_expire_text_12").hide();
+		$("coadm_expire_text_2").hide();
+		
+		if(isBeforeXBBAvailableDate()){return;}
+
+		$("#step_2_dose1_avalible_timeslots_validate_msg").html("");
+		if ($("#step_2_dose1_district").prop("disabled") == false && $("input[name='step_2_dose1_booking_timeslot']:checked").length == 0) {
+			$("#step_2_dose1_avalible_timeslots_validate_msg").html(getString("please_select_a_timeslot", lang));
+			$('html, body').animate({
+				scrollTop: $("#step_2_dose1_avalible_timeslots_validate_msg").offset().top - 50
+			}, 500);
+			return;
+		}
+
+		$("#step_2_dose2_avalible_timeslots_validate_msg").html("");
+		if ($("input[name='step_2_doses']:checked").val() != "1" && $("input[name='step_2_dose2_booking_timeslot']:checked").length == 0) {
+			$("#step_2_dose2_avalible_timeslots_validate_msg").html(getString("please_select_a_timeslot", lang));
+			$('html, body').animate({
+				scrollTop: $("#step_2_dose2_avalible_timeslots_validate_msg").offset().top - 50
+			}, 500);
+			return;
+		}
+		
+		if($("#step_2_select_join_flu").find("option:selected").val() == "Y"){
+			var isDose12 = false;
+			if ($("#step_2_dose1_district").prop("disabled") == false){ 
+				//dose1&2
+				isDose12 = true;
+				targetDateString = moment($("input[name='step_2_dose1_booking_timeslot']:checked").val()).format("YYYY/MM/DD");
+				if(new Date(targetDateString) > new Date(COADMIN_CLOSE_DATE_WITH_SLASH)){
+					$("#coadm_expire_text_12").show();
+					$('html, body').animate({
+						scrollTop: $("#dose_num_label_12").offset().top - 50
+					}, 500);
+					return;
+				}
+			}else{
+				//dose2/3/4/5
+				targetDateString = moment($("input[name='step_2_dose2_booking_timeslot']:checked").val()).format("YYYY/MM/DD");
+				if(new Date(targetDateString) > new Date(COADMIN_CLOSE_DATE_WITH_SLASH)){
+					$("#coadm_expire_text_2").show();
+					$('html, body').animate({
+						scrollTop: $("#dose_num_label_2").offset().top - 50
+					}, 500);
+					return;
+				}
+			}
+			
+			if(is_AgeAbove18withTarget(main_applicant_dob,targetDateString)){
+				if(isDose12){
+					$("#step_2_dose1_avalible_timeslots_validate_msg").html("");
+					$("#step_2_dose1_avalible_timeslots_validate_msg").html(getString("coadmin_under_18_reminder", lang));
+					$('html, body').animate({
+						scrollTop: $("#step_2_dose2_avalible_timeslots_validate_msg").offset().top - 50
+					}, 500);
+					return;
+				}else{
+					$("#step_2_dose2_avalible_timeslots_validate_msg").html("");
+					$("#step_2_dose2_avalible_timeslots_validate_msg").html(getString("coadmin_under_18_reminder", lang));
+					$('html, body').animate({
+						scrollTop: $("#step_2_dose2_avalible_timeslots_validate_msg").offset().top - 50
+					}, 500);
+					return;
+				}
+			}
+			
+		}
+
+		if ($(".not_available_date_msg p").text() != "") {
+			$('html, body').animate({
+				scrollTop: $("#step_2_dose2_avalible_timeslots_validate_msg").offset().top - 460
+			}, 500);
+			return;
+		}
+
+		if (!($(".input_confirm_control").is(":visible"))) {
+			$('html, body').animate({
+				scrollTop: $("body").offset().top
+			}, 500);
+
+			var review_highlight_note = ""
+			if(isCurrentSIVFHS()){
+				review_highlight_note = getString("review_highlight_note_sivfhs", lang);
+			}else{
+				review_highlight_note = getString("review_highlight_note", lang);
+			}			
+			$(".step_update_booking hr:first").before('<div class="highlight_red align-center review_highlight_note"><p>' + review_highlight_note + '</p></div>');
+
+			$(".review_input, .review_input_na").not(".review_enquiry_init_input").html("");
+			$("#step_2_input_page input").not(':input[type=hidden], :input[type=radio], :input[type=button], :input[type=submit], :input[type=reset], :input[id=review_confirmation_checkbox]').each(function(index) {
+				$(this).hide();
+				$(this).parents(".input-div").addClass("input-div-no-border");
+				// Commented on 20-10-2026
+				// Unsafe! Display the text as executable code. Using JQuery .text() to prevent it.
+				//$(this).after('<span class="review_input input_span input_span_highlight">' + generateNAtextForEmpty($(this).val()) + '</span>');
+				const userSubmittedCode = $(this).val();
+				$('<span>', {
+					'class': 'review_input input_span input_span_highlight',
+					'text': generateNAtextForEmpty(userSubmittedCode) // Safely encoded as plain text
+				}).insertAfter(this);
+				sivfhsPreferredLanguageUiReviewPage();
+			});
+
+			$("#step_2_input_page select").each(function(index) {
+				if ($("option:selected", this).hasClass("na")) {
+					$(this).hide();
+					$(this).parents(".input-div").addClass("input-div-no-border");
+					//$(this).after('<span class="review_input_na input_span input_span_highlight">' + $(this).find("option:selected").val() + '</span>');
+				} else {
+					$(this).hide();
+					$(this).parents(".input-div").addClass("input-div-no-border");
+					$(this).after('<span class="review_input input_span input_span_highlight">' + $(this).find("option:selected:first:not(:disabled)").text() + '</span>');
+				}
+			});
+
+			$("#step_2_input_page input[type=radio]:checked").each(function(index) {
+				$(this).parents(".radio_group_parent").children().hide();
+				$(this).parents(".radio_group_parent").append('<span class="review_input input_span input_span_highlight">' + $("label[for=" + $(this).attr("id") + "]").html() + '</span>');
+			});
+
+			$(".step_2_dose1_timeslots_selection_review").html('<span class="review_input input_span input_span_highlight">' + $("input[name='step_2_dose1_booking_timeslot']:checked").val() + '</span>');
+			$(".step_2_dose2_timeslots_selection_review").html('<span class="review_input input_span input_span_highlight">' + $("input[name='step_2_dose2_booking_timeslot']:checked").val() + '</span>');
+			$(".timeslots_selection").hide();
+			$(".step_2_tel_for_sms_notif").hide();
+			$(".login_note").hide();
+			$(".content_notes").hide();
+
+			$(".dose2_selection_remarks").hide();
+			$(".form-control-plaintext").hide();
+
+			$(".input_review_control").hide();
+			$(".input_confirm_control").show();
+			return;
+		}
+
+		else {
+			if ($("#review_confirmation_checkbox").is(':checked') == false) {
+				$("#review_confirmation_checkbox").focus();
+				$("#review_confirmation_checkbox_validate_msg").html(getString("agree_the_declaration", lang));
+				return;
+			}
+		}
+
+		$("#step_2_dose1_ctc_eng_name, #step_2_dose1_ctc_tc_name, #step_2_dose1_ctc_sc_name, #step_2_dose1_ctc_id, #step_2_dose2_ctc_eng_name, #step_2_dose2_ctc_tc_name, #step_2_dose2_ctc_sc_name, #step_2_dose2_ctc_id, #step_2_dose1_booking_timeslot").remove();
+
+		if ($("input[name=step_2_dose1_booking_timeslot]:checked").length == 1) {
+			$('#step_update_form').append('<input type="hidden" id="step_2_dose1_ctc_id" name="step_2_dose1_ctc_id" value="' + $("input[name=step_2_dose1_booking_timeslot]:checked").attr("booking_timeslot_id") + '">');
+			$('#step_update_form').append('<input type="hidden" id="step_2_dose1_ctc_eng_name" name="step_2_dose1_ctc_eng_name" value="' + $("#step_2_dose1_center option:selected").attr("ctc_eng_name") + '">');
+			$('#step_update_form').append('<input type="hidden" id="step_2_dose1_ctc_tc_name" name="step_2_dose1_ctc_tc_name" value="' + $("#step_2_dose1_center option:selected").attr("ctc_tc_name") + '">');
+			$('#step_update_form').append('<input type="hidden" id="step_2_dose1_ctc_sc_name" name="step_2_dose1_ctc_sc_name" value="' + $("#step_2_dose1_center option:selected").attr("ctc_sc_name") + '">');
+		}
+
+		if ($("#step_2_dose1_ctc_id").length == 0) {
+			$('#step_update_form').append('<input type="hidden" id="step_2_dose1_booking_timeslot" name="step_2_dose1_booking_timeslot" value="' + $("#step_2_dose1_date_year").val() + "-" + $("#step_2_dose1_date_month").val() + "-" + $("#step_2_dose1_date_day").val() + " " + "00:00" + '">');
+		}
+
+		$('#step_update_form').append('<input type="hidden" id="step_2_dose2_ctc_id" name="step_2_dose2_ctc_id" value="' + $("input[name=step_2_dose2_booking_timeslot]:checked").attr("booking_timeslot_id") + '">');
+		$('#step_update_form').append('<input type="hidden" id="step_2_dose2_ctc_eng_name" name="step_2_dose2_ctc_eng_name" value="' + $("#step_2_dose2_center option:selected").attr("ctc_eng_name") + '">');
+		$('#step_update_form').append('<input type="hidden" id="step_2_dose2_ctc_tc_name" name="step_2_dose2_ctc_tc_name" value="' + $("#step_2_dose2_center option:selected").attr("ctc_tc_name") + '">');
+		$('#step_update_form').append('<input type="hidden" id="step_2_dose2_ctc_sc_name" name="step_2_dose2_ctc_sc_name" value="' + $("#step_2_dose2_center option:selected").attr("ctc_sc_name") + '">');
+
+		if ($(".recovery_dose_2").length > 0) {
+			var dose_2_date = moment($("input[name=step_2_dose1_booking_timeslot]:checked").val(), 'YYYY-MM-DD HH:mm').add(21, 'day');
+			$(".recovery_dose_2").val(dose_2_date.startOf('day').format('YYYY-MM-DD HH:mm'));
+		}
+
+		var url = $(this).attr('action');
+		$(".step_update_booking .input_confirm_control").hide();
+		// prepare payload without verifiedtoken
+	    let formData = $(this).serializeArray();
+	    formData = formData.filter(item => item.name !== 'mtcaptcha-verifiedtoken');
+	    formData.push({ name: 'X-CSRF-Token', value: $('#csrf_token').val()});
+	    let serializedData = $.param(formData);
+		//Ajax ID - A007
+		$.ajax({
+			type: "POST",
+			xhrFields:{withCredentials : true},
+			url: getURLbyWithCDNlogic()+url,	
+			data: serializedData, // serializes the form's elements.
+			success: function(returnData) {
+				handleCSRFandSessionCallBack(returnData);
+				
+				var data = progressDataFormat(returnData);
+				if(data === null){ return; }
+				
+				if (data.result == "captcha invalid") {
+					console.log('Captcha invalid caused by: ' + data.errorCode);
+					reRenderMtcaptcha('step_1_mt_captchaCode');
+					$("#step_2_captchaCode_validate_msg").html("");
+					$("#step_2_captchaCode_validate_msg").html(getString("captcha_err", lang));
+					$(".step_update_booking .input_confirm_control").show();
+				}
+				else if (data.AT_STATUS == "A") {
+					show_cancel_detail(data);
+					show_result_success(data);
+					$(".reg_confirm_notes").hide();
+					//show cancel button?
+					$(".go_cancel").parent(".input-submit-div").show();
+					$("#go_update").parent("div").hide();
+				}
+				else {
+					show_error_page(7,'','E0000009');
+					return;
+				}
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				ajaxErrorLogging("A007", xhr, textStatus, errorThrown, this.url);
+				show_error_page(1,xhr.status,'');
+				return;
+			}
+		});
+	});
+
+	$('#step_2_booking_form').submit(function(e) {
+
+
+		e.preventDefault();
+		
+		if(isClickedFromStep2Edit){
+			isClickedFromStep2Edit = false;
+			return;
+		}
+		$("coadm_expire_text_12").hide();
+		$("coadm_expire_text_2").hide();
+
+		$("#step_2_input_page input[type=text]").each(function() {
+			$(this).val($.trim($(this).val()));
+		});
+		
+		if(userInputEmptyChecker()){
+			return;
+		}
+		if(userInputRegularExpressionChecker()){
+			return;
+		}
+		
+		if(isBeforeXBBAvailableDate()){return;}
+
+		if(!isCurrentHEPA()){
+			$("#step_2_tel_for_sms_notif_confirm_validate_msg").html("");
+			if ($("#step_2_tel_for_sms_notif").val() != $("#step_2_tel_for_sms_notif_confirm").val()) {
+				$("#step_2_tel_for_sms_notif_confirm_validate_msg").html(getString("re_enter_contact_num", lang));
+				$('html, body').animate({
+					scrollTop: $("#step_2_tel_for_sms_notif_confirm_validate_msg").offset().top - 50
+				}, 500);
+				return;
+			}
+		}
+
+
+		$("#step_2_dose1_avalible_timeslots_validate_msg").html("");
+		if ( ( $("#step_2_dose1_district").prop("disabled") == false || isCurrentHEPA())
+			 && $("input[name='step_2_dose1_booking_timeslot']:checked").length == 0) {
+			$("#step_2_dose1_avalible_timeslots_validate_msg").html(getString("please_select_a_timeslot", lang));
+			$('html, body').animate({
+				scrollTop: $("#step_2_dose1_avalible_timeslots_validate_msg").offset().top - 50
+			}, 500);
+			return;
+		}
+
+		$("#step_2_dose2_avalible_timeslots_validate_msg").html("");
+		if (!isFirstDose && $("input[name='step_2_dose2_booking_timeslot']:checked").length == 0) {
+			$("#step_2_dose2_avalible_timeslots_validate_msg").html(getString("please_select_a_timeslot", lang));
+			$('html, body').animate({
+				scrollTop: $("#step_2_dose2_avalible_timeslots_validate_msg").offset().top - 50
+			}, 500);
+			return;
+		}
+		
+		
+		if($("#step_2_select_join_flu").find("option:selected").val() == "Y"){
+			var isDose12 = false;
+			if ($("#step_2_dose1_district").prop("disabled") == false){ 
+				//dose1&2
+				isDose12 = true;
+				targetDateString = moment($("input[name='step_2_dose1_booking_timeslot']:checked").val()).format("YYYY/MM/DD");
+				if(new Date(targetDateString) > new Date(COADMIN_CLOSE_DATE_WITH_SLASH)){
+					$("#coadm_expire_text_12").show();
+					$('html, body').animate({
+						scrollTop: $("#dose_num_label_12").offset().top - 50
+					}, 500);
+					return;
+				}
+			}else{
+				//dose2/3/4/5
+				targetDateString = moment($("input[name='step_2_dose2_booking_timeslot']:checked").val()).format("YYYY/MM/DD");
+				if(new Date(targetDateString) > new Date(COADMIN_CLOSE_DATE_WITH_SLASH)){
+					$("#coadm_expire_text_2").show();
+					$('html, body').animate({
+						scrollTop: $("#dose_num_label_2").offset().top - 50
+					}, 500);
+					return;
+				}
+			}
+			
+			if(is_AgeAbove18withTarget(main_applicant_dob,targetDateString)){
+				if(isDose12){
+					$("#step_2_dose1_avalible_timeslots_validate_msg").html("");
+					$("#step_2_dose1_avalible_timeslots_validate_msg").html(getString("coadmin_under_18_reminder", lang));
+					$('html, body').animate({
+						scrollTop: $("#step_2_dose2_avalible_timeslots_validate_msg").offset().top - 50
+					}, 500);
+					return;
+				}else{
+					$("#step_2_dose2_avalible_timeslots_validate_msg").html("");
+					$("#step_2_dose2_avalible_timeslots_validate_msg").html(getString("coadmin_under_18_reminder", lang));
+					$('html, body').animate({
+						scrollTop: $("#step_2_dose2_avalible_timeslots_validate_msg").offset().top - 50
+					}, 500);
+					return;
+				}
+			}
+			
+		}
+
+		if ($(".not_available_date_msg p").text() != "") {
+			$('html, body').animate({
+				scrollTop: $("#step_2_dose2_avalible_timeslots_validate_msg").offset().top - 460
+			}, 500);
+			return;
+		}
+
+		if ($("input[name='step_2_dose1_booking_timeslot']:checked").attr("data-dose1-timeslot-ctc-id") != $("select[name=step_2_dose1_center]").val()) {
+			show_error_page(4,'','E0000010');
+			return;
+		}
+
+		if ($("input[name='step_2_dose2_booking_timeslot']:checked").attr("data-dose2-timeslot-ctc-id") != $("select[name=step_2_dose2_center]").val()) {
+			show_error_page(4,'','E0000011');
+			return;
+		}
+		
+		if (isCurrentSIVFHS() && altFunctionJS_025()) {
+			if ($("#radio_group_sivfhs_before input[type='radio']:checked").val() == "Yes") {
+				// SIVFHS last dose date related checking
+				const lastDoseDateObject = dateFormatter("step_2_date_of_last_sivfhs_year", "step_2_date_of_last_sivfhs_month", "step_2_date_of_last_sivfhs_day");
+				const { year: lastDoseYear, month: lastDoseMonth, day: lastDoseDay, full_date: lastDoseDate} = lastDoseDateObject;
+				var dob = dobYear + "/" + dobMonth + "/" + dobDay;
+				
+				if (!is_validateDate(lastDoseYear,lastDoseMonth,lastDoseDay)){
+					$("#step_2_validate_msg_last_dose_date_sivfhs").show();
+					showError("#step_2_validate_msg_last_dose_date_sivfhs", getString("step_2_validate_msg_invalid_last_dose_date_siv", lang));
+					return true;
+				}
+				
+				if (!altFunctionJS_031(lastDoseDate, dob)) {
+					$("#step_2_validate_msg_last_dose_date_sivfhs").show();
+					showError("#step_2_validate_msg_last_dose_date_sivfhs", getString("step_2_validate_msg_last_dose_date_inject_before_6_months_siv", lang));
+					return true;
+				}
+				
+				if (!altFunctionJS_030(lastDoseDate)) {
+					$("#step_2_validate_msg_last_dose_date_sivfhs").show();
+					showError("#step_2_validate_msg_last_dose_date_sivfhs", getString("step_2_validate_msg_invalid_last_dose_date_siv", lang));
+					return true;
+				}
+
+				if (altFunctionJS_029(lastDoseDate)) {
+					if ($("#select_additional_dose").val() == 2) {
+						$("#step_2_validate_msg_last_dose_date_sivfhs").show();
+						showError("#step_2_validate_msg_last_dose_date_sivfhs", getString("step_2_validate_msg_select_dose1_siv", lang));
+						return true;
+					}
+
+				} else {
+					if ($("#select_additional_dose").val() == 1) {
+						$("#step_2_validate_msg_last_dose_date_sivfhs").show();
+						showError("#step_2_validate_msg_last_dose_date_sivfhs", getString("step_2_validate_msg_select_dose2_siv", lang));
+						return true;
+					}
+				}
+
+				if (!altFunctionJS_028(lastDoseDate,
+					$("input[name='step_2_dose1_booking_timeslot']:checked").val(),
+					$("input[name='step_2_dose2_booking_timeslot']:checked").val(),
+					$("#select_additional_dose").val())) {
+					$("#step_2_validate_msg_last_dose_date_sivfhs").show();
+					showError("#step_2_validate_msg_last_dose_date_sivfhs", getString("step_2_validate_msg_at_least_28_day", lang));
+					return true;
+				}
+			}
+		}
+
+		if (!($(".input_confirm_control").is(":visible"))) {
+			$('html, body').animate({
+				scrollTop: $("body").offset().top
+			}, 500);
+
+			var review_highlight_note = ""
+			if(isCurrentSIVFHS()){
+				review_highlight_note = getString("review_highlight_note_sivfhs", lang);
+			}else{
+				review_highlight_note = getString("review_highlight_note", lang);
+			}
+			$(".step_2 hr:first").before('<div class="highlight_red align-center review_highlight_note"><p>' + review_highlight_note + '</p></div>');
+
+			$(".review_input, .review_input_na").not(".review_enquiry_init_input").html("");
+			$("#step_2_input_page input").not(':input[type=hidden], :input[type=radio], :input[type=button], :input[type=submit], :input[type=reset], :input[id=review_confirmation_checkbox]').each(function(index) {
+				$(this).hide();
+				$(this).parents(".input-div").addClass("input-div-no-border");
+				
+				// Commented on 20-10-2026
+				// Unsafe! Display the text as executable code. Using JQuery .text() to prevent it.
+				//$(this).after('<span class="review_input input_span input_span_highlight">' + generateNAtextForEmpty($(this).val()) + '</span>');				
+				const userSubmittedCode = $(this).val();
+				$('<span>', {
+					'class': 'review_input input_span input_span_highlight',
+					'text': generateNAtextForEmpty(userSubmittedCode) // Safely encoded as plain text
+				}).insertAfter(this);
+				
+				sivfhsPreferredLanguageUiReviewPage();
+			});
+
+			$("#step_2_input_page select").each(function(index) {
+				if ($("option:selected", this).hasClass("na")) {
+					$(this).hide();
+					$(this).parents(".input-div").addClass("input-div-no-border");
+					//$(this).after('<span class="review_input_na input_span input_span_highlight">' + $(this).find("option:selected").val() + '</span>');
+				} else {
+					$(this).hide();
+					$(this).parents(".input-div").addClass("input-div-no-border");
+					$(this).after('<span class="review_input input_span input_span_highlight">' + $(this).find("option:selected:first:not(:disabled)").text() + '</span>');
+				}
+			});
+
+			$("#step_2_input_page input[type=radio]:checked").each(function(index) {
+				$(this).parents(".radio_group_parent").children().hide();
+				$(this).parents(".radio_group_parent").append('<span class="review_input input_span input_span_highlight">' + $("label[for=" + $(this).attr("id") + "]").html() + '</span>');
+			});
+
+			$(".step_2_dose1_timeslots_selection_review").html('<span class="review_input input_span input_span_highlight">' + $("input[name='step_2_dose1_booking_timeslot']:checked").val() + '</span>');
+			$(".step_2_dose2_timeslots_selection_review").html('<span class="review_input input_span input_span_highlight">' + $("input[name='step_2_dose2_booking_timeslot']:checked").val() + '</span>');
+			$(".timeslots_selection").hide();
+			$(".step_2_tel_for_sms_notif").hide();
+			$(".login_note").hide();
+			$(".content_notes").hide();
+
+			$(".dose2_selection_remarks").hide();
+			$(".form-control-plaintext").hide();
+
+			$(".input_review_control").hide();
+			$(".input_confirm_control").show();
+			return;
+		}
+
+		else {
+			if ($("#review_confirmation_checkbox").is(':checked') == false) {
+				$("#review_confirmation_checkbox").focus();
+				$("#review_confirmation_checkbox_validate_msg").html(getString("agree_the_declaration", lang));
+				return;
+			}
+		}
+		
+
+
+		$("#step_2_dose1_ctc_eng_name, #step_2_dose1_ctc_tc_name, #step_2_dose1_ctc_sc_name, #step_2_dose1_ctc_id, #step_2_dose2_ctc_eng_name, #step_2_dose2_ctc_tc_name, #step_2_dose2_ctc_sc_name, #step_2_dose2_ctc_id, #step_2_dose1_booking_timeslot").remove();
+
+		if ($("input[name=step_2_dose1_booking_timeslot]:checked").length == 1) {
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_dose1_ctc_id" name="step_2_dose1_ctc_id" value="' + $("input[name=step_2_dose1_booking_timeslot]:checked").attr("booking_timeslot_id") + '">');
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_dose1_ctc_eng_name" name="step_2_dose1_ctc_eng_name" value="' + $("#step_2_dose1_center option:selected").attr("ctc_eng_name") + '">');
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_dose1_ctc_tc_name" name="step_2_dose1_ctc_tc_name" value="' + $("#step_2_dose1_center option:selected").attr("ctc_tc_name") + '">');
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_dose1_ctc_sc_name" name="step_2_dose1_ctc_sc_name" value="' + $("#step_2_dose1_center option:selected").attr("ctc_sc_name") + '">');
+		}
+
+		if ($("#step_2_dose1_ctc_id").length == 0) {
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_dose1_booking_timeslot" name="step_2_dose1_booking_timeslot" value="' + $("#step_2_dose1_date_year").val() + "-" + $("#step_2_dose1_date_month").val() + "-" + $("#step_2_dose1_date_day").val() + " " + "00:00" + '">');
+		}
+
+		$('#step_2_booking_form').append('<input type="hidden" id="step_2_dose2_ctc_id" name="step_2_dose2_ctc_id" value="' + $("input[name=step_2_dose2_booking_timeslot]:checked").attr("booking_timeslot_id") + '">');
+		$('#step_2_booking_form').append('<input type="hidden" id="step_2_dose2_ctc_eng_name" name="step_2_dose2_ctc_eng_name" value="' + $("#step_2_dose2_center option:selected").attr("ctc_eng_name") + '">');
+		$('#step_2_booking_form').append('<input type="hidden" id="step_2_dose2_ctc_tc_name" name="step_2_dose2_ctc_tc_name" value="' + $("#step_2_dose2_center option:selected").attr("ctc_tc_name") + '">');
+		$('#step_2_booking_form').append('<input type="hidden" id="step_2_dose2_ctc_sc_name" name="step_2_dose2_ctc_sc_name" value="' + $("#step_2_dose2_center option:selected").attr("ctc_sc_name") + '">');
+
+		if ($('#step_2_booking_form').find("input[name=_p]").length <= 0) {
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_select_vacc_code" name="step_2_select_vacc_code" value="' + select_vacc_code + '">');
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_select_vacc_name" name="step_2_select_vacc_name" value="' + select_vacc_name + '">');
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_select_vacc_ctc_type" name="step_2_select_vacc_ctc_type" value="' + select_vacc_ctc_type + '">');
+
+			$('#step_2_booking_form').prepend('<input type="hidden" id="" name="_p" value="0">');
+			if (isCurrentSIVFHS()||isCurrentHEPA()) {
+				$("#step_2_priority_group_id").val(systemParamResponseJs.DEFAULT_SIVFHS_ELIGIBLE_GROUP_ID);
+				$("#step_2_statistic_group_id").val(systemParamResponseJs.DEFAULT_SIVFHS_STATISTIC_GROUP_ID);
+			} else {
+				$("#step_2_priority_group_id").val($("select[name=step_2_priority_group] option:selected").attr("priority_group_id"));
+				$("#step_2_statistic_group_id").val($("select[name=step_2_statistic_group] option:selected").attr("statistic_group_id"));
+			}
+			
+			$("#step_2_priority_group_eng_name").val($("select[name=step_2_priority_group] option:selected").attr("priority_group_eng_name"));
+			$("#step_2_priority_group_tc_name").val($("select[name=step_2_priority_group] option:selected").attr("priority_group_tc_name"));
+			$("#step_2_priority_group_sc_name").val($("select[name=step_2_priority_group] option:selected").attr("priority_group_sc_name"));
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_statistic_group_eng_name" name="step_2_statistic_group_eng_name" value="' + $("select[name=step_2_statistic_group] option:selected").attr("statistic_group_eng_name") + '">');
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_statistic_group_tc_name" name="step_2_statistic_group_tc_name" value="' + $("select[name=step_2_statistic_group] option:selected").attr("statistic_group_tc_name") + '">');
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_statistic_group_sc_name" name="step_2_statistic_group_sc_name" value="' + $("select[name=step_2_statistic_group] option:selected").attr("statistic_group_sc_name") + '">');
+
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_booking_group_id" name="step_2_booking_group_id" value="' + $("select[name=step_2_booking_group] option:selected").attr("booking_group_id") + '">');
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_booking_group_round_1" name="step_2_booking_group_round_1" value="' + $("select[name=step_2_booking_group] option:selected").attr("booking_group_round_1") + '">');
+			$('#step_2_booking_form').append('<input type="hidden" id="step_2_booking_group_round_2" name="step_2_booking_group_round_2" value="' + $("select[name=step_2_booking_group] option:selected").attr("booking_group_round_2") + '">');
+
+			if ($(".recovery_dose_2").length > 0) {
+				var dose_2_date = moment($("input[name=step_2_dose1_booking_timeslot]:checked").val(), 'YYYY-MM-DD HH:mm').add(21, 'day');
+				$(".recovery_dose_2").val(dose_2_date.startOf('day').format('YYYY-MM-DD HH:mm'));
+			}
+		}
+
+		/*var getRefInd = $("#step_2_ref_indicator").val();
+		var assignStr = "N";
+		if (getRefInd.length == 1) {
+			getRefInd = assignStr.concat(getRefInd);
+		}*/
+
+
+		var url = $(this).attr('action');
+		$(".step_2 .input_confirm_control").hide();
+		// prepare payload without verifiedtoken
+	    let formData = $(this).serializeArray();
+	    formData = formData.filter(item => item.name !== 'mtcaptcha-verifiedtoken');
+	    
+	    let isFormDataPrefilledAndLocked = isCurrentSIVFHS() && isValueValid(PMI_Data) && systemParamResponseJs.IS_SKIP_PREFILL_PMI_DATA != "Y" && systemParamResponseJs.IS_DISABLE_AFTER_PREFILL_PMI_DATA == "Y"
+	    formData.push({ name: 'isFormDataPrefilledAndLocked', value: isFormDataPrefilledAndLocked }); 
+	    formData.push({ name: 'VBSOTP', value: vbsotp });
+	    formData.push({ name: 'X-CSRF-Token', value: $('#csrf_token').val()});
+	    
+	    let serializedData = $.param(formData);
+	    show_target($(".step_loading"));
+		//Ajax ID - A008
+		$.ajax({
+			type: "POST",
+			url: getURLbyWithCDNlogic()+url,
+			xhrFields:{withCredentials : true}, //api_booking step2
+			data: serializedData, // serializes the form's elements.
+			success: function(returnData) {
+				handleCSRFandSessionCallBack(returnData);
+				
+				$("#step_2_captchaCode_validate_msg").html("");
+
+				var data = progressDataFormat(returnData);
+				if(data === null){ return; }
+				
+				if (data.result == "captcha invalid") {
+					console.log('Captcha invalid caused by: ' + data.errorCode);
+					reRenderMtcaptcha('step_1_mt_captchaCode');
+					$("#step_2_captchaCode_validate_msg").html("");
+					$("#step_2_captchaCode_validate_msg").html(getString("captcha_err", lang));
+					$(".step_2 .input_confirm_control").show();
+					$('.step_loading').slideUp();
+				}
+				else if (data.appl_status == "P" || data.appl_status == "S") {
+					temp_ref_no = data.AT_REF_NO;
+					show_loading_progress_status_p_s();
+				}
+				else if (data.appl_status == "A") {
+					show_result_success(data);
+				}
+				else if (data.appl_status == "RQ") {
+					show_error_page(2,'','Rejected Quota');
+					return;
+				}
+				else if (data.appl_status == "R") {
+					show_error_page(3,'','Rejected IMMD');
+					return;
+				}
+				else {
+					step_2_retryLimit--;
+					if (step_2_retryLimit > 0) {
+						//try again
+						setTimeout(function() {
+							$('.step_2').addClass("invisible_label");
+							$('.step_2').show();
+							$('#step_2_booking_form').find("input[name=_p]").val("1");
+							$(".step_2 .input_confirm_control").show();
+							$('#step_2_booking_form').submit();
+							if (!($(".step_loading").is(":visible"))) {
+								show_target($(".step_loading"));
+							}
+							$('.step_2').hide().removeClass("invisible_label");
+						}, step_2_retry_Timeout);
+
+						if (!($(".step_loading").is(":visible"))) {
+							show_target($(".step_loading"));
+						}
+					}
+					else {
+						show_error_page(1,'','E0000012');
+						return;
+					}
+				}
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				ajaxErrorLogging("A008", xhr, textStatus, errorThrown, this.url);
+				show_error_page(1,xhr.status,'');
+				return;
+			}
+		});
+	});
+	
+	$("#radio_group_sivfhs_before input[type='radio']").change(function() {
+		if ($(this).is(":checked")) {
+			var clickedValue = $(this).val();
+			if (clickedValue == "No") {
+				$("#step_2_last_dose_date_sivfhs_datepicker").hide();
+				$("#step_2_date_of_last_sivfhs_year").val("");
+				$("#step_2_date_of_last_sivfhs_month").val("")
+				$("#step_2_date_of_last_sivfhs_day").val("");
+			} else {
+				$("#step_2_last_dose_date_sivfhs_datepicker").show();
+			}
+		}
+	});
+});
+
+
+
+function show_loading_progress_status_p_s() {
+	setTimeout(check_result, check_result_Timeout);
+	show_target($(".step_loading"));
+}
+
+var check_result_retry_count = 20;
+var check_result_retry_count_timeout = 3000;
+function check_result() {
+	var url = $("#step_1_booking_form").attr('action');
+	if ($("#step_1_documentId_HKIC").val() != "") {
+		
+		// Prepare the form data
+		let formData = [
+		    { name: 'submit_action', value: 'step_1' },
+		    { name: 'step_1_documentId', value: $("#step_1_documentId_HKIC").val() },
+		    { name: 'AT_REF_NO', value: temp_ref_no },
+		    { name: '_p', value: '1' },
+		    { name: 'sys_Type', value: sysType },
+		    { name: 'X-CSRF-Token', value: $('#csrf_token').val() }
+		];
+		
+		let serializedData = $.param(formData);
+		
+		//Ajax ID - A009
+		$.ajax({
+			type: "POST",
+			async: false,
+			xhrFields:{withCredentials : true},
+			url: getURLbyWithCDNlogic()+url,	//api_booking
+			data: serializedData,
+			success: function(returnData) {
+				handleCSRFandSessionCallBack(returnData);
+
+				var data = progressDataFormat(returnData);
+				if(data === null){ return; }
+				
+				if (data.is_booking_exist) {
+					if (data.appl_status == "P" || data.appl_status == "S") {
+						setTimeout(check_result, 10000);
+					}
+					else if (typeof data.AT_REF_NO == "undefined") {
+						setTimeout(handleTimeout, 1800000);
+						if (hkidFormatList.includes($("select[name='step_1_documentId_Type']").val())){
+							$("#cancel_booking_documentId_display").val(hkid_display(data.documentId));
+						}
+						else if ($("select[name='step_1_documentId_Type']").val() == "EC") {
+							$("#cancel_booking_documentId_display").val(ec_display(data.documentId));
+						}
+						else {
+							$("#cancel_booking_documentId_display").val(data.documentId);
+						}
+						$("#cancel_booking_documentId").val(data.documentId);
+						show_target($(".step_cancel_booking"));
+					}
+					else if (data.AT_STATUS == "A") {
+						show_result_success(data);
+						
+						cleanPMIDataAndCVDBLastDoseHistory();
+						
+						resetQueueIt();
+					} else if (typeof data.appl_status != "undefined" && data.appl_status.indexOf("R") != -1) {
+						//Show application failure
+						show_result_reject(data);
+					}
+				}
+				else if (typeof data.AT_VALIDATE_RESULT != "undefined") {
+					if (data.AT_VALIDATE_RESULT == "RQ") {
+						$(".step_2_cancel_button").click();
+						$('#step_2_dose1_district, #step_2_dose2_district').prop('selectedIndex', 0).change();
+						$("input[name=step_2_doses]").change();
+						show_target($(".step_2"));
+						setTimeout(function() {
+							$(".no_quota_error_msg").show();
+							$('html, body').animate({
+								scrollTop: $(".no_quota_error_msg:visible:first").offset().top
+							}, 500);
+						}, 500);
+						//No quota handling
+					}
+				}
+				else if (temp_ref_no == "") {
+					show_target($(".e_Consent"));
+				}
+				else if (data.appl_status == "R") {
+					show_error_page(3,'','Rejected IMMD');
+					return;
+				}
+				else {
+					check_result_retry_count--;
+					if (check_result_retry_count > 0) {
+						setTimeout(check_result, check_result_retry_count_timeout);
+					}
+					else {
+						show_error_page(1,'','E0000013');
+						return;
+					}
+				}
+			},
+			error: function(xhr, textStatus, errorThrown) {
+				ajaxErrorLogging("A009", xhr, textStatus, errorThrown, this.url);
+				show_error_page(1,xhr.status,'');
+				return;
+			}
+		});
+	}
+}
+
+
+
+
+var booking_cd_code_1;
+var booking_ctc_id;
+var booking_group_round_1;
+var booking_cd_code_2;
+var booking_ctc_id;
+var booking_group_round_2;
+
+function find_distric_id(ctc_id) {
+	var district_id = "";
+	$.each(ct_center.children, function(index, district) {
+		$.each(district.children, function(i, ctc) {
+			if (ctc.id == ctc_id) {
+				select_vacc_ctc_type = ctc.CTC_TYPE;
+				district_id = district.id;
+				return false;
+			}
+		})
+	});
+
+	return district_id;
+}
+
+
+
+
+
+
+function get_ATGC_NATCARDTYPE(type) {
+	if (type == "HK_IDCARD") { type = getString("hk_idcard", lang);}
+	if (type == "CCIC") { type = getString("ccic", lang);}
+	if (type == "ROP140") { type = getString("rop140", lang);}
+	if (type == "EC") { type = getString("ec", lang);}
+	if (type == "PEC") { type = getString("pec", lang);}
+	if (type == "OWP") { type = getString("owp", lang);}
+	if (type == "PASS") { type = getString("pass", lang);}
+	if (type == "EEP") { type = getString("eep", lang);}
+	if (type == "OTHER") { type = getString("other", lang);}
+	if (type == "BIRTH_CERT") { type = getString("birth_cret", lang);}
+	return type;
+}
+
+function step_1_documentId_HKIC_prefix_paste() {
+	var text = $("#step_1_documentId_HKIC_prefix").val();
+	$("#step_1_documentId_HKIC_prefix").val(text.slice(0, text.length - 1));
+	$("#step_1_documentId_HKIC_check_digit").val(text[text.length - 1]);
+}
+
+function is_validateDate(year, month, day) {
+
+	day = Number(day);
+	month = Number(month) - 1; //bloody 0-indexed month
+	year = Number(year);
+
+	let d = new Date(year, month, day);
+
+	if (new Date().getTime() - d.getTime() < 0) {
+		return false;
+	}
+
+	let yearMatches = d.getFullYear() === year;
+	let monthMatches = d.getMonth() === month;
+	let dayMatches = d.getDate() === day;
+
+	return yearMatches && monthMatches && dayMatches;
+}
+
+function IsHKID(str) {
+	var strValidChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	if (str.length < 8) {
+		return false;
+	}
+	str = str.toUpperCase();
+	var hkidPat = /^([A-Z]{1,2})([0-9]{6})([A0-9])$/;
+	var matchArray = str.match(hkidPat);
+	if (matchArray == null) {
+		return false;
+	}
+	var charPart = matchArray[1];
+	var numPart = matchArray[2];
+	var checkDigit = matchArray[3];
+	var checkSum = 0;
+	if (charPart.length == 2) {
+		checkSum += 9 * (10 + strValidChars.indexOf(charPart.charAt(0)));
+		checkSum += 8 * (10 + strValidChars.indexOf(charPart.charAt(1)));
+	} else {
+		checkSum += 9 * 36;
+		checkSum += 8 * (10 + strValidChars.indexOf(charPart));
+	}
+
+	for (var i = 0, j = 7; i < numPart.length; i++, j--) {
+		checkSum += j * numPart.charAt(i);
+	}
+	var remaining = checkSum % 11;
+	var verify = remaining == 0 ? 0 : 11 - remaining;
+	return verify == checkDigit || (verify == 10 && checkDigit == 'A');
+}
+
+function hkid_display(str) {
+	return str.slice(0, str.length - 1) + "(" + str[str.length - 1] + ")";
+}
+
+function ec_display(str) {
+	return str.slice(0, 4) + "-" + str.slice(4, 11) + "-" + str.slice(11, 13) + "(" + str[str.length - 1] + ")";
+}
+
+
+
+function lowest_age_of_applicants() {
+	var lowest_age_DoB = get_Dob_Data(main_applicant_dob);
+	return lowest_age_DoB;
+}
+
+function highest_age_of_applicants() {
+	var highest_age_DoB = get_Dob_Data(main_applicant_dob);
+	return highest_age_DoB;
+
+}
+
+function get_Dob_Data(birthday_input) {
+	var birthday_input_formatted = birthday_input.replace(/-/g, "/");
+	birthday_input_formatted = birthday_input_formatted.replace(/\/00/g, "/01");
+	birthday = new Date(birthday_input_formatted);
+	var year = birthday.getFullYear();
+	var month = birthday.getMonth();
+	var day = birthday.getDate();
+
+	if (isNaN(month)) {
+		year = birthday_input.substring(0, birthday_input.indexOf('-'));
+		month = 0;
+		day = 1;
+	}
+	return new Date(year, month, day);
+}
+
+
+function get_CTC_lowest_age_allowed(CTC_NATURE) {
+	return altFunctionJS_032(CTC_NATURE);
+}
+
+function get_CTC_highest_age_allowed(CTC_NATURE) {
+	return altFunctionJS_033(CTC_NATURE,vaccine_age_upper_limit);
+}
+
+
+function setVaccDetails() {
+	$.each(vaccine_details.vaccines, function(index, vaccine) {
+		if (select_vacc_code == vaccine.CV_CODE) {
+			select_vacc_name = vaccine.CV_NAME;
+			if (!is_3_4_dose_tab) {
+				dose_time_apart = parseInt(vaccine.CV_DOSE_TIME_APART);
+			}
+			third_dose_time_apart = parseInt(vaccine.CV_THIRD_DOSE_TIME_APART);
+			dose_time_apart_tolerance = parseInt(vaccine.CV_DOSE_TIME_APART_TOLERANCE);
+			vaccine_age_lowest_limit = parseInt(vaccine.CV_MIN_AGE);
+			vaccine_age_upper_limit = parseInt(vaccine.CV_MAX_AGE);
+
+			setDOBoptions();
+
+			if (select_vacc_name == doseNameBio) {
+				if (bio_for_age_below_18 || (bio_for_age_below_18 == null && moment().diff(lowest_age_of_applicants(), 'year') < 18)) {
+					bio_for_age_below_18 = true;
+					if (!is_3_4_dose_tab) {
+						dose_time_apart = bio_day_apart_for_age_below_18;
+					}
+					var n = new Date().getFullYear();
+					for (var i = 19; i < 210; i++) {
+						var yy = (n - i);
+						$("#step_1_date_of_birth_year option[value=" + yy + "]").remove();
+					}
+					vaccine_age_upper_limit = 18;
+				}
+				else {
+					vaccine_age_lowest_limit = 18;
+					var n = new Date().getFullYear();
+					for (var i = 0; i < 18; i++) {
+						var yy = (n - i);
+						$("#step_1_date_of_birth_year option[value=" + yy + "]").remove();
+					}
+					if (!is_3_4_dose_tab && moment().diff(lowest_age_of_applicants(), 'year') < 50) {
+						dose_time_apart = bio_day_apart_for_age_below_50;
+					}
+//					$("#step_2_dose1_district option[value=19], #step_2_dose2_district option[value=19]").remove();
+//					$("#step_2_dose1_district option[value=20], #step_2_dose2_district option[value=20]").remove();
+				}
+			}
+			else {
+//				$("#step_2_dose1_district option[value=19], #step_2_dose2_district option[value=19]").remove();
+//				$("#step_2_dose1_district option[value=20], #step_2_dose2_district option[value=20]").remove();
+			}
+		}
+	});
+}
+
+
+function isBeforeXBBAvailableDate(){
+	var selectedDate1 = moment($("input[name='step_2_dose1_booking_timeslot']:checked").val()).format("YYYYMMDD");
+	var selectedDate2 = moment($("input[name='step_2_dose2_booking_timeslot']:checked").val()).format("YYYYMMDD");
+	var selectedXBB_case1 = $("#step_2_select_join_xbb").find("option:selected").val();
+	var selectedXBB_case2 = $("input[name=step_1_dose_vacc]:checked").val();
+	
+	$("#step_2_dose2_avalible_timeslots_validate_msg").html("");
+	if((isValueValid(selectedXBB_case2) && selectedXBB_case2 == "BioNTechXBB") || selectedXBB_case1 == "Y"){ //check if selected XBB
+		if (!is_3_4_dose_tab && !$("#step_2_doses_2").is(':checked') && isValueValid(selectedDate1) && !(xbbAvailableDate.diff(selectedDate1, 'days') <= 0)) {
+			$("#step_2_dose1_avalible_timeslots_validate_msg").html(getString("join_xbb_notes", lang));			
+			$('html, body').animate({
+				scrollTop: $("#step_2_dose1_avalible_timeslots_validate_msg").offset().top - 30
+			}, 500);
+			return true;
+		}
+		
+		if (isValueValid(selectedDate2) && !(xbbAvailableDate.diff(selectedDate2, 'days') <= 0)) {
+			$("#step_2_dose2_avalible_timeslots_validate_msg").html(getString("join_xbb_notes", lang));
+			$('html, body').animate({
+				scrollTop: $("#step_2_dose2_avalible_timeslots_validate_msg").offset().top - 30
+			}, 500);
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+function isBeforeXBBText(){
+	if(xbbAlertDisableDate.diff(moment(), 'days') > 0){
+		return true
+	}
+	return false;
+}
+
+function controlVaccineDisplay_12(get_age_full_dob){
+	$("#step_1_dose_vacc_BioNTech_XBB_IMMU_group").hide();
+	$("#step_1_dose_vacc_BioNTech_BV_TEEN_group").hide();
+	$("#step_1_dose_vacc_BioNTech_group").hide();
+	$("#step_1_dose_vacc_BioNTech_XBB_ADULT_group").hide();
+	$("#step_1_dose_vacc_BioNTech_BV_ADULT_group").hide();
+	
+	//XBB for all age
+	$("#step_1_dose_vacc_BioNTech_XBB_IMMU_group").show();
+	
+	//over 12y
+//	if(!is_underAge_noGrace_dynamic(get_age_full_dob,12)){
+//		$("#step_1_dose_vacc_BioNTech_XBB_IMMU_group").show();
+//	}
+	
+	//12y-18y
+//	if(!is_underAge_noGrace_dynamic(get_age_full_dob,12) && is_underAge_noGrace_dynamic(get_age_full_dob,18)){
+//		$("#step_1_dose_vacc_BioNTech_BV_TEEN_group").show();
+//	}
+	
+	//under 12y
+//	if(is_underAge_noGrace_dynamic(get_age_full_dob,12)){
+//		$("#step_1_dose_vacc_BioNTech_group").show();
+//	}
+	
+	//18y up
+//	if(!is_underAge_noGrace_dynamic(get_age_full_dob,18)){
+//		$("#step_1_dose_vacc_BioNTech_XBB_ADULT_group").show();
+//	}
+	
+	//18y-49y
+//	if(!is_underAge_noGrace_dynamic(get_age_full_dob,18) && is_underAge_noGrace_dynamic(get_age_full_dob,50)){
+//		$("#step_1_dose_vacc_BioNTech_BV_ADULT_group").show();
+//	}
+}
+
+// not a real api call, just a bridge to call java function from js
+// log the error info in server.log
+function ajaxErrorLogging(ajaxId, xhr, textStatus, errorThrown, targetUrl) {
+	var encodeResponseText = encodeURIComponent(xhr.responseText);
+	$.ajax({
+		type: "GET",
+		async: true,
+		url: getBaseAPIUrl()+"/AjaxErrorServlet",
+		data: {
+			ajaxId: ajaxId,
+			statusCode: xhr.status,
+			statusText: xhr.statusText,
+			responseText: encodeResponseText,
+			responseXml: xhr.responseXML,
+			currentDateTime: moment().format('YYYYMMDDHHmmss'),
+			responseURL: xhr.responseURL,
+			targetUrl: targetUrl,
+			textStatus : textStatus,
+			errorThrown: errorThrown,
+			userAgent: navigator.userAgent,
+			requestHeaders: xhr.getAllResponseHeaders(),
+            responseHeaders: xhr.getAllResponseHeaders(),
+		},
+	});
+}
+
+function showInactivatedVaccineDeadlineMsg() {
+	//reminder for inactivated vaccine 
+	if (select_vacc_code == doseCodeSin && select_vacc_name == doseNameSin) {
+		$(".inactivated_deadline_remarks").show();
+	} else {
+		$(".inactivated_deadline_remarks").hide();
+	}
+}
+
+function getAllSystemParams() {
+	$.ajax({
+		type: "GET",
+		url: getURLbyWithCDNlogic() + "/SystemParamServlet",
+		async: false,
+		success: function(data) {
+			systemParamResponseJs = null;
+			systemParamResponseJs = JSON.parse(data);
+			supportedDoseRound = parseInt(systemParamResponseJs.SUPPORTED_DOSE_ROUND);
+			setupSystemParamAction();
+		},
+		error: function(xhr, textStatus, errorThrown) {
+			ajaxErrorLogging("A010", xhr, textStatus, errorThrown, this.url);
+			show_error_page(1, xhr.status, '');
+			return;
+		}
+	});
+}
+
+// After initializing all system parameters, handle the behavior here if needed.
+function setupSystemParamAction(){
+	if (!isCurrentSIVFHS()) {
+		updateDoseSelect();
+	}
+	COADMIN_START_DATE = moment(systemParamResponseJs.COADMIN_START_DATE, "YYYY-MM-DD");
+	COADMIN_CLOSE_DATE_WITH_SLASH = systemParamResponseJs.COADMIN_CLOSE_DATE.replace(/-/g, "/");
+	COADMIN_CLOSE_DATE = moment(systemParamResponseJs.COADMIN_CLOSE_DATE, "YYYY-MM-DD");
+	SINOVAC_LAST_AVAILABLE_DATETIME = moment(systemParamResponseJs.SINOVAC_LAST_AVAILABLE_DATETIME, "YYYY-MM-DD hh:mm:ss");
+	controlSinovacVisibility();
+	controlHomePageBannerText(systemParamResponseJs.CUSTOM_HOME_PAGE_BANNER_TEXT_EN,langEN);
+	controlHomePageBannerText(systemParamResponseJs.CUSTOM_HOME_PAGE_BANNER_TEXT_TC,langTC);
+	controlHomePageBannerText(systemParamResponseJs.CUSTOM_HOME_PAGE_BANNER_TEXT_SC,langSC);
+	controlCoadminCloseMsg(systemParamResponseJs.COADMIN_CLOSE_MSG_EN,langEN);
+	controlCoadminCloseMsg(systemParamResponseJs.COADMIN_CLOSE_MSG_TC,langTC);
+	controlCoadminCloseMsg(systemParamResponseJs.COADMIN_CLOSE_MSG_SC,langSC);
+	
+	controlHEPAHomePageBannerText(systemParamResponseJs.HEPA_CUSTOM_HOME_PAGE_BANNER_TEXT_EN,langEN);
+	controlHEPAHomePageBannerText(systemParamResponseJs.HEPA_CUSTOM_HOME_PAGE_BANNER_TEXT_TC,langTC);
+	controlHEPAHomePageBannerText(systemParamResponseJs.HEPA_CUSTOM_HOME_PAGE_BANNER_TEXT_SC,langSC);
+}
+
+
+function getPMIData(){
+	cleanPMIDataAndCVDBLastDoseHistory();
+	
+	let formData = [
+		{ name: 'VBSOTP', value: vbsotp },
+		{ name: 'X-CSRF-Token', value: $('#csrf_token').val()},
+		{ name: 'sys_Type', value: getSysType()}
+		];
+	let serializedData = $.param(formData);
+	
+	$.ajax({
+		type: "POST",
+		url: getURLbyWithCDNlogic()+"/PMIDataServlet",
+		xhrFields:{withCredentials : true},
+		data: serializedData, 
+		success: function(returnData) {
+			handleCSRFandSessionCallBack(returnData);
+			
+	        var response = progressDataFormat(returnData);
+			if(response === null){ return; }
+	        
+	         if (typeof response.content !== 'undefined') {
+				PMI_Data=response.content;
+				CVDB_LastDoseHistory = response.doseRecords;
+				
+				if(PMI_Data!=null){
+					
+					//Fail check 1
+					if (!isValidPMIDocType(PMI_Data)) {
+					    handleEHRFail("docType");
+					    return;
+					}
+					
+					//Fail check 2
+					if(isCurrentSIVFHS() && checkIf_DOB_is_over24Months_forSIV(PMI_Data.dateOfBirth)){
+						handleEHRFail("age24");
+						return;
+					}
+					
+					if ((isCurrentSIVFHS_Enquiry() && systemParamResponseJs.IS_SKIP_PREFILL_SIVFHS_ENQUIRY != "Y")
+						|| (isCurrentC19_Enquiry() && systemParamResponseJs.C19_IS_SKIP_PREFILL_ENQUIRY != "Y")) {
+						
+						//for enquiry handle
+						show_target($(".step_loading"));
+						getApplTransByIdAndIdType(PMI_Data);
+					}else{
+						//for creat booking handle
+						//will trigger "prefillPMIData()" on createBooking button click
+					}
+					
+					if (isContainVbsOTP()) {
+						if (isCurrentC19() && systemParamResponseJs.C19_IS_eHR_OPT_OUT_ON == "Y") {
+							// show eHealth pop up
+							showPopUp(getString("c19_ehr_popup_from_ehealth_title", lang), getString("c19_ehr_popup_from_ehealth_content", lang), getString("display_btn_CLOSE", lang));
+						}
+					}
+					
+				}else{
+					handleEHRFail("");
+					return
+				}
+				
+			}else{
+				if(typeof response.result !== 'undefined' && response.result=="Unmatched"){
+					handleEHRFail("expiredTab");
+				}else{
+					handleEHRFail("");
+				}
+				hanldeShowStartUpPageButton();
+				
+			}
+		},
+		error: function(xhr, textStatus, errorThrown) {
+			handleEHRFail(xhr);
+			ajaxErrorLogging("A012", xhr, textStatus, errorThrown, this.url);
+			//show_error_page(7,xhr.status,'');
+			return;
+		}
+	});
+	
+}
+
+function handleEHRFail(xhr){
+	cleanPMIDataAndCVDBLastDoseHistory();
+	var isEhrOptOutOn = "N";
+	if (isCurrentC19()) {
+		isEhrOptOutOn = systemParamResponseJs.C19_IS_eHR_OPT_OUT_ON
+	} else if (isCurrentSIVFHS()) {
+		isEhrOptOutOn = systemParamResponseJs.IS_eHR_OPT_OUT_ON
+	}
+	
+	if (isEhrOptOutOn == "Y") {
+		var isFromEHR = false;
+		
+		if((isValueValid(vbsotp) && vbsotp != "null" && vbsotp != "undefined") || 
+			(isContainOTPandAppsource())){
+			const elements = document.querySelectorAll('.ehrOptOutRemove');
+	
+			elements.forEach(element => {
+			    element.remove();
+			});
+			isFromEHR = true;
+		}
+		
+		var errorCode = "";
+		if(xhr != "" && xhr!=null && xhr.responseJSON!=null && xhr.responseJSON.error!=null){
+			errorCode = xhr.responseJSON.error;
+		}else if(typeof xhr == 'string' && xhr != ""){
+			errorCode = xhr;
+		}
+		
+		if(isCurrentSIVFHS()){
+			if(!isCurrentSIVFHS_Enquiry()){
+			
+				if(isFromEHR && errorCode.includes("docType")){
+					showPopUp(getString("ehr_popup_idtype_out_of_range_title", lang),getString("ehr_popup_idtype_out_of_range_content", lang), getString("display_btn_CLOSE", lang));
+				}else if(isFromEHR && errorCode.includes("age24")){
+					showPopUp(getString("ehr_popup_dob_over_24_title", lang),getString("ehr_popup_dob_over_24_content", lang), getString("display_btn_CLOSE", lang));
+				}else if(isFromEHR && errorCode.includes("expiredTab")){
+					showPopUp(getString("ehr_popup_dob_expired_tab_title", lang),getString("ehr_popup_dob_expired_tab_content", lang), getString("display_btn_CLOSE", lang));
+				}else if(isFromEHR){
+					showPopUp(getString("ehr_popup_fail_profile_title", lang), getString("ehr_popup_fail_profile_content", lang), getString("display_btn_CLOSE", lang));
+				}else{
+					showPopUp(getString("ehr_popup_global_title", lang), getString("ehr_popup_global_content", lang), getString("display_btn_CLOSE", lang));
+				}
+				return;
+			}else{
+				if(isFromEHR && errorCode.includes("expiredTab")){
+					showPopUp(getString("ehr_popup_dob_expired_tab_title", lang),getString("ehr_popup_dob_expired_tab_content", lang), getString("display_btn_CLOSE", lang));
+				}
+			}
+		} else if (isCurrentC19()) {
+			if (!isCurrentC19_Enquiry()) {
+				if(isFromEHR && errorCode.includes("docType")){
+					showPopUp(getString("c19_ehr_popup_doc_type_not_support_title", lang), getString("c19_ehr_popup_doc_type_not_support_content", lang), getString("display_btn_CLOSE", lang));
+				}else if(isFromEHR && errorCode.includes("expiredTab")){
+					showPopUp(getString("c19_ehr_popup_dob_expired_tab_title", lang),getString("c19_ehr_popup_dob_expired_tab_content", lang), getString("display_btn_CLOSE", lang));
+				}else if(isFromEHR){
+					showPopUp(getString("ehr_popup_fail_profile_title", lang), getString("ehr_popup_fail_profile_content", lang), getString("display_btn_CLOSE", lang));
+				}else{
+					showPopUp(getString("c19_ehr_popup_not_from_ehealth_title", lang), getString("c19_ehr_popup_not_from_ehealth_content", lang), getString("display_btn_CLOSE", lang));
+				}
+				return;
+			}
+		}	
+	}
+}
+
+function updateBFLStatus(idNo, idType){
+	
+	let formData = [
+		{ name: 'idNo', value: idNo },
+		{ name: 'idType', value: idType },
+		{ name: 'X-CSRF-Token', value: $('#csrf_token').val()}
+		];
+	let serializedData = $.param(formData);
+	
+	
+	$.ajax({
+		type: "POST",
+		xhrFields:{withCredentials : true},
+		url: getURLbyWithCDNlogic()+"/BookingFailListServlet",
+		data:  serializedData , 
+		success: function(returnData) {
+			handleCSRFandSessionCallBack(returnData);
+			
+	       	var data = progressDataFormat(returnData);
+			if(data === null){ return; }
+	        
+	        //if(response.returnCode.equals("SKIP") && response.returnMessage.equals("SKIP")){ //skip }
+		},
+		error: function(xhr, textStatus, errorThrown) {
+			ajaxErrorLogging("A013", xhr, textStatus, errorThrown, this.url);
+			return;
+		}
+	});
+	
+}
+
+function getApplTransByIdAndIdType(_PMI_Data){
+	
+	let idNo = _PMI_Data.idNo.hkid;
+	let idType = getPMIDataDocType_Detail(_PMI_Data);
+	
+	$('#step_1_ATGC_NATCARDTYPE').val(idType).change();
+	
+	$('#step_1_documentId_HKIC_prefix').val(idNo.slice(0, -1)).change();
+    $('#step_1_documentId_HKIC_check_digit').val(idNo.slice(-1)).change();
+    
+	
+	let formData = [
+		{ name: 'idNo', value: idNo },
+		{ name: 'idType', value: idType },
+		{ name: 'sysType', value: getSysType() },
+		{ name: 'X-CSRF-Token', value: $('#csrf_token').val()}
+		];
+	let serializedData = $.param(formData);
+	$.ajax({
+		type: "POST",
+		xhrFields:{withCredentials : true},
+		url: getURLbyWithCDNlogic()+"/ApplTranServlet",
+		xhrFields:{withCredentials : true},
+		data:  serializedData , 
+		success: function(returnData) {
+			handleCSRFandSessionCallBack(returnData);
+			
+	        var data = progressDataFormat(returnData);
+			if(data === null){ return; }
+	        
+	        if (typeof data.content !== 'undefined') {
+				let enquiry_Data = data.content
+				prefillEnquiry(enquiry_Data);
+			}else{
+				prefillEnquirySetNoBooking();
+			}
+			
+			hanldeShowStartUpPageButton();
+		},
+		error: function(xhr, textStatus, errorThrown) {
+			ajaxErrorLogging("A030", xhr, textStatus, errorThrown, this.url);
+			prefillEnquirySetNoBooking();
+			return;
+		}
+	});
+	
+}
+
+function prefillPMIData(userProfileResponse, isDisabled) {
+	
+	if(userProfileResponse == null){
+		return;
+	}
+	
+	//dateOfBirth of exactDobFlag (EDMY/EMY/EY)
+	if(userProfileResponse.exactDobFlag && userProfileResponse.dateOfBirth) {
+		
+		const dobParts = userProfileResponse.dateOfBirth.split('-');
+		const exactDobFlagTrimmed = userProfileResponse.exactDobFlag.trim();
+		
+		if(exactDobFlagTrimmed == "EDMY"){
+			//EDMY: Day + Month + Year
+			const day = dobParts[0];
+		    const month = dobParts[1];
+		    const year = dobParts[2];
+		    
+		    var twoDigitsMonth = convertMonthAbbreviationToTwoDigits(month);
+		    
+			$('#step_1_date_of_birth_day').val(day).change();
+			$('#step_1_date_of_birth_month').val(twoDigitsMonth).change();
+			$('#step_1_date_of_birth_year').val(year).change();
+
+		} else if(exactDobFlagTrimmed == "EMY") {
+			//EMY: Month + Year, Day 'Not Applicable'
+		    const month = dobParts[0];
+		    const year = dobParts[1];
+		    
+			var twoDigitsMonth = convertMonthAbbreviationToTwoDigits(month);
+			
+			$('#step_1_date_of_birth_day').val('-').change();
+			$('#step_1_date_of_birth_month').val(twoDigitsMonth).change();
+			$('#step_1_date_of_birth_year').val(year).change();
+			
+		} else if(exactDobFlagTrimmed == "EY") {
+			//EY: Year, Month & Day 'Not Applicable'
+			const year = dobParts[0];
+			
+			$('#step_1_date_of_birth_day').val('-').change();
+			$('#step_1_date_of_birth_month').val('-').change();
+			$('#step_1_date_of_birth_year').val(year).change();
+		} 
+		
+		if(isDisabled){
+			$('#step_1_date_of_birth_day').prop('disabled', true);
+			$('#step_1_date_of_birth_month').prop('disabled', true);
+			$('#step_1_date_of_birth_year').prop('disabled', true);
+		}
+	}
+	
+    if(isValueValid(userProfileResponse.idNo) && userProfileResponse.idNo.hkid){
+	    
+		$('#step_1_ATGC_NATCARDTYPE').val(getPMIDataDocType_Detail(userProfileResponse)).change();
+		$('#step_1_documentId_HKIC_prefix').val(userProfileResponse.idNo.hkid.slice(0, -1)).change();
+		$('#step_1_documentId_HKIC_check_digit').val(userProfileResponse.idNo.hkid.slice(-1)).change();
+
+		if (isDisabled) {
+			$('#step_1_ATGC_NATCARDTYPE').val(getPMIDataDocType_Detail(userProfileResponse)).addClass('disabled-container');
+			$('#step_1_documentId_HKIC_prefix').addClass('disabled-container');
+			$('#step_1_documentId_HKIC_check_digit').addClass('disabled-container');
+			$('.step_1_documentId_detail .open_parenthesis').addClass('disabled-container');
+			$('.step_1_documentId_detail .close_parenthesis').addClass('disabled-container');
+			$('.step_1_documentId_detail').addClass('disabled-container');
+			$('#step_1_ATGC_NATCARDTYPE').prop('disabled', true);
+		}
+	    
+	}
+
+	//Step2 start 
+	$('#step_2_last_name').val(userProfileResponse.englishSurname).change();
+    $('#step_2_first_name').val(userProfileResponse.englishGivenName).change();
+	if(isDisabled){
+		$('#step_2_last_name').addClass('disabled-container');
+    	$('#step_2_first_name').addClass('disabled-container');
+	}
+	
+    if(isValueValid(userProfileResponse.mobile)){
+		$('#step_2_tel_for_sms_notif').val(userProfileResponse.mobile.mobilePhone).change();
+	    $('#step_2_tel_for_sms_notif_confirm').val(userProfileResponse.mobile.mobilePhone).change();
+
+		//requirement changed, mobile can update even prefilled
+		/*if(isDisabled){
+		    $('#step_2_tel_for_sms_notif').addClass('disabled-container');
+	    	$('#step_2_tel_for_sms_notif_confirm').addClass('disabled-container');
+		}*/
+	}
+	
+	if(isValueValid(userProfileResponse.ehrNo)){
+		$('#step_2_ehr_number_prefilled').val(userProfileResponse.ehrNo);
+	}
+	
+    const gender = userProfileResponse.sex;
+    if(gender){
+	    if (gender === 'M') {
+	        $('#step_2_gender_male').prop('checked', true).change();
+	    } else if (gender === 'F') {
+	        $('#step_2_gender_female').prop('checked', true).change();
+	    } else {
+	        $('#step_2_gender_other').prop('checked', true).change();
+	    }
+	    
+	    $('#step_2_gender_prefilled').val(gender);
+	    
+	    if(isDisabled){
+		    $('#radio_group_gender input[type="radio"]').prop('disabled', true);
+	    	$('#radio_group_gender label').addClass('disabled-label');
+		}
+	    
+	}
+
+}
+
+
+function prefillPMIDataForCOVID(userProfileResponse,cvdbLastDoseHistory,isDisableAfterPrefillPMIData) {
+	
+	if(userProfileResponse == null){
+		return;
+	}
+	
+	//dateOfBirth of exactDobFlag (EDMY/EMY/EY)
+	if(userProfileResponse.exactDobFlag && userProfileResponse.dateOfBirth) {
+		
+		const dobParts = userProfileResponse.dateOfBirth.split('-');
+		const exactDobFlagTrimmed = userProfileResponse.exactDobFlag.trim();
+		
+		if(exactDobFlagTrimmed == "EDMY"){
+			//EDMY: Day + Month + Year
+			const day = dobParts[0];
+		    const month = dobParts[1];
+		    const year = dobParts[2];
+		    
+		    var twoDigitsMonth = convertMonthAbbreviationToTwoDigits(month);
+		    
+			$('#step_1_date_of_birth_day').val(day).change();
+			$('#step_1_date_of_birth_month').val(twoDigitsMonth).change();
+			$('#step_1_date_of_birth_year').val(year).change();
+
+		} else if(exactDobFlagTrimmed == "EMY") {
+			//EMY: Month + Year, Day 'Not Applicable'
+		    const month = dobParts[0];
+		    const year = dobParts[1];
+		    
+			var twoDigitsMonth = convertMonthAbbreviationToTwoDigits(month);
+			
+			$('#step_1_date_of_birth_day').val('-').change();
+			$('#step_1_date_of_birth_month').val(twoDigitsMonth).change();
+			$('#step_1_date_of_birth_year').val(year).change();
+			
+		} else if(exactDobFlagTrimmed == "EY") {
+			//EY: Year, Month & Day 'Not Applicable'
+			const year = dobParts[0];
+			
+			$('#step_1_date_of_birth_day').val('-').change();
+			$('#step_1_date_of_birth_month').val('-').change();
+			$('#step_1_date_of_birth_year').val(year).change();
+		} 
+		
+		if(isDisableAfterPrefillPMIData){
+			$('#step_1_date_of_birth_day').prop('disabled', true);
+			$('#step_1_date_of_birth_month').prop('disabled', true);
+			$('#step_1_date_of_birth_year').prop('disabled', true);
+		}
+	}
+	
+    if(isValueValid(userProfileResponse.idNo) && userProfileResponse.idNo.hkid){
+		
+		$('#step_1_ATGC_NATCARDTYPE').val(getPMIDataDocType_Detail(userProfileResponse)).change();
+		if(hkidFormatList.includes(getPMIDataDocType_Detail(userProfileResponse))){
+			$('#step_1_documentId_HKIC_prefix').val(userProfileResponse.idNo.hkid.slice(0, -1)).change();
+			$('#step_1_documentId_HKIC_check_digit').val(userProfileResponse.idNo.hkid.slice(-1)).change();
+		}else{
+			// for Certificate of exemption
+		}
+		
+		if (isDisableAfterPrefillPMIData) {
+			$('#step_1_ATGC_NATCARDTYPE').val(getPMIDataDocType_Detail(userProfileResponse)).addClass('disabled-container');
+			$('#step_1_documentId_HKIC_prefix').addClass('disabled-container');
+			$('#step_1_documentId_HKIC_check_digit').addClass('disabled-container');
+			$('.step_1_documentId_detail .open_parenthesis').addClass('disabled-container');
+			$('.step_1_documentId_detail .close_parenthesis').addClass('disabled-container');
+			$('.step_1_documentId_detail').addClass('disabled-container');
+			$('#step_1_ATGC_NATCARDTYPE').prop('disabled', true);
+		}
+		
+	}
+	
+	let isEmptyOrWrongDoseHistory = true;
+	if(cvdbLastDoseHistory != null && cvdbLastDoseHistory.length == 1){
+		isEmptyOrWrongDoseHistory = false;
+		
+		//set target dose round   supportedDoseRound
+		if(cvdbLastDoseHistory[0].doseSeqNo !== null 
+				&& cvdbLastDoseHistory[0].doseSeqNo > 0 
+				&& cvdbLastDoseHistory[0].doseSeqNo < supportedDoseRound){
+			let targetDoseRound = (parseInt(cvdbLastDoseHistory[0].doseSeqNo) || 0) + 1;
+			$("#select_additional_dose").val(targetDoseRound).change();
+			if(isDisableAfterPrefillPMIData){
+				$('#select_additional_dose').prop('disabled', true);
+			}
+		}
+		
+		
+		//set dose history date
+		if(cvdbLastDoseHistory[0].doseDate !== null){
+			let lastDoseHistoryDate = parseYYYYMMDD(cvdbLastDoseHistory[0].doseDate);
+			if(lastDoseHistoryDate !== null){
+				$('#step_1_date_of_second_dose_day').val(lastDoseHistoryDate.day).change();
+				$('#step_1_date_of_second_dose_month').val(lastDoseHistoryDate.month).change();
+				$('#step_1_date_of_second_dose_year').val(lastDoseHistoryDate.year).change();
+				
+				if(isDisableAfterPrefillPMIData){
+					$('#step_1_date_of_second_dose_day').prop('disabled', true);
+					$('#step_1_date_of_second_dose_month').prop('disabled', true);
+					$('#step_1_date_of_second_dose_year').prop('disabled', true);
+				}
+			} 
+		}
+		
+		
+		
+	}
+	if(isEmptyOrWrongDoseHistory){
+		$("#select_additional_dose").val("1").change();
+		$('#select_additional_dose').prop('disabled', true);
+	}
+
+    
+    
+    
+    //Step2 start 
+   	$('#step_2_name').val(userProfileResponse.englishSurname + " " + userProfileResponse.englishGivenName).change();
+	if(isDisableAfterPrefillPMIData){
+		$('#step_2_name').addClass('disabled-container');
+	}
+	
+	if(isValueValid(userProfileResponse.ehrNo)){
+		$('#step_2_ehr_number_prefilled').val(userProfileResponse.ehrNo);
+	}
+	
+    if(isValueValid(userProfileResponse.mobile)){
+		$('#step_2_tel_for_sms_notif').val(userProfileResponse.mobile.mobilePhone).change();
+	    $('#step_2_tel_for_sms_notif_confirm').val(userProfileResponse.mobile.mobilePhone).change();
+	}
+}
+
+function prefillEnquiry(_enquiry_Data) {
+	$('#AT_REF_NO').val(_enquiry_Data.refNo);
+	$('#enquiry_no_booking_notes').hide();
+
+	if (isCurrentSIVFHS() && systemParamResponseJs.IS_DISABLE_AFTER_PREFILL_SIVFHS_ENQUIRY == "Y") {
+		performDisableForEnquiry();
+
+	}
+
+	if (isCurrentC19() && systemParamResponseJs.C19_IS_DISABLE_AFTER_PREFILL_ENQUIRY == "Y") {
+		performDisableForEnquiry();
+
+	}
+}
+
+function prefillEnquirySetNoBooking() {
+	$('#AT_REF_NO').val("N/A");
+	$('#btn_enquiry_submit').hide();
+	$('#btn_enquiry_reset').hide();
+	$('#enquiry_no_booking_notes').show();
+
+	if (isCurrentSIVFHS() && systemParamResponseJs.IS_DISABLE_AFTER_PREFILL_SIVFHS_ENQUIRY == "Y") {
+		performDisableForEnquiry();
+	}
+
+	if (isCurrentC19() && systemParamResponseJs.C19_IS_DISABLE_AFTER_PREFILL_ENQUIRY == "Y") {
+		performDisableForEnquiry();
+	}
+}
+
+function performDisableForEnquiry(){
+	$('#step_1_ATGC_NATCARDTYPE').prop('disabled', true);
+	$('#step_1_ATGC_NATCARDTYPE').addClass('disabled-container');
+    $('#step_1_documentId_HKIC_prefix').addClass('disabled-container');
+    $('#step_1_documentId_HKIC_check_digit').addClass('disabled-container');
+	$('.step_1_documentId_detail .open_parenthesis').addClass('disabled-container');
+	$('.step_1_documentId_detail .close_parenthesis').addClass('disabled-container');
+	$('.step_1_documentId_detail').addClass('disabled-container'); 
+	$('#AT_REF_NO').prop('readonly', true);
+	$('#AT_REF_NO').addClass('disabled-container');
+}
+
+function isCurrentC19(){
+	return (!isCurrentHEPA() && !isCurrentSIVFHS());
+}
+
+function isCurrentHEPA(){
+	// check is url contains HEPA
+	let url = window.location.href;
+	return (url.toLowerCase().includes(hepaLinkPath));
+}
+
+function isCurrentSIVFHS(){
+	// check is url contains SIVFHS
+	let url = window.location.href;
+	return (url.toLowerCase().includes(sivLinkPath));
+}
+
+function isCurrentSIVFHS_Enquiry(){
+	// check is url contains SIVFHS
+	let url = window.location.href;
+	let isSIVFHS = isCurrentSIVFHS();
+	let isEnquiry = url.toLowerCase().includes(enquiryLinkPath);
+	return (isSIVFHS && isEnquiry);
+}
+
+function isCurrentC19_Enquiry(){
+	let url = window.location.href;
+	let isEnquiry = url.toLowerCase().includes(enquiryLinkPath);
+	return (isCurrentC19() && isEnquiry);
+}
+
+function getSysType(){
+	if(isCurrentHEPA()){
+		return sysTypeHEPA;
+	}else if(isCurrentSIVFHS()){
+		return sysTypeSIVFHS;
+	}else{
+		return sysTypeCOVID;
+	}
+}
+
+
+
+function sivfhsPreferredLanguageUiReviewPage() {
+	if (isCurrentSIVFHS()) {
+		const labelElement = document.querySelector('#step_2_language_preference');
+		if (isValueValid(labelElement)) {
+			const newText = getString("sms_lang_title", lang);
+			labelElement.textContent = newText;
+		}
+	}
+}
+
+function sivfhsPreferredLanguageUiInputPage() {
+	if (isCurrentSIVFHS()) {
+		const labelElement = document.querySelector('#step_2_language_preference');
+		if (isValueValid(labelElement)) {
+			const newText = getString("please_select_sms_lang_title_sivfhs", lang);
+			labelElement.textContent = newText;
+		}
+	}
+}
+
+function controlSinovacVisibility(){
+	var T1 = $("#home_button_sinovac").length > 0 ;
+	var T2 = moment().isAfter(SINOVAC_LAST_AVAILABLE_DATETIME);
+	if(T1 && T2){
+		$("#home_button_sinovac").remove();
+	}
+}
+
+function controlHomePageBannerText(input,inputLang){
+	if(isValueValid(input) && input!=""){
+		if(inputLang == lang){
+			$('#home_page_banner').prepend(input);
+			$('.home_page_banner_box').show();
+		}
+	}
+}
+
+function controlHEPAHomePageBannerText(input,inputLang){
+	if(isValueValid(input) && input!=""){
+		if(inputLang == lang){
+			$('#hepa_home_page_banner').prepend(input);
+			$('.hepa_home_page_banner_box').show();
+		}
+	}
+}
+
+function controlCoadminCloseMsg(input, inputLang) {
+	if (input && inputLang === lang) {
+		$(".codamin_expire_notes").prepend(input);
+	}
+}
+
+function controlCoadminDynamicMsg(input, inputLang) {
+	if (input && inputLang === lang) {
+		$(".coadmin_dynamic_msg").prepend(input);
+	}
+}
+
+function reRenderMtcaptcha(id) {
+	if (mtcaptcha.getStatus(id).statusDesc != "Captcha rendered") {
+		mtcaptcha.renderUI(id);
+	}
+}
+
+function isLoggedInInternal() {
+	const internalLoginSessionId = document.querySelector('input[name="internalLoginSessionId"]').value;
+	return internalLoginSessionId;
+}
+
+function isInternalSite() {
+	const requestUrl = window.location.href;
+	return requestUrl.includes("/internal");
+}
+
+function updateDoseSelect() {
+	var select = document.getElementById('select_additional_dose');
+	if (!select) return;
+
+	for (let i = select.options.length - 1; i >= 0; i--) {
+		const optionValue = parseInt(select.options[i].value, 10);
+
+		// Remove if value is a number and greater than supportedDoseRound
+		if (!isNaN(optionValue) && optionValue > supportedDoseRound) {
+			select.remove(i);
+		}
+	}
+}
+
+// Checks if all date elements are filled. Returns true if valid, false if empty/null.
+function dateChecker(year_field, month_field, day_field) {
+	var year = $("#" + year_field).val();
+	var month = $("#" + month_field).val();
+	var day = $("#" + day_field).val();
+
+	if (!year || !month || !day) {
+		return false;
+	}
+	return true;
+}
+
+// replace "-" to "01", and return full date with yyyy/mm/dd
+function dateFormatter(year_field, month_field, day_field) {
+	var year = $("#" + year_field).val();
+	var month = $("#" + month_field).val() == "-" ? "01" : $("#" + month_field).val();
+	var day = $("#" + day_field).val() == "-" ? "01" : $("#" + day_field).val();
+	var full_date = year + "/" + month + "/" + day;
+	
+	return {
+		year: year,
+		month: month,
+		day: day,
+		full_date : full_date
+	};
+}
+
+function doseSuspendByAgeAndDate(dobObject) {
+	const { year, month, day } = dobObject;
+
+	const {
+		C19_CHILD_PAUSE_AGE,
+		C19_ADULT_PAUSE_AGE,
+		C19_CHILD_PAUSE_DATE_TIME,
+		C19_ADULT_PAUSE_DATE_TIME
+	} = systemParamResponseJs;
+
+	const [childMinAge, childMaxAge] = C19_CHILD_PAUSE_AGE.split("-").map(num => parseInt(num, 10));
+	const [adultMinAge, adultMaxAge] = C19_ADULT_PAUSE_AGE.split("-").map(num => parseInt(num, 10));
+
+	const currentAge = getAgeByDobJs(year, month, day);
+
+	let isChild = false;
+	let targetCompareDateTimeStr = "";
+
+	if (currentAge >= childMinAge && currentAge <= childMaxAge) {
+		isChild = true;
+		targetCompareDateTimeStr = C19_CHILD_PAUSE_DATE_TIME;
+	} else if (currentAge >= adultMinAge && currentAge <= adultMaxAge) {
+		isChild = false;
+		targetCompareDateTimeStr = C19_ADULT_PAUSE_DATE_TIME;
+	} else {
+		// Fallback for ages outside specified configurations
+		return { result: false, isChild: false };
+	}
+
+	const targetCompareDateTime = moment(targetCompareDateTimeStr, "YYYY-MM-DD HH:mm:ss");
+	const isDoseSuspendedByDate = moment().isAfter(targetCompareDateTime);
+
+	return { result: isDoseSuspendedByDate, isChild: isChild };
+}
+
+function executeInfectedPersonLogic(value) {
+	// Reset inputs and visibility
+	$('.step_1_options').prop('checked', false);
+	$('.step_1_third_dose').show();
+	$("#d4_subtitle_without_infected").hide();
+	$("#d4_subtitle_with_infected").hide();
+
+	const isInfected = value === 'I';
+	const isNonInfected = value === 'N';
+	const isValid = isInfected || isNonInfected;
+
+	$('.dose_priority_group').toggle(isNonInfected);
+	$('.dose_priority_group.infected').toggle(isInfected);
+	// dose [4] and above is using mix layout
+	$('.dose_priority_group.mix').toggle(isValid && selectedDoseRound >= 4);
+	
+	if (isInfected) {
+		$("#d4_subtitle_without_infected").hide();
+		$("#d4_subtitle_with_infected").show();
+	} else if (isNonInfected) {
+		$("#d4_subtitle_without_infected").show();
+		$("#d4_subtitle_with_infected").hide();
+	}
+
+	const nonInfectedClass = `.d${selectedDoseRound}_elig_grp_non_infected`;
+	const infectedClass = `.d${selectedDoseRound}_elig_grp_infected`;
+
+	$(nonInfectedClass).toggle(isNonInfected && selectedDoseRound == 4);
+	$(infectedClass).toggle(isValid && selectedDoseRound == 4);
+
+	if (isValid) {
+		DR_DisplayOptionByInfectionType(value);
+	}
+}

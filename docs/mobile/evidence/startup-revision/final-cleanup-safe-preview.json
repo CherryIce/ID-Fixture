@@ -1,0 +1,33 @@
+{
+  "mode": "preview",
+  "targets": [
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/android-avd",
+      "status": "eligible",
+      "estimated_bytes": 4104019968
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/share-receiver-build/run-20261104T084014-35261/classes",
+      "status": "eligible",
+      "estimated_bytes": 12288
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/share-receiver-build/run-20261104T084014-35261/dex",
+      "status": "eligible",
+      "estimated_bytes": 12288
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/share-receiver-build/run-20261104T083916-34847/classes",
+      "status": "eligible",
+      "estimated_bytes": 12288
+    },
+    {
+      "path": "/Users/starburst/Downloads/app-ui-atlas/id-fixture-plan/flutter_app/.codex-build/share-receiver-build/run-20261104T083916-34847/dex",
+      "status": "eligible",
+      "estimated_bytes": 12288
+    }
+  ],
+  "errors": [],
+  "estimated_removed_bytes": 0,
+  "status": "complete"
+}

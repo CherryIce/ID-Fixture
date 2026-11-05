@@ -1,0 +1,25 @@
+✔ registry is immutable and unverified Vietnam generation is unavailable (0.921583ms)
+✔ frozen snapshot digest matches its published canonical data (1.055792ms)
+✔ official GB 11643 appendix example independently validates its X check character (0.209ms)
+✔ Gregorian century leap rules and generation date bounds are enforced (0.939708ms)
+✔ calendar validator identifies an impossible date even with a syntactically legal ID (0.510084ms)
+✔ CN encoded sex and fixed address/date parameters govern a unique 100-case batch (1.486417ms)
+✔ all advertised positive formats generate without claiming real issuance (0.853625ms)
+✔ negative modes report every actual failing constraint, including coupled effects (2.627084ms)
+✔ generator and validator check the CN checksum through independent arithmetic (0.506625ms)
+✔ count, seed, mode, address and incompatible configuration are bounded (0.2265ms)
+✔ same complete configuration replays and different seeds vary the batch (3.560917ms)
+✔ NY leading zero survives JSON export, inspection and replay as a string (6.481542ms)
+✔ every enabled profile and negative mode round-trips through the exact package (2.232667ms)
+✔ semantically identical reordered JSON configuration is accepted (0.318709ms)
+✔ wrong engine, profile, data or PRNG versions never silently upgrade (0.199333ms)
+✔ tampered cases or expected statuses cannot become a passing replay (0.180209ms)
+✔ malformed, oversized and unexpected file data are rejected without execution (0.648333ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 96.740583
