@@ -31,7 +31,7 @@ from pathlib import Path
 print(next(line.split(':', 1)[1].strip().replace('+', '-') for line in Path('pubspec.yaml').read_text().splitlines() if line.startswith('version:')))
 PY
 )"
-LOCAL_APK="$OUTPUT_ROOT/ID-Fixture-$BUILD_VERSION-android-arm64-local-test.apk"
+LOCAL_APK="$OUTPUT_ROOT/ISDFX-$BUILD_VERSION-android-arm64-local-test.apk"
 "$BUILD_TOOLS/apksigner" sign \
   --ks "$DEBUG_KEYSTORE" \
   --ks-key-alias androiddebugkey \

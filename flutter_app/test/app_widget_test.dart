@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:id_fixture/domain/fixture_engine.dart';
-import 'package:id_fixture/services/app_settings.dart';
-import 'package:id_fixture/services/platform_services.dart';
-import 'package:id_fixture/ui/app.dart';
+import 'package:isdfx/domain/fixture_engine.dart';
+import 'package:isdfx/services/app_settings.dart';
+import 'package:isdfx/services/platform_services.dart';
+import 'package:isdfx/ui/app.dart';
 
 class FakeServices implements PlatformServices {
   OpenedPackage? nextPackage;

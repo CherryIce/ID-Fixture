@@ -1,4 +1,4 @@
-# ID Fixture 证号实验室
+# ISDFX 证号实验室
 
 当前版本 **1.1.0+2**（2026-11-05）。Flutter本地测试数据应用，按国家、区域、证件和必要参数生成合成测试用例，展示支持的检查，导出JSON并按锁定版本复现。无账号、后台、默认遥测或真实身份核验。完整范围、产物和验证边界见[当前覆盖与交付记录](../docs/coverage/DELIVERY.md)。
 
@@ -34,6 +34,8 @@ Android普通1.1 AOT包首启921ms，仅为一次启动smoke，不是重复采�
 
 号码结果不作历史保存。用户导出时创建独立临时文件，供系统分享扩展使用，由系统缓存管理；已保存/分享的外部副本由用户管理，应用不能撤回。文件导入按流限制1MB，严格校验结构、规则/引擎版本和数据哈希；不执行文件内容、不下载规则。
 
-原创图标源与可重复生成脚本在branding/和tool/generate_brand_assets.py。iOS/Android配置原生启动页；iOS模拟器包采用完整ad-hoc签名，不能安装到真机。交付包在父目录outputs/，本轮产物名称、哈希与适用范围以[当前交付记录](../docs/coverage/DELIVERY.md)为准。正式签名/发行标识尚未配置，未上传或提交商店。
+新图标母版在 [branding/icon.svg](branding/icon.svg)。品牌红为 `#D92432`，炭黑为 `#17191D`。使用 ImageMagick 7 和 `python3 tool/generate_brand_assets.py` 可生成 iOS 与 Android 图标和 Flutter 矢量绘制代码。
+
+iOS/Android配置原生启动页；iOS模拟器包采用完整ad-hoc签名，不能安装到真机。交付包在父目录outputs/，[覆盖版本的交付记录](../docs/coverage/DELIVERY.md)列出当时的产物名称、哈希与适用范围。正式签名/发行标识尚未配置，未上传或提交商店。
 
 test/native_share_receiver/是独立本地QA分享接收夹具，不进入产品依赖或主APK；本轮没有用它重测系统分享与文件选择。

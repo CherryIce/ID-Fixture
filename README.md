@@ -1,4 +1,4 @@
-# ID Fixture · 证号实验室
+# ISDFX · 证号实验室
 
 离线合成证件号码测试工具，当前版本 **1.1.0+2**。选择国家、区域和证件，配置测试参数，生成可解释的正反用例，并通过锁定规则版本的 JSON 用例包导出和复现。
 
@@ -19,8 +19,8 @@
 
 ## 目录
 
-- [flutter_app/](flutter_app/)：iOS / Android Flutter 应用、平台工程、测试和构建工具。
-- [prototype/](prototype/)：可直接运行的浏览器预览与 JavaScript 引擎。
+- [flutter_app/](flutter_app/) 包含 ISDFX 的 iOS 和 Android 应用、测试及构建工具。
+- [prototype/](prototype/) 保留原版 ID Fixture 浏览器预览及 JavaScript 引擎。
 - [data/coverage_snapshot.json](data/coverage_snapshot.json)：版本化规范数据；Dart / JavaScript 数据由同一脚本生成。
 - [docs/coverage/DELIVERY.md](docs/coverage/DELIVERY.md)：1.1 覆盖说明、验证结果与限制。
 - [docs/coverage/FINAL_REVIEW.md](docs/coverage/FINAL_REVIEW.md)：独立审查结论。

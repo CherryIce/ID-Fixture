@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:id_fixture/services/app_settings.dart';
+import 'package:isdfx/services/app_settings.dart';
 
 class FailingStore extends MemoryPreferenceStore {
   bool fail = false;

@@ -9,6 +9,11 @@ import '../domain/fixture_engine.dart';
 import '../services/app_settings.dart';
 import '../services/platform_services.dart';
 import 'widgets/address_picker.dart';
+import 'widgets/brand_mark.g.dart';
+
+const _brandName = 'ISDFX';
+const _brandRed = Color(0xffd92432);
+const _brandCharcoal = Color(0xff17191d);
 
 bool _chinese(BuildContext context) =>
     Localizations.localeOf(context).languageCode == 'zh';
@@ -87,23 +92,22 @@ class IdFixtureApp extends StatelessWidget {
 
   ThemeData _theme(Brightness brightness) {
     final dark = brightness == Brightness.dark;
+    final background = dark ? _brandCharcoal : const Color(0xfff8f7f7);
     final scheme = ColorScheme.fromSeed(
-      seedColor: const Color(0xff215b4b),
+      seedColor: _brandRed,
       brightness: brightness,
-      primary: dark ? const Color(0xffc0dda4) : const Color(0xff215b4b),
-      surface: dark ? const Color(0xff1c2821) : Colors.white,
+      primary: dark ? const Color(0xffffb3b6) : _brandRed,
+      onPrimary: dark ? _brandCharcoal : Colors.white,
+      surface: dark ? const Color(0xff23252a) : Colors.white,
+      onSurface: dark ? const Color(0xfff5f4f5) : _brandCharcoal,
     );
     return ThemeData(
       colorScheme: scheme,
       brightness: brightness,
-      scaffoldBackgroundColor: dark
-          ? const Color(0xff131b18)
-          : const Color(0xfff6f7f5),
+      scaffoldBackgroundColor: background,
       useMaterial3: true,
       appBarTheme: AppBarTheme(
-        backgroundColor: dark
-            ? const Color(0xff131b18)
-            : const Color(0xfff6f7f5),
+        backgroundColor: background,
         surfaceTintColor: Colors.transparent,
         centerTitle: false,
       ),
@@ -129,6 +133,8 @@ class IdFixtureApp extends StatelessWidget {
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
+          backgroundColor: _brandRed,
+          foregroundColor: Colors.white,
           minimumSize: const Size(0, 48),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -151,7 +157,7 @@ class IdFixtureApp extends StatelessWidget {
     animation: settings,
     builder: (context, _) => MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'ID Fixture',
+      title: _brandName,
       theme: _theme(Brightness.light),
       darkTheme: _theme(Brightness.dark),
       themeMode: settings.themeMode,
@@ -195,27 +201,18 @@ class _Mark extends StatelessWidget {
   final double size;
 
   @override
-  Widget build(BuildContext context) => Container(
-    width: size,
-    height: size,
-    alignment: Alignment.center,
-    decoration: BoxDecoration(
-      color: const Color(0xff215b4b),
-      borderRadius: BorderRadius.circular(size * .27),
-    ),
-    child: ExcludeSemantics(
-      child: Text(
-        '[1]',
-        style: TextStyle(
-          color: const Color(0xffd8edb6),
-          fontFamily: 'monospace',
-          fontSize: size * .44,
-          fontWeight: FontWeight.w600,
-        ),
-        textScaler: TextScaler.noScaling,
-      ),
-    ),
-  );
+  Widget build(BuildContext context) =>
+      CustomPaint(size: Size.square(size), painter: const _MarkPainter());
+}
+
+class _MarkPainter extends CustomPainter {
+  const _MarkPainter();
+
+  @override
+  void paint(Canvas canvas, Size size) => paintIsdfxMark(canvas, size);
+
+  @override
+  bool shouldRepaint(covariant _MarkPainter oldDelegate) => false;
 }
 
 class _Onboarding extends StatefulWidget {
@@ -282,7 +279,7 @@ class _OnboardingState extends State<_Onboarding> {
                 const _Mark(size: 76),
                 const SizedBox(height: 36),
                 Text(
-                  'ID FIXTURE / 0${_page + 1}',
+                  _brandName,
                   style: TextStyle(
                     fontSize: 12,
                     letterSpacing: 1.6,
@@ -1451,7 +1448,7 @@ class _WorkbenchState extends State<_Workbench> {
             SizedBox(width: 9),
             Expanded(
               child: Text(
-                'ID Fixture',
+                _brandName,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
@@ -2132,7 +2129,7 @@ class _SettingsPage extends StatelessWidget {
           const _ScopeNote(),
           const SizedBox(height: 28),
           Text(
-            'ID FIXTURE · 1.1.0\nLOCAL TEST WORKBENCH',
+            '$_brandName · 1.1.0\nLOCAL TEST WORKBENCH',
             style: TextStyle(
               fontSize: 11,
               letterSpacing: 1,

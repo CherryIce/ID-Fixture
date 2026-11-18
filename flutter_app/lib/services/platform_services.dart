@@ -35,7 +35,7 @@ class NativePlatformServices implements PlatformServices {
   @override
   Future<OpenedPackage?> openPackage() async {
     const group = XTypeGroup(
-      label: 'ID Fixture JSON',
+      label: 'ISDFX JSON',
       extensions: ['json'],
       mimeTypes: ['application/json'],
       uniformTypeIdentifiers: ['public.json'],
